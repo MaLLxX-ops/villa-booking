@@ -84,9 +84,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     const supabase = createSupabaseBrowserClient();
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
-    router.refresh();
+    setUser(null);
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error("SignOut error:", err);
+    }
+    if (
+      typeof window !== "undefined" &&
+      window.location.pathname.includes("/account")
+    ) {
+      router.push("/");
+    } else {
+      router.refresh();
+    }
   };
 
   return (

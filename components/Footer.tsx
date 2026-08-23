@@ -83,9 +83,9 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar with Help, Privacy Policy & Terms of Service */}
+      {/* Bottom Bar with Help, Privacy Policy, Terms of Service & Discreet Admin Portal */}
       <div className="border-t border-white/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 sm:pb-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <p className="text-cream/70 text-sm font-medium">
             {t("copyright", { year: new Date().getFullYear() })}
           </p>
@@ -110,6 +110,14 @@ export default function Footer() {
             >
               {t("termsLink")}
             </Link>
+            <span className="text-cream/30">•</span>
+            <a
+              href="/admin/login"
+              className="text-cream/50 hover:text-white transition-colors text-xs underline underline-offset-4 decoration-cream/30 hover:decoration-white cursor-pointer"
+              title="Portal Khusus Pengelola & Admin"
+            >
+              Admin Portal
+            </a>
           </div>
         </div>
       </div>
