@@ -34,21 +34,61 @@ export async function generateMetadata({
     const loader = metadataMap[locale] || metadataMap.id;
     const messages = (await loader()).default;
     return {
+      metadataBase: new URL("https://stayvilla.id"),
       title: messages.Metadata.title,
       description: messages.Metadata.description,
+      manifest: "/site.webmanifest",
       icons: {
-        icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-        shortcut: "/icon.svg",
-        apple: "/icon.svg",
+        icon: [
+          { url: "/favicon.ico", sizes: "any" },
+          { url: "/icon.svg", type: "image/svg+xml" },
+          { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+          { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+        ],
+        apple: [
+          { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        ],
+        shortcut: "/favicon.ico",
+      },
+      openGraph: {
+        title: messages.Metadata.title,
+        description: messages.Metadata.description,
+        url: `https://stayvilla.id/${locale}`,
+        siteName: "StayVilla",
+        images: [
+          {
+            url: "/og-image.png",
+            width: 1200,
+            height: 630,
+            alt: "StayVilla Bali — Luxury Private Villa Booking",
+          },
+        ],
+        locale: locale === "id" ? "id_ID" : "en_US",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: messages.Metadata.title,
+        description: messages.Metadata.description,
+        images: ["/og-image.png"],
       },
     };
   } catch {
     return {
+      metadataBase: new URL("https://stayvilla.id"),
       title: "StayVilla Bali",
+      manifest: "/site.webmanifest",
       icons: {
-        icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-        shortcut: "/icon.svg",
-        apple: "/icon.svg",
+        icon: [
+          { url: "/favicon.ico", sizes: "any" },
+          { url: "/icon.svg", type: "image/svg+xml" },
+          { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+          { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+        ],
+        apple: [
+          { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+        ],
+        shortcut: "/favicon.ico",
       },
     };
   }
