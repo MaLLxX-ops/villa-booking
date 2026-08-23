@@ -116,15 +116,13 @@ export default function Footer() {
             >
               {t("privacyLink")}
             </Link>
-            <span className="text-cream/30 hidden sm:inline">•</span>
+            <span className="text-cream/30">•</span>
             <Link
               href="/terms"
               className="hover:text-gold-light transition-colors"
             >
               {t("termsLink")}
             </Link>
-            <span className="text-cream/30 hidden sm:inline">•</span>
-            <span className="text-cream/60">{t("demoNote")}</span>
           </div>
         </div>
       </div>

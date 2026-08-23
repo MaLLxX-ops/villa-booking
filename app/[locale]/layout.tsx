@@ -36,10 +36,20 @@ export async function generateMetadata({
     return {
       title: messages.Metadata.title,
       description: messages.Metadata.description,
+      icons: {
+        icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+        shortcut: "/icon.svg",
+        apple: "/icon.svg",
+      },
     };
   } catch {
     return {
       title: "StayVilla Bali",
+      icons: {
+        icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+        shortcut: "/icon.svg",
+        apple: "/icon.svg",
+      },
     };
   }
 }
