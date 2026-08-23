@@ -3,21 +3,21 @@ import { Home, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-cream/80">
+    <footer className="bg-navy text-cream">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-terracotta to-terracotta-dark flex items-center justify-center">
+            <Link href="/" className="flex items-center gap-2.5 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-terracotta to-terracotta-dark flex items-center justify-center shadow-md">
                 <Home className="w-5 h-5 text-white" />
               </div>
-              <span className="text-2xl font-bold tracking-tight text-white">
-                Stay<span className="text-gold">Villa</span>
+              <span className="text-2xl font-black tracking-tight text-white">
+                Stay<span className="text-gold-light">Villa</span>
               </span>
             </Link>
-            <p className="text-cream/60 leading-relaxed text-sm">
+            <p className="text-cream/85 leading-relaxed text-sm">
               Platform booking villa premium di Bali. Temukan pengalaman menginap
               terbaik di destinasi tropis paling memukau di dunia.
             </p>
@@ -25,7 +25,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
+            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
               Navigasi
             </h3>
             <ul className="space-y-3">
@@ -38,7 +38,7 @@ export default function Footer() {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-cream/60 hover:text-gold transition-colors text-sm"
+                    className="text-cream/80 hover:text-gold-light transition-colors text-sm font-medium"
                   >
                     {item.label}
                   </Link>
@@ -49,20 +49,20 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
+            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
               Kontak
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-cream/60 text-sm">
-                <Phone className="w-4 h-4 text-gold shrink-0" />
+              <li className="flex items-center gap-3 text-cream/90 text-sm font-medium">
+                <Phone className="w-4 h-4 text-gold-light shrink-0" />
                 +62 812 3456 7890
               </li>
-              <li className="flex items-center gap-3 text-cream/60 text-sm">
-                <Mail className="w-4 h-4 text-gold shrink-0" />
+              <li className="flex items-center gap-3 text-cream/90 text-sm font-medium">
+                <Mail className="w-4 h-4 text-gold-light shrink-0" />
                 hello@stayvilla.id
               </li>
-              <li className="flex items-start gap-3 text-cream/60 text-sm">
-                <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+              <li className="flex items-start gap-3 text-cream/90 text-sm font-medium">
+                <MapPin className="w-4 h-4 text-gold-light shrink-0 mt-0.5" />
                 Jl. Sunset Road No. 88, Seminyak, Bali 80361
               </li>
             </ul>
@@ -70,7 +70,7 @@ export default function Footer() {
 
           {/* Social */}
           <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">
+            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
               Ikuti Kami
             </h3>
             <div className="flex gap-3">
@@ -80,10 +80,10 @@ export default function Footer() {
               ].map((social) => (
                 <button
                   key={social.label}
-                  className="w-10 h-10 rounded-xl bg-white/10 hover:bg-gold/20 flex items-center justify-center transition-colors group"
+                  className="w-10 h-10 rounded-xl bg-white/10 hover:bg-gold-light/20 flex items-center justify-center transition-colors group cursor-pointer"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5 text-cream/60 group-hover:text-gold transition-colors" />
+                  <social.icon className="w-5 h-5 text-cream/90 group-hover:text-gold-light transition-colors" />
                 </button>
               ))}
             </div>
@@ -92,12 +92,12 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-white/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-cream/40 text-sm">
+          <p className="text-cream/70 text-sm font-medium">
             &copy; {new Date().getFullYear()} StayVilla. All rights reserved.
           </p>
-          <p className="text-cream/40 text-xs">
+          <p className="text-cream/70 text-xs font-medium">
             Template Demo — Siap Dikustomisasi
           </p>
         </div>

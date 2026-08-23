@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin, BedDouble, Bath, Users } from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
@@ -11,74 +12,115 @@ interface VillaCardProps {
 }
 
 export default function VillaCard({ villa, index }: VillaCardProps) {
-  const categoryColors: Record<string, string> = {
-    "Villa Mewah": "bg-gold/20 text-gold-light border border-gold/30",
-    "Villa Keluarga": "bg-sage/20 text-sage border border-sage/30",
-    "Studio Minimalis":
-      "bg-terracotta/20 text-terracotta border border-terracotta/30",
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const categoryBadges: Record<string, { bg: string; text: string }> = {
+    "Villa Mewah": {
+      bg: "bg-navy/90 text-gold-light border-gold-light/40",
+      text: "Villa Mewah",
+    },
+    "Villa Keluarga": {
+      bg: "bg-navy/90 text-sage-light border-sage-light/40",
+      text: "Villa Keluarga",
+    },
+    "Studio Minimalis": {
+      bg: "bg-navy/90 text-terracotta-light border-terracotta-light/40",
+      text: "Studio Minimalis",
+    },
+  };
+
+  const badge = categoryBadges[villa.kategori] || {
+    bg: "bg-navy/90 text-white border-white/30",
+    text: villa.kategori,
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 35 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{
+        duration: 0.5,
+        delay: (index % 4) * 0.12,
+        ease: "easeOut",
+      }}
+      whileHover={{ y: -6, scale: 1.015 }}
+      className="h-full"
     >
-      <Link href={`/villa/${villa.id}`} className="group block">
-        <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-sand/50 hover:border-terracotta/30 hover:-translate-y-1">
-          {/* Image */}
-          <div className="relative aspect-[4/3] overflow-hidden">
-            <div className="absolute inset-0 shimmer-bg" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent z-10" />
-
-            {/* Category Badge */}
-            <div className="absolute top-4 left-4 z-20">
-              <span
-                className={`text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md ${
-                  categoryColors[villa.kategori] || "bg-white/20 text-white"
+      <Link href={`/villa/${villa.id}`} className="group block h-full">
+        <div className="h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-navy/10 transition-all duration-300 border border-sand hover:border-terracotta/35 flex flex-col justify-between">
+          <div>
+            {/* Image Container */}
+            <div className="relative aspect-[4/3] overflow-hidden bg-sand">
+              {/* Shimmer Placeholder */}
+              <div
+                className={`absolute inset-0 shimmer-bg transition-opacity duration-500 ${
+                  imageLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
                 }`}
-              >
-                {villa.kategori}
-              </span>
+              />
+
+              {/* Real Image */}
+              {villa.galeri_foto[0] && (
+                <img
+                  src={villa.galeri_foto[0]}
+                  alt={villa.nama}
+                  onLoad={() => setImageLoaded(true)}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              )}
+
+              {/* Gradient Scrim for contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-black/20 z-10" />
+
+              {/* Category Badge */}
+              <div className="absolute top-3.5 left-3.5 z-20">
+                <span
+                  className={`text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md border shadow-xs ${badge.bg}`}
+                >
+                  {badge.text}
+                </span>
+              </div>
+
+              {/* Price Overlay */}
+              <div className="absolute bottom-3.5 left-3.5 z-20">
+                <div className="bg-white/95 backdrop-blur-md rounded-xl px-3.5 py-2 shadow-md border border-white/50">
+                  <span className="text-terracotta-dark font-black text-lg block leading-none">
+                    {formatHarga(villa.harga_per_malam)}
+                  </span>
+                  <span className="text-stone font-bold text-[11px] block mt-1">
+                    per malam
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Price Overlay */}
-            <div className="absolute bottom-4 left-4 z-20">
-              <div className="bg-white/95 backdrop-blur-md rounded-xl px-3 py-2 shadow-lg">
-                <span className="text-terracotta font-bold text-lg">
-                  {formatHarga(villa.harga_per_malam)}
-                </span>
-                <span className="text-stone-light text-xs block -mt-0.5">
-                  per malam
-                </span>
+            {/* Content */}
+            <div className="p-5">
+              <h3 className="text-lg font-bold text-navy group-hover:text-terracotta-dark transition-colors line-clamp-1">
+                {villa.nama}
+              </h3>
+              <div className="flex items-center gap-1.5 mt-2 text-stone font-medium text-sm">
+                <MapPin className="w-4 h-4 text-terracotta shrink-0" />
+                <span className="truncate">{villa.lokasi}</span>
               </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="p-5">
-            <h3 className="text-lg font-bold text-navy group-hover:text-terracotta transition-colors">
-              {villa.nama}
-            </h3>
-            <div className="flex items-center gap-1.5 mt-1.5 text-stone-light text-sm">
-              <MapPin className="w-3.5 h-3.5 text-terracotta" />
-              {villa.lokasi}
-            </div>
-
-            {/* Stats */}
-            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-sand/50">
-              <div className="flex items-center gap-1.5 text-sm text-stone">
-                <BedDouble className="w-4 h-4 text-sage" />
+          {/* Stats Bar */}
+          <div className="px-5 pb-5">
+            <div className="flex items-center justify-between pt-4 border-t border-sand">
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
+                <BedDouble className="w-4 h-4 text-sage-dark shrink-0" />
                 <span>{villa.jumlah_kamar} Kamar</span>
               </div>
-              <div className="flex items-center gap-1.5 text-sm text-stone">
-                <Bath className="w-4 h-4 text-sage" />
-                <span>{villa.jumlah_kamar_mandi}</span>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
+                <Bath className="w-4 h-4 text-sage-dark shrink-0" />
+                <span>{villa.jumlah_kamar_mandi} Mandi</span>
               </div>
-              <div className="flex items-center gap-1.5 text-sm text-stone">
-                <Users className="w-4 h-4 text-sage" />
-                <span>{villa.kapasitas_tamu}</span>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
+                <Users className="w-4 h-4 text-sage-dark shrink-0" />
+                <span>{villa.kapasitas_tamu} Tamu</span>
               </div>
             </div>
           </div>
