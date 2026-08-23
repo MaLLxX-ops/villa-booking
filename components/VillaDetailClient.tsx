@@ -44,6 +44,7 @@ import {
   calculateNights,
   isCheckOutValid,
 } from "@/lib/date-utils";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface VillaDetailClientProps {
   villa: Villa;
@@ -100,6 +101,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [direction, setDirection] = useState(0);
   const t = useTranslations("Detail");
   const tValidation = useTranslations("Validation");
+  const { formatEstimate } = useCurrency();
 
   // Booking Form State
   const [checkIn, setCheckIn] = useState("");
@@ -119,6 +121,11 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const basePrice = villa.harga_per_malam * activeNights;
   const serviceFee = Math.round(basePrice * 0.1);
   const totalPrice = basePrice + serviceFee;
+
+  const nightEstimate = formatEstimate(villa.harga_per_malam);
+  const basePriceEstimate = formatEstimate(basePrice);
+  const serviceFeeEstimate = formatEstimate(serviceFee);
+  const totalPriceEstimate = formatEstimate(totalPrice);
 
   const handleCheckInChange = (val: string) => {
     setCheckIn(val);
@@ -428,10 +435,15 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             <div className="sticky top-24 bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-xl shadow-navy/8">
               {/* Price Display */}
               <div className="mb-6 pb-6 border-b border-sand">
-                <div className="flex items-baseline gap-2">
+                <div className="flex items-baseline gap-2 flex-wrap">
                   <span className="text-3xl font-black text-terracotta-dark tracking-tight">
                     {formatHarga(villa.harga_per_malam)}
                   </span>
+                  {nightEstimate && (
+                    <span className="text-stone font-bold text-sm">
+                      {nightEstimate}
+                    </span>
+                  )}
                 </div>
                 <span className="text-stone font-bold text-sm block mt-0.5">
                   {t("perNight")} {t("includesTax")}
@@ -501,9 +513,16 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                         nights: activeNights,
                       })}
                     </span>
-                    <span className="text-charcoal font-bold">
-                      {formatHarga(basePrice)}
-                    </span>
+                    <div className="text-right">
+                      <span className="text-charcoal font-bold block">
+                        {formatHarga(basePrice)}
+                      </span>
+                      {basePriceEstimate && (
+                        <span className="text-[11px] text-stone font-medium block">
+                          {basePriceEstimate}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Service Fee */}
@@ -511,17 +530,31 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                     <span className="text-stone font-medium">
                       {t("serviceFee")}
                     </span>
-                    <span className="text-charcoal font-bold">
-                      {formatHarga(serviceFee)}
-                    </span>
+                    <div className="text-right">
+                      <span className="text-charcoal font-bold block">
+                        {formatHarga(serviceFee)}
+                      </span>
+                      {serviceFeeEstimate && (
+                        <span className="text-[11px] text-stone font-medium block">
+                          {serviceFeeEstimate}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Total Amount */}
-                  <div className="flex justify-between text-base font-black pt-3 border-t border-sand">
+                  <div className="flex justify-between items-baseline text-base font-black pt-3 border-t border-sand">
                     <span className="text-navy">{t("totalEstimate")}</span>
-                    <span className="text-terracotta-dark text-xl">
-                      {formatHarga(totalPrice)}
-                    </span>
+                    <div className="text-right">
+                      <span className="text-terracotta-dark text-xl block">
+                        {formatHarga(totalPrice)}
+                      </span>
+                      {totalPriceEstimate && (
+                        <span className="text-xs text-stone font-bold block">
+                          {totalPriceEstimate}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -542,6 +575,11 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 <ShieldCheck className="w-4 h-4 text-sage-dark shrink-0" />
                 {t("securePayment")}
               </div>
+
+              {/* Currency Exchange Disclaimer */}
+              <p className="mt-3 text-[11px] leading-relaxed text-stone/80 text-center font-medium bg-sand/20 rounded-xl p-2.5 border border-sand/40">
+                ℹ️ {t("currencyDisclaimer")}
+              </p>
             </div>
           </motion.div>
         </div>

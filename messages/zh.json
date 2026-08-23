@@ -88,7 +88,8 @@
     "bookingSuccessTitle": "正在连接房东WhatsApp...",
     "bookingSuccessDesc": "您为 {villaName} 提交的预订申请（{nights} 晚：{checkIn} 至 {checkOut}，{guests} 位住客）已准备就绪，可直接发送至房东。",
     "openWhatsAppBtn": "立即打开WhatsApp",
-    "closeModal": "关闭"
+    "closeModal": "关闭",
+    "currencyDisclaimer": "汇率估算仅供参考，非最终结算价。所有支付均以印尼盾（IDR）结算。"
   },
   "Owners": {
     "metaTitle": "房东合作入驻 — 拓展直客预订渠道 | StayVilla",

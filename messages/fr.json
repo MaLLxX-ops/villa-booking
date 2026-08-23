@@ -88,7 +88,8 @@
     "bookingSuccessTitle": "Redirection vers WhatsApp Propriétaire...",
     "bookingSuccessDesc": "Votre demande de réservation pour {villaName} ({nights} nuits : du {checkIn} au {checkOut}, {guests} personnes) est prête à être envoyée directement au propriétaire.",
     "openWhatsAppBtn": "Ouvrir WhatsApp Maintenant",
-    "closeModal": "Fermer"
+    "closeModal": "Fermer",
+    "currencyDisclaimer": "Estimation indicative du taux de change. Tous les paiements sont effectués en roupies indonésiennes (IDR)."
   },
   "Owners": {
     "metaTitle": "Pour Propriétaires de Villas — Réservations Directes | StayVilla",

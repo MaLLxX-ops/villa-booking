@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { MapPin, BedDouble, Bath, Users } from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface VillaCardProps {
   villa: Villa;
@@ -14,6 +15,8 @@ interface VillaCardProps {
 
 export default function VillaCard({ villa, index }: VillaCardProps) {
   const t = useTranslations("Listing");
+  const { formatEstimate } = useCurrency();
+  const estimate = formatEstimate(villa.harga_per_malam);
 
   const categoryBadgeClasses: Record<string, string> = {
     luxury: "bg-navy/90 text-gold-light border-gold-light/40",
@@ -69,9 +72,16 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
               {/* Price Overlay */}
               <div className="absolute bottom-3.5 left-3.5 z-20">
                 <div className="bg-white/95 backdrop-blur-md rounded-xl px-3.5 py-2 shadow-md border border-white/50">
-                  <span className="text-terracotta-dark font-black text-lg block leading-none">
-                    {formatHarga(villa.harga_per_malam)}
-                  </span>
+                  <div className="flex items-baseline gap-1.5 flex-wrap">
+                    <span className="text-terracotta-dark font-black text-lg block leading-none">
+                      {formatHarga(villa.harga_per_malam)}
+                    </span>
+                    {estimate && (
+                      <span className="text-stone font-bold text-xs">
+                        {estimate}
+                      </span>
+                    )}
+                  </div>
                   <span className="text-stone font-bold text-[11px] block mt-1">
                     {t("perNight")}
                   </span>

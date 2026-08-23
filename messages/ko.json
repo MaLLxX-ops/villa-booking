@@ -88,7 +88,8 @@
     "bookingSuccessTitle": "호스트 WhatsApp 연결 중...",
     "bookingSuccessDesc": "{villaName} 예약 요청서({nights}박: {checkIn} ~ {checkOut}, {guests}명)가 준비되었습니다. 호스트에게 바로 전송할 수 있습니다.",
     "openWhatsAppBtn": "지금 WhatsApp 열기",
-    "closeModal": "닫기"
+    "closeModal": "닫기",
+    "currencyDisclaimer": "환율 변환 금액은 참고용 예상가입니다. 모든 결제는 인도네시아 루피아(IDR)로 진행됩니다."
   },
   "Owners": {
     "metaTitle": "빌라 호스트 파트너 — 직거래 예약 극대화 | StayVilla",

@@ -88,7 +88,8 @@
     "bookingSuccessTitle": "Menghubungkan ke WhatsApp Pemilik...",
     "bookingSuccessDesc": "Pesanan Anda untuk {villaName} ({nights} malam: {checkIn} s/d {checkOut}, {guests} tamu) siap dikirimkan langsung ke WhatsApp pemilik.",
     "openWhatsAppBtn": "Buka WhatsApp Sekarang",
-    "closeModal": "Tutup"
+    "closeModal": "Tutup",
+    "currencyDisclaimer": "Estimasi kurs, bukan harga final. Pembayaran dilakukan dalam Rupiah (IDR)."
   },
   "Owners": {
     "metaTitle": "Untuk Pemilik Villa — Maksimalkan Reservasi Langsung | StayVilla",

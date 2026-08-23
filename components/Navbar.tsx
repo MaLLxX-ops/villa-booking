@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, Search, Building2 } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import CurrencySelector from "@/components/CurrencySelector";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-7">
+          <div className="hidden md:flex items-center gap-5 lg:gap-6">
             <Link
               href="/"
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
@@ -58,6 +59,9 @@ export default function Navbar() {
               {t("forOwners")}
             </Link>
 
+            {/* Currency Selector */}
+            <CurrencySelector />
+
             {/* Language Switcher */}
             <LanguageSwitcher />
 
@@ -71,8 +75,9 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Right Bar: Language Switcher + Toggle */}
-          <div className="flex items-center gap-2 md:hidden">
+          {/* Mobile Right Bar: Currency Selector + Language Switcher + Toggle */}
+          <div className="flex items-center gap-1.5 md:hidden">
+            <CurrencySelector />
             <LanguageSwitcher />
             <button
               onClick={() => setIsOpen(!isOpen)}

@@ -44,6 +44,8 @@ export async function generateMetadata({
   }
 }
 
+import { CurrencyProvider } from "@/context/CurrencyContext";
+
 export default async function LocaleLayout({
   children,
   params,
@@ -68,9 +70,11 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col bg-cream text-charcoal">
         <NextIntlClientProvider messages={messages}>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <CurrencyProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </CurrencyProvider>
         </NextIntlClientProvider>
       </body>
     </html>

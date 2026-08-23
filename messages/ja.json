@@ -88,7 +88,8 @@
     "bookingSuccessTitle": "オーナーのWhatsAppへ接続中...",
     "bookingSuccessDesc": "{villaName} のご予約リクエスト（{nights} 泊: {checkIn} 〜 {checkOut}、{guests} 名様）の準備が整いました。オーナーへ直接送信できます。",
     "openWhatsAppBtn": "今すぐWhatsAppを開く",
-    "closeModal": "閉じる"
+    "closeModal": "閉じる",
+    "currencyDisclaimer": "為替レートは目安であり確定料金ではありません。実際のお支払いはインドネシアルピア（IDR）にて行われます。"
   },
   "Owners": {
     "metaTitle": "ヴィラオーナー様へ — 直予約を最大化 | StayVilla",
