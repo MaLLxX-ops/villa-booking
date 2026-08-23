@@ -11,12 +11,8 @@ import {
   X,
   Send,
   Trash2,
-  ChevronDown,
   ArrowUpRight,
   MapPin,
-  BedDouble,
-  Users,
-  MessageCircle,
 } from "lucide-react";
 import { villaDataRaw, getLocalizedVilla, formatHarga, Locale } from "@/lib/data";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -30,7 +26,55 @@ interface Message {
   timestamp: number;
 }
 
-const STORAGE_KEY = "stayvilla_ai_concierge_chat_v1";
+const STORAGE_KEY = "stayvilla_ai_concierge_chat_v2";
+
+// Helper component to cleanly render Markdown Bold & Paragraphs without visible asterisks
+function FormattedMessageText({
+  text,
+  isAssistant,
+}: {
+  text: string;
+  isAssistant: boolean;
+}) {
+  const lines = text.split("\n");
+
+  return (
+    <div className="space-y-1.5 leading-relaxed">
+      {lines.map((line, lIdx) => {
+        if (!line.trim()) {
+          return <div key={lIdx} className="h-1.5" />;
+        }
+
+        // Split by markdown bold: **text**
+        const parts = line.split(/(\*\*[^*]+\*\*)/g);
+
+        return (
+          <p key={lIdx} className="m-0">
+            {parts.map((part, pIdx) => {
+              if (
+                part.startsWith("**") &&
+                part.endsWith("**") &&
+                part.length >= 4
+              ) {
+                return (
+                  <strong
+                    key={pIdx}
+                    className={`font-black ${
+                      isAssistant ? "text-navy" : "text-white"
+                    }`}
+                  >
+                    {part.slice(2, -2)}
+                  </strong>
+                );
+              }
+              return <span key={pIdx}>{part}</span>;
+            })}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function AiConcierge() {
   const t = useTranslations("AiChat");
@@ -41,7 +85,6 @@ export default function AiConcierge() {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [hasUnread, setHasUnread] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -118,7 +161,7 @@ export default function AiConcierge() {
             role: m.role,
             content: m.content,
           })),
-          locale,
+          locale: locale || "id",
         }),
       });
 
@@ -173,36 +216,28 @@ export default function AiConcierge() {
 
   return (
     <>
-      {/* Floating Launcher Button */}
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+      {/* Floating Launcher Button (Compact Circular Logo Button) */}
+      <div className="fixed bottom-6 right-6 z-50 flex items-center">
         <AnimatePresence>
           {!isOpen && (
             <motion.button
               initial={{ opacity: 0, scale: 0.8, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               exit={{ opacity: 0, scale: 0.8, x: 20 }}
-              onClick={() => {
-                setIsOpen(true);
-                setHasUnread(false);
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative group bg-gradient-to-r from-navy via-navy to-terracotta text-white p-3.5 sm:px-5 sm:py-3.5 rounded-full shadow-2xl hover:shadow-terracotta/30 border border-gold-light/30 flex items-center gap-3 cursor-pointer transition-all"
+              onClick={() => setIsOpen(true)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="relative w-14 h-14 rounded-full bg-gradient-to-tr from-navy via-navy-light to-terracotta text-white shadow-2xl hover:shadow-terracotta/40 border-2 border-gold-light/40 flex items-center justify-center cursor-pointer transition-all group"
               aria-label={t("triggerLabel")}
+              title={t("triggerLabel")}
             >
               {/* Pulsing online indicator */}
-              <span className="relative flex h-3 w-3">
+              <span className="absolute top-0 right-0 flex h-3.5 w-3.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+                <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white shadow-xs" />
               </span>
 
-              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-gold-light group-hover:rotate-12 transition-transform" />
-              </div>
-
-              <span className="hidden sm:inline text-xs font-black tracking-wide text-white">
-                {t("badge")}
-              </span>
+              <Bot className="w-6 h-6 text-gold-light group-hover:rotate-12 transition-transform" />
             </motion.button>
           )}
         </AnimatePresence>
@@ -278,13 +313,16 @@ export default function AiConcierge() {
                     }`}
                   >
                     <div
-                      className={`max-w-[88%] rounded-2xl p-3.5 sm:p-4 leading-relaxed whitespace-pre-wrap ${
+                      className={`max-w-[88%] rounded-2xl p-3.5 sm:p-4 leading-relaxed ${
                         isAssistant
                           ? "bg-white text-navy border border-sand shadow-xs"
                           : "bg-gradient-to-r from-terracotta to-terracotta-dark text-white font-medium shadow-md shadow-terracotta/20"
                       }`}
                     >
-                      {msg.content}
+                      <FormattedMessageText
+                        text={msg.content}
+                        isAssistant={isAssistant}
+                      />
                     </div>
 
                     {/* Interactive Villa Recommendations inside chat */}
