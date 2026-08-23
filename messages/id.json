@@ -78,6 +78,8 @@
     "durationLabel": "Durasi Menginap",
     "selectDatesPrompt": "Pilih tanggal untuk melihat total durasi & harga",
     "priceCalculation": "{price} × {nights} malam",
+    "priceTimesNight": "{price} × {nights} malam",
+    "nightsCount": "{count} malam",
     "serviceFee": "Biaya layanan (10%)",
     "totalEstimate": "Total Estimasi",
     "bookingButton": "Booking via WhatsApp Pemilik",
@@ -175,7 +177,9 @@
     "resetAllBtn": "Reset Semua Filter",
     "loading": "Memuat villa...",
     "stayDatesTitle": "Rentang Tanggal Menginap",
-    "clearDates": "Hapus Tanggal"
+    "clearDates": "Hapus Tanggal",
+    "nightsSelected": "{count} Malam Terpilih",
+    "stayDates": "Tanggal Menginap"
   },
   "Footer": {
     "brandDesc": "Platform booking villa premium di Bali. Temukan pengalaman menginap terbaik di destinasi tropis paling memukau di dunia.",

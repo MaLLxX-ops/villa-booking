@@ -219,7 +219,9 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
             >
               <Calendar className="w-4 h-4 text-terracotta" />
               <span>
-                {hasValidDates ? `${nights} Malam Terpilih` : "Tanggal Menginap"}
+                {hasValidDates
+                  ? t("nightsSelected", { count: nights })
+                  : t("stayDates")}
               </span>
             </button>
 

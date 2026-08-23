@@ -78,6 +78,8 @@
     "durationLabel": "Durée du Séjour",
     "selectDatesPrompt": "Sélectionnez vos dates pour calculer la durée et le prix total",
     "priceCalculation": "{price} × {nights} nuits",
+    "priceTimesNight": "{price} × {nights} nuits",
+    "nightsCount": "{count} nuits",
     "serviceFee": "Frais de service (10%)",
     "totalEstimate": "Total Estimé",
     "bookingButton": "Réserver via WhatsApp Propriétaire",
@@ -175,7 +177,9 @@
     "resetAllBtn": "Réinitialiser les Filtres",
     "loading": "Chargement des villas...",
     "stayDatesTitle": "Dates de Séjour",
-    "clearDates": "Effacer les Dates"
+    "clearDates": "Effacer les Dates",
+    "nightsSelected": "{count} Nuits Sélectionnées",
+    "stayDates": "Dates du Séjour"
   },
   "Footer": {
     "brandDesc": "Plateforme de réservation de villas de prestige à Bali. Vivez une expérience inoubliable au cœur du paradis tropical balinais.",

@@ -78,6 +78,8 @@
     "durationLabel": "Stay Duration",
     "selectDatesPrompt": "Select dates to calculate stay duration and total price",
     "priceCalculation": "{price} × {nights} nights",
+    "priceTimesNight": "{price} × {nights} nights",
+    "nightsCount": "{count} nights",
     "serviceFee": "Service fee (10%)",
     "totalEstimate": "Estimated Total",
     "bookingButton": "Book via Owner's WhatsApp",
@@ -175,7 +177,9 @@
     "resetAllBtn": "Reset All Filters",
     "loading": "Loading villas...",
     "stayDatesTitle": "Stay Dates Filter",
-    "clearDates": "Clear Dates"
+    "clearDates": "Clear Dates",
+    "nightsSelected": "{count} Nights Selected",
+    "stayDates": "Stay Dates"
   },
   "Footer": {
     "brandDesc": "Premier luxury villa booking platform in Bali. Experience extraordinary stays across the world's most enchanting tropical paradise.",

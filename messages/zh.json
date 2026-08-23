@@ -78,6 +78,8 @@
     "durationLabel": "入住晚数",
     "selectDatesPrompt": "请选择入离日期以计算确切入住晚数与总价",
     "priceCalculation": "{price} × {nights} 晚",
+    "priceTimesNight": "{price} × {nights} 晚",
+    "nightsCount": "{count} 晚",
     "serviceFee": "平台服务费 (10%)",
     "totalEstimate": "预估总费用",
     "bookingButton": "通过房东WhatsApp预订",
@@ -175,7 +177,9 @@
     "resetAllBtn": "重置所有筛选",
     "loading": "正在加载别墅数据...",
     "stayDatesTitle": "按入住日期筛选",
-    "clearDates": "清空日期"
+    "clearDates": "清空日期",
+    "nightsSelected": "已选择 {count} 晚",
+    "stayDates": "入住日期"
   },
   "Footer": {
     "brandDesc": "巴厘岛首屈一指的奢华别墅在线预订平台。为您在世界顶级热带度假胜地呈现无与伦比的入住体验。",

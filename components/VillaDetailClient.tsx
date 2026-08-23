@@ -490,7 +490,7 @@ Mohon konfirmasi ketersediaan dan prosedur pembayaran/deposit selanjutnya. Terim
                       }`}
                     >
                       {hasValidDates
-                        ? `${nights} malam`
+                        ? t("nightsCount", { count: nights })
                         : t("selectDatesPrompt")}
                     </span>
                   </div>
@@ -498,8 +498,10 @@ Mohon konfirmasi ketersediaan dan prosedur pembayaran/deposit selanjutnya. Terim
                   {/* Calculation Line */}
                   <div className="flex justify-between text-sm">
                     <span className="text-stone font-medium">
-                      {formatHarga(villa.harga_per_malam)} × {activeNights}{" "}
-                      malam
+                      {t("priceTimesNight", {
+                        price: formatHarga(villa.harga_per_malam),
+                        nights: activeNights,
+                      })}
                     </span>
                     <span className="text-charcoal font-bold">
                       {formatHarga(basePrice)}
