@@ -27,7 +27,8 @@
     "locationPlaceholder": "ウブド、スミニャック、チャングー...",
     "searchBtn": "ヴィラを検索",
     "selectRegion": "バリ島のエリアを選択",
-    "popularAreas": "人気エリア:"
+    "popularAreas": "人気エリア:",
+    "availabilityHint": "* チェックイン日とチェックアウト日を選択して空室状況を確認"
   },
   "Validation": {
     "checkInLabel": "チェックイン",

@@ -79,6 +79,22 @@ export default function Navbar() {
     }
   }, [pathname, user]);
 
+  // Clean URL query parameters once user is logged in
+  useEffect(() => {
+    if (user && typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("auth") || url.searchParams.has("error")) {
+        url.searchParams.delete("auth");
+        url.searchParams.delete("error");
+        window.history.replaceState(
+          {},
+          "",
+          url.pathname + (url.search ? url.search : "")
+        );
+      }
+    }
+  }, [user]);
+
   const openAuth = (mode: "login" | "register" = "login") => {
     setAuthMode(mode);
     setIsAuthDrawerOpen(true);

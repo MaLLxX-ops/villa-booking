@@ -27,7 +27,8 @@
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
     "searchBtn": "Cari Villa",
     "selectRegion": "Pilih Wilayah di Bali",
-    "popularAreas": "Kawasan Populer:"
+    "popularAreas": "Kawasan Populer:",
+    "availabilityHint": "* Pilih tanggal check-in & check-out untuk mengecek ketersediaan villa"
   },
   "Validation": {
     "checkInLabel": "Check-in",

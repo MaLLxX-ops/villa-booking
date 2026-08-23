@@ -27,7 +27,8 @@
     "locationPlaceholder": "우붓 (Ubud), 스미냑 (Seminyak), 짱구 (Canggu)...",
     "searchBtn": "풀빌라 검색",
     "selectRegion": "발리 지역 선택",
-    "popularAreas": "인기 지역:"
+    "popularAreas": "인기 지역:",
+    "availabilityHint": "* 체크인 및 체크아웃 날짜를 선택하여 예약 가능 여부를 확인하세요"
   },
   "Validation": {
     "checkInLabel": "체크인",

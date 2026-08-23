@@ -27,7 +27,8 @@
     "locationPlaceholder": "乌布 (Ubud), 水明漾 (Seminyak), 苍古 (Canggu)...",
     "searchBtn": "搜索别墅",
     "selectRegion": "选择巴厘岛度假区域",
-    "popularAreas": "热门地区："
+    "popularAreas": "热门地区：",
+    "availabilityHint": "* 选择入住和退房日期以查看别墅空房情况"
   },
   "Validation": {
     "checkInLabel": "入住日期",

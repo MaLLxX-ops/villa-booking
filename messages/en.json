@@ -27,7 +27,8 @@
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
     "searchBtn": "Search Villas",
     "selectRegion": "Select Region in Bali",
-    "popularAreas": "Popular Areas:"
+    "popularAreas": "Popular Areas:",
+    "availabilityHint": "* Select check-in & check-out dates to check villa availability"
   },
   "Validation": {
     "checkInLabel": "Check-in",

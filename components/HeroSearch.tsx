@@ -137,7 +137,7 @@ export default function HeroSearch() {
         </div>
 
         {/* Quick Region Chips Bar */}
-        <div className="mt-3.5 pt-3 border-t border-sand/50 flex flex-wrap items-center gap-1.5">
+        <div className="mt-3.5 pt-3 border-t border-sand/40 flex flex-wrap items-center gap-1.5">
           <span className="text-xs font-bold text-stone flex items-center gap-1 mr-1">
             <Sparkles className="w-3 h-3 text-gold" />
             <span>{t("popularAreas")}</span>
@@ -147,7 +147,7 @@ export default function HeroSearch() {
               key={region}
               type="button"
               onClick={() => handleQuickRegionClick(region)}
-              className="text-xs font-bold px-2.5 py-1 rounded-lg bg-cream hover:bg-terracotta/15 hover:text-terracotta-dark border border-sand/70 text-charcoal transition-colors cursor-pointer"
+              className="text-xs font-bold px-2.5 py-1 rounded-full bg-cream/70 hover:bg-terracotta hover:text-white border border-sand hover:border-terracotta text-charcoal/80 transition-all cursor-pointer shadow-2xs"
             >
               {region}
             </button>
@@ -155,9 +155,9 @@ export default function HeroSearch() {
         </div>
 
         {/* Search Button Row */}
-        <div className="mt-4 pt-3 border-t border-sand/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-4 pt-3 border-t border-sand/40 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-stone font-medium text-left">
-            * Pilih tanggal check-in & check-out untuk mengecek ketersediaan villa
+            {t("availabilityHint")}
           </p>
           <motion.button
             type="submit"
