@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { type Locale } from "@/lib/data";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import SearchPageClient from "@/components/SearchPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -26,6 +27,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Search.title} — StayVilla`,
       description: messages.Metadata.description,
+      alternates: { canonical: localizedPath(locale, "cari"), languages: alternateLanguages("cari") },
     };
   } catch {
     return { title: "Cari Villa — StayVilla" };

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import { type Locale } from "@/lib/data";
 import { AuthProvider } from "@/context/AuthContext";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -34,6 +35,10 @@ export async function generateMetadata({
       metadataBase: new URL("https://stayvilla.id"),
       title: messages.Metadata.title,
       description: messages.Metadata.description,
+      alternates: {
+        canonical: localizedPath(locale),
+        languages: alternateLanguages(),
+      },
       manifest: "/site.webmanifest",
       icons: {
         icon: [

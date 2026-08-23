@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { type Locale } from "@/lib/data";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import ComparePageClient from "@/components/ComparePageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -26,6 +27,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Compare.title} — StayVilla`,
       description: messages.Compare.subtitle,
+      alternates: { canonical: localizedPath(locale, "bandingkan"), languages: alternateLanguages("bandingkan") },
     };
   } catch {
     return { title: "Bandingkan Villa — StayVilla" };

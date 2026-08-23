@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import OwnersPageClient from "@/components/OwnersPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 const metadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
@@ -22,6 +23,7 @@ export async function generateMetadata({
     return {
       title: messages.Owners.metaTitle,
       description: messages.Owners.metaDesc,
+      alternates: { canonical: localizedPath(locale, "untuk-pemilik"), languages: alternateLanguages("untuk-pemilik") },
     };
   } catch {
     return {

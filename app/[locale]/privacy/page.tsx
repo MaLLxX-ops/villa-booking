@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import PrivacyPageClient from "@/components/PrivacyPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 const privacyMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
@@ -22,6 +23,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Privacy.metaTitle} — StayVilla`,
       description: messages.Privacy.metaDesc,
+      alternates: { canonical: localizedPath(locale, "privacy"), languages: alternateLanguages("privacy") },
     };
   } catch {
     return { title: "Kebijakan Privasi — StayVilla" };

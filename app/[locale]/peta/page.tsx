@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { type Locale } from "@/lib/data";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import MapPageClient from "@/components/MapPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -26,6 +27,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Map.title} — StayVilla`,
       description: messages.Map.subtitle,
+      alternates: { canonical: localizedPath(locale, "peta"), languages: alternateLanguages("peta") },
     };
   } catch {
     return { title: "Peta Interaktif Villa — StayVilla" };

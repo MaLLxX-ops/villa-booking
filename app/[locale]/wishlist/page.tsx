@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { type Locale } from "@/lib/data";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import WishlistPageClient from "@/components/WishlistPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -26,6 +27,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Wishlist.title} — StayVilla`,
       description: messages.Wishlist.subtitle,
+      alternates: { canonical: localizedPath(locale, "wishlist"), languages: alternateLanguages("wishlist") },
     };
   } catch {
     return { title: "Wishlist Villa — StayVilla" };

@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import TermsPageClient from "@/components/TermsPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 const termsMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
@@ -22,6 +23,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Terms.metaTitle} — StayVilla`,
       description: messages.Terms.metaDesc,
+      alternates: { canonical: localizedPath(locale, "terms"), languages: alternateLanguages("terms") },
     };
   } catch {
     return { title: "Syarat dan Ketentuan — StayVilla" };

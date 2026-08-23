@@ -1,5 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import HelpPageClient from "@/components/HelpPageClient";
+import { alternateLanguages, localizedPath } from "@/lib/seo";
 
 const helpMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
@@ -22,6 +23,7 @@ export async function generateMetadata({
     return {
       title: `${messages.Help.title} — StayVilla`,
       description: messages.Help.subtitle,
+      alternates: { canonical: localizedPath(locale, "help"), languages: alternateLanguages("help") },
     };
   } catch {
     return { title: "Pusat Bantuan & FAQ — StayVilla" };
