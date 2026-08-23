@@ -56,26 +56,28 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Listen for ?auth=login or custom event to open AuthDrawer automatically
+  // Listen for ?auth=login or custom event to open AuthDrawer automatically (only when not logged in)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const authParam = params.get("auth");
-      if (authParam === "login" || authParam === "register") {
+      if (!user && (authParam === "login" || authParam === "register")) {
         setAuthMode(authParam);
         setIsAuthDrawerOpen(true);
       }
 
       const handleAuthEvent = (e: Event) => {
         const customEvent = e as CustomEvent<{ mode?: "login" | "register" }>;
-        setAuthMode(customEvent.detail?.mode || "login");
-        setIsAuthDrawerOpen(true);
+        if (!user) {
+          setAuthMode(customEvent.detail?.mode || "login");
+          setIsAuthDrawerOpen(true);
+        }
       };
       window.addEventListener("stayvilla:open-auth", handleAuthEvent);
       return () =>
         window.removeEventListener("stayvilla:open-auth", handleAuthEvent);
     }
-  }, [pathname]);
+  }, [pathname, user]);
 
   const openAuth = (mode: "login" | "register" = "login") => {
     setAuthMode(mode);
