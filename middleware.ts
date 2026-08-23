@@ -8,9 +8,20 @@ const handleI18n = createMiddleware(routing);
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Allow auth callback routes
+  // Allow auth callback routes directly
   if (pathname.startsWith("/auth/")) {
     return NextResponse.next();
+  }
+
+  // Fallback: If an OAuth code lands on any general route (e.g. /, /en, /id), forward to /auth/callback
+  if (request.nextUrl.searchParams.has("code")) {
+    const code = request.nextUrl.searchParams.get("code")!;
+    const next = request.nextUrl.searchParams.get("next") || "/account";
+    const callbackUrl = new URL(
+      `/auth/callback?code=${encodeURIComponent(code)}&next=${encodeURIComponent(next)}`,
+      request.url
+    );
+    return NextResponse.redirect(callbackUrl);
   }
 
   // Handle public i18n routes (all non-admin routes)
