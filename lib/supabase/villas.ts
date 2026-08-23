@@ -14,6 +14,27 @@ export const VILLA_REVALIDATE_SECONDS = 60;
 type LocalizedValue = Record<Locale, string>;
 type LocalizedAmenities = Record<Locale, string[]>;
 
+const locales: Locale[] = ["id", "en", "fr", "zh", "ja", "ko"];
+
+function localizedValue(value: unknown, fallback = ""): LocalizedValue {
+  const source = value && typeof value === "object" ? value as Record<string, unknown> : {};
+  return Object.fromEntries(
+    locales.map((locale) => [locale, typeof source[locale] === "string" ? source[locale] : fallback])
+  ) as LocalizedValue;
+}
+
+function localizedAmenities(value: unknown): LocalizedAmenities {
+  const source = value && typeof value === "object" ? value as Record<string, unknown> : {};
+  return Object.fromEntries(
+    locales.map((locale) => [locale, Array.isArray(source[locale]) ? source[locale].filter((item): item is string => typeof item === "string") : []])
+  ) as LocalizedAmenities;
+}
+
+function numberValue(value: unknown, fallback = 0): number {
+  const number = typeof value === "number" ? value : Number(value);
+  return Number.isFinite(number) ? number : fallback;
+}
+
 export interface VillaRow {
   id: string;
   name: string;
@@ -40,20 +61,23 @@ export type SupabaseVillaRaw = VillaRaw & {
 };
 
 function toRaw(row: VillaRow): SupabaseVillaRaw {
+  const location = localizedValue(row.location_area);
+  const description = localizedValue(row.description);
+  const category = localizedValue(row.category);
   return {
     id: row.id,
-    nama: row.name,
-    nomor_whatsapp_pemilik: row.owner_whatsapp,
-    lokasi: row.location_area,
-    harga_per_malam: row.price,
-    jumlah_kamar: row.bedrooms,
-    jumlah_kamar_mandi: row.bathrooms,
-    kapasitas_tamu: row.max_guests,
-    deskripsi: row.description,
-    fasilitas: row.amenities,
-    galeri_foto: row.images,
-    koordinat: { lat: row.latitude, lng: row.longitude },
-    kategori: row.category,
+    nama: typeof row.name === "string" && row.name ? row.name : row.id,
+    nomor_whatsapp_pemilik: typeof row.owner_whatsapp === "string" ? row.owner_whatsapp : "",
+    lokasi: location,
+    harga_per_malam: numberValue(row.price),
+    jumlah_kamar: numberValue(row.bedrooms),
+    jumlah_kamar_mandi: numberValue(row.bathrooms),
+    kapasitas_tamu: numberValue(row.max_guests, 1),
+    deskripsi: description,
+    fasilitas: localizedAmenities(row.amenities),
+    galeri_foto: Array.isArray(row.images) ? row.images.filter((image): image is string => typeof image === "string" && image.length > 0) : [],
+    koordinat: { lat: numberValue(row.latitude), lng: numberValue(row.longitude) },
+    kategori: category,
     kategori_key: row.category_key,
   };
 }

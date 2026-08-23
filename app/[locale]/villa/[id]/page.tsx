@@ -18,16 +18,23 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: VillaDetailPageProps) {
   const { locale, id } = await params;
-  const villa = await getSupabaseVillaById(id, locale as Locale);
-  if (!villa) return { title: "Villa Not Found" };
-  return {
-    title: `${villa.nama} — StayVilla`,
-    description: villa.deskripsi.slice(0, 160),
-    alternates: {
-      canonical: localizedPath(locale, `villa/${id}`),
-      languages: alternateLanguages(`villa/${id}`),
-    },
-  };
+  try {
+    const villa = await getSupabaseVillaById(id, locale as Locale);
+    if (!villa) return { title: "Villa Not Found" };
+    return {
+      title: `${villa.nama || "Villa"} — StayVilla`,
+      description: (villa.deskripsi || "Villa privat di Bali.").slice(0, 160),
+      alternates: {
+        canonical: localizedPath(locale, `villa/${id}`),
+        languages: alternateLanguages(`villa/${id}`),
+      },
+    };
+  } catch {
+    return {
+      title: "Villa — StayVilla",
+      description: "Temukan villa privat di Bali.",
+    };
+  }
 }
 
 export default async function VillaDetailPage({
@@ -36,17 +43,22 @@ export default async function VillaDetailPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const villa = await getSupabaseVillaById(id, locale as Locale);
+  let villa;
+  try {
+    villa = await getSupabaseVillaById(id, locale as Locale);
+  } catch {
+    notFound();
+  }
   if (!villa) notFound();
 
-  const structuredData = {
+  const structuredData: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     name: villa.nama,
-    description: villa.deskripsi,
+    description: villa.deskripsi || undefined,
     url: localizedPath(locale, `villa/${villa.id}`),
-    image: villa.galeri_foto,
-    priceRange: `IDR ${villa.harga_per_malam}`,
+    image: villa.galeri_foto.length > 0 ? villa.galeri_foto : undefined,
+    priceRange: villa.harga_per_malam > 0 ? `IDR ${villa.harga_per_malam}` : undefined,
     address: {
       "@type": "PostalAddress",
       addressLocality: villa.lokasi,
@@ -54,12 +66,12 @@ export default async function VillaDetailPage({
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: villa.koordinat.lat,
-      longitude: villa.koordinat.lng,
+      latitude: Number.isFinite(villa.koordinat.lat) ? villa.koordinat.lat : undefined,
+      longitude: Number.isFinite(villa.koordinat.lng) ? villa.koordinat.lng : undefined,
     },
     offers: {
       "@type": "Offer",
-      price: villa.harga_per_malam,
+      price: villa.harga_per_malam > 0 ? villa.harga_per_malam : undefined,
       priceCurrency: "IDR",
       availability: "https://schema.org/InStock",
     },
