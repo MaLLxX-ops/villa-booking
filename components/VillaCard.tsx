@@ -74,8 +74,8 @@ export default function VillaCard({
       whileHover={{ y: -6, scale: 1.015 }}
       className="h-full"
     >
-      <Link href={`/villa/${villa.id}`} className="group block h-full">
-        <div className="h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-navy/10 transition-all duration-300 border border-sand hover:border-terracotta/35 flex flex-col justify-between">
+      <article className="h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-navy/10 transition-all duration-300 border border-sand hover:border-terracotta/35 flex flex-col justify-between">
+        <Link href={`/villa/${villa.id}`} className="group block">
           <div>
             {/* Image Container with Next.js Image */}
             <div className="relative aspect-[4/3] overflow-hidden bg-sand">
@@ -164,29 +164,27 @@ export default function VillaCard({
               </div>
             </div>
           </div>
+        </Link>
 
           {/* Stats & Compare Bar */}
           <div className="px-5 pb-4">
-            <div className="flex items-center justify-between py-3 border-t border-sand">
+            <dl className="flex items-center justify-between py-3 border-t border-sand">
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <BedDouble className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>
-                  {villa.jumlah_kamar} {t("bedrooms")}
-                </span>
+                <dt className="sr-only">{t("bedrooms")}</dt>
+                <dd>{villa.jumlah_kamar} {t("bedrooms")}</dd>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <Bath className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>
-                  {villa.jumlah_kamar_mandi} {t("bathrooms")}
-                </span>
+                <dt className="sr-only">{t("bathrooms")}</dt>
+                <dd>{villa.jumlah_kamar_mandi} {t("bathrooms")}</dd>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <Users className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>
-                  {villa.kapasitas_tamu} {t("guests")}
-                </span>
+                <dt className="sr-only">{t("guests")}</dt>
+                <dd>{villa.kapasitas_tamu} {t("guests")}</dd>
               </div>
-            </div>
+            </dl>
 
             {/* Compare Checkbox Trigger */}
             <div className="pt-2 border-t border-sand/60 flex items-center justify-between">
@@ -218,8 +216,7 @@ export default function VillaCard({
               )}
             </div>
           </div>
-        </div>
-      </Link>
+      </article>
     </motion.div>
   );
 }
