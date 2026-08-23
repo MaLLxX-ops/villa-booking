@@ -1,5 +1,9 @@
+import "dotenv/config";
+import { config as loadEnv } from "dotenv";
 import { createClient } from "@supabase/supabase-js";
 import { villaDataRaw } from "../lib/data";
+
+loadEnv({ path: ".env.local" });
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -47,9 +51,9 @@ async function seed() {
 seed()
   .then(() => {
     console.log("✅ Seeding berhasil!");
-    process.exit(0);
+    process.exitCode = 0;
   })
   .catch((error) => {
     console.error("❌ Gagal melakukan seeding:", error);
-    process.exit(1);
+    process.exitCode = 1;
   });
