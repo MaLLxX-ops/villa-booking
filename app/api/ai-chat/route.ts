@@ -9,6 +9,42 @@ interface ChatMessage {
   content: string;
 }
 
+const RATE_LIMIT_MAX_REQUESTS = 15;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const requestLog = new Map<string, number[]>();
+
+function getClientIp(request: NextRequest): string {
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  if (forwardedFor) return forwardedFor.split(",")[0].trim();
+  return request.headers.get("x-real-ip") || "unknown";
+}
+
+function checkRateLimit(ip: string) {
+  const now = Date.now();
+  const recentRequests = (requestLog.get(ip) || []).filter(
+    (timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS
+  );
+  const allowed = recentRequests.length < RATE_LIMIT_MAX_REQUESTS;
+
+  if (allowed) recentRequests.push(now);
+  requestLog.set(ip, recentRequests);
+
+  // Keep the in-memory map bounded on long-lived server instances.
+  if (requestLog.size > 10_000) {
+    for (const [key, timestamps] of requestLog) {
+      if (timestamps.every((timestamp) => now - timestamp >= RATE_LIMIT_WINDOW_MS)) {
+        requestLog.delete(key);
+      }
+    }
+  }
+
+  const retryAfter = allowed
+    ? 0
+    : Math.max(1, Math.ceil((recentRequests[0] + RATE_LIMIT_WINDOW_MS - now) / 1000));
+
+  return { allowed, remaining: Math.max(0, RATE_LIMIT_MAX_REQUESTS - recentRequests.length), retryAfter };
+}
+
 // 1. Smart Language Detector with Slang & Fallback
 function detectLanguage(text: string, fallbackLocale = "id"): string {
   const clean = text.trim();
@@ -187,6 +223,21 @@ function parseRequestedDateRange(text: string): { from: string; to: string } {
 }
 
 export async function POST(req: NextRequest) {
+  const rateLimit = checkRateLimit(getClientIp(req));
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: "Terlalu banyak permintaan. Silakan coba lagi sebentar." },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimit.retryAfter),
+          "X-RateLimit-Limit": String(RATE_LIMIT_MAX_REQUESTS),
+          "X-RateLimit-Remaining": "0",
+        },
+      }
+    );
+  }
+
   try {
     const body = await req.json();
     const { messages, locale = "id", currency = "IDR" } = body as {
@@ -407,19 +458,27 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({
-      reply,
-      recommendedVillaIds,
-      quickReplies,
-      detectedLang,
-      parsedParams: {
-        budget: parsedBudget,
-        guests: parsedGuests,
-        location: parsedLocation,
-        from: requestedDates.from,
-        to: requestedDates.to,
+    return NextResponse.json(
+      {
+        reply,
+        recommendedVillaIds,
+        quickReplies,
+        detectedLang,
+        parsedParams: {
+          budget: parsedBudget,
+          guests: parsedGuests,
+          location: parsedLocation,
+          from: requestedDates.from,
+          to: requestedDates.to,
+        },
       },
-    });
+      {
+        headers: {
+          "X-RateLimit-Limit": String(RATE_LIMIT_MAX_REQUESTS),
+          "X-RateLimit-Remaining": String(rateLimit.remaining),
+        },
+      }
+    );
   } catch (error: any) {
     console.error("AI Chat API Error:", error);
     return NextResponse.json(
