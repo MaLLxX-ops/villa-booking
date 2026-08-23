@@ -56,6 +56,17 @@ export function isDateBeforeToday(dateStr: string): boolean {
   return dateStr < todayStr;
 }
 
+export function isValidDateString(dateStr: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return false;
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+}
+
 export function isCheckOutValid(checkIn: string, checkOut: string): boolean {
   if (!checkIn || !checkOut) return false;
   return checkOut > checkIn;

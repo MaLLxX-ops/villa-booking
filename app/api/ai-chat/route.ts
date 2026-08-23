@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { formatHarga, ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
 import { getSupabaseRawVillas } from "@/lib/supabase/villas";
+import { getTodayString } from "@/lib/date-utils";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -140,6 +142,50 @@ function parseLocation(text: string): string | null {
   return null;
 }
 
+function formatDate(date: Date): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function parseRequestedDateRange(text: string): { from: string; to: string } {
+  const today = new Date();
+  const lower = text.toLowerCase();
+  if (lower.includes("besok") || lower.includes("tomorrow")) {
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return { from: formatDate(tomorrow), to: formatDate(tomorrow) };
+  }
+
+  const isoDates = text.match(/\b\d{4}-\d{2}-\d{2}\b/g) || [];
+  if (isoDates.length > 0) {
+    const firstIso = isoDates[0]!;
+    return { from: firstIso, to: isoDates[1] || firstIso };
+  }
+
+  const slashDate = text.match(/\b(\d{1,2})[/-](\d{1,2})[/-](\d{4})\b/);
+  if (slashDate) {
+    const date = `${slashDate[3]}-${slashDate[2].padStart(2, "0")}-${slashDate[1].padStart(2, "0")}`;
+    return { from: date, to: date };
+  }
+
+  const months: Record<string, number> = {
+    januari: 0, january: 0, februari: 1, february: 1, maret: 2, march: 2,
+    april: 3, mei: 4, may: 4, juni: 5, june: 5, juli: 6, july: 6,
+    agustus: 7, august: 7, september: 8, oktober: 9, october: 9,
+    november: 10, desember: 11, december: 11,
+  };
+  const namedDate = lower.match(/\b(\d{1,2})\s+([a-z]+)(?:\s+(\d{4}))?\b/);
+  if (namedDate && months[namedDate[2]] !== undefined) {
+    const date = new Date(
+      Number(namedDate[3] || today.getFullYear()),
+      months[namedDate[2]],
+      Number(namedDate[1])
+    );
+    return { from: formatDate(date), to: formatDate(date) };
+  }
+
+  return { from: getTodayString(), to: getTodayString() };
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -164,6 +210,7 @@ export async function POST(req: NextRequest) {
     const parsedBudget = parseBudget(lastUserMessage);
     const parsedGuests = parseGuestCount(lastUserMessage);
     const parsedLocation = parseLocation(lastUserMessage);
+    const requestedDates = parseRequestedDateRange(lastUserMessage);
 
     // Intent detectors
     const isBookingFlow = /cara (booking|pesan)|how to book|comment réserver|如何预订|予約方法|예약 방법/i.test(query);
@@ -180,6 +227,25 @@ export async function POST(req: NextRequest) {
     // 5. Strict Villa Matching Engine
     const villaDataRaw = await getSupabaseRawVillas();
     let candidateVillas = [...villaDataRaw];
+
+    const availabilityClient = await createSupabaseServerClient();
+    if (availabilityClient && villaDataRaw.length > 0) {
+      const { data: unavailableRows, error: availabilityError } =
+        await availabilityClient
+          .from("villa_availability")
+          .select("villa_id")
+          .gte("date", requestedDates.from)
+          .lte("date", requestedDates.to)
+          .eq("is_available", false)
+          .in("villa_id", villaDataRaw.map((villa) => villa.id));
+      if (availabilityError) throw availabilityError;
+      const unavailableIds = new Set(
+        (unavailableRows || []).map((row) => row.villa_id)
+      );
+      candidateVillas = candidateVillas.filter(
+        (villa) => !unavailableIds.has(villa.id)
+      );
+    }
 
     // Location filter
     if (parsedLocation) {
@@ -206,9 +272,24 @@ export async function POST(req: NextRequest) {
     candidateVillas.sort((a, b) => a.harga_per_malam - b.harga_per_malam);
 
     // Helpers
-    const allSortedByPrice = [...villaDataRaw].sort(
+    const allSortedByPrice = [...candidateVillas].sort(
       (a, b) => a.harga_per_malam - b.harga_per_malam
     );
+    if (allSortedByPrice.length === 0) {
+      return NextResponse.json({
+        reply: "Maaf, saat ini tidak ada villa aktif yang tersedia hari ini.",
+        recommendedVillaIds: [],
+        quickReplies: ["Coba tanggal lain", "Hubungi Admin"],
+        detectedLang,
+        parsedParams: {
+          budget: parsedBudget,
+          guests: parsedGuests,
+          location: parsedLocation,
+          from: requestedDates.from,
+          to: requestedDates.to,
+        },
+      });
+    }
     const cheapestVilla = allSortedByPrice[0]; 
     const mostExpensiveVilla = allSortedByPrice[allSortedByPrice.length - 1];
 
@@ -335,6 +416,8 @@ export async function POST(req: NextRequest) {
         budget: parsedBudget,
         guests: parsedGuests,
         location: parsedLocation,
+        from: requestedDates.from,
+        to: requestedDates.to,
       },
     });
   } catch (error: any) {

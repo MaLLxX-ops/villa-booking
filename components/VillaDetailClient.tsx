@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
@@ -52,6 +52,7 @@ import DateRangeInputs from "@/components/DateRangeInputs";
 import InteractiveMap from "@/components/InteractiveMap";
 import {
   calculateNights,
+  getTodayString,
   isCheckOutValid,
 } from "@/lib/date-utils";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -132,6 +133,9 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [ownerWALink, setOwnerWALink] = useState("");
+  const [availabilityStatus, setAvailabilityStatus] = useState<
+    "loading" | "available" | "full"
+  >("loading");
 
   // Night and Price Calculation
   const nights = calculateNights(checkIn, checkOut);
@@ -146,6 +150,35 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const basePriceEstimate = formatEstimate(basePrice);
   const serviceFeeEstimate = formatEstimate(serviceFee);
   const totalPriceEstimate = formatEstimate(totalPrice);
+
+  useEffect(() => {
+    const from = checkIn || getTodayString();
+    const to = checkOut || from;
+    const controller = new AbortController();
+
+    setAvailabilityStatus("loading");
+    fetch(
+      `/api/availability?villa_id=${encodeURIComponent(villa.id)}&from=${from}&to=${to}`,
+      { signal: controller.signal }
+    )
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Availability request failed");
+        return (await response.json()) as Array<{ is_available: boolean }>;
+      })
+      .then((entries) => {
+        setAvailabilityStatus(
+          entries.some((entry) => entry.is_available === false)
+            ? "full"
+            : "available"
+        );
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setAvailabilityStatus("available");
+      });
+
+    return () => controller.abort();
+  }, [checkIn, checkOut, villa.id]);
 
   const handleCheckInChange = (val: string) => {
     setCheckIn(val);
@@ -184,6 +217,10 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
     }
 
     if (hasError) return;
+    if (availabilityStatus === "full") {
+      setCheckOutError("Villa penuh pada tanggal yang dipilih.");
+      return;
+    }
 
     // Generate strictly English WhatsApp reservation message for the owner
     const { url: waUrl } = generateBookingWhatsAppUrl({
@@ -690,6 +727,23 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
 
               {/* Form with Real-time Calculations & WhatsApp Submission */}
               <form onSubmit={handleBookingSubmit} noValidate>
+                <div
+                  className={`mb-4 inline-flex rounded-full px-3 py-1.5 text-xs font-black ${
+                    availabilityStatus === "full"
+                      ? "bg-red-100 text-red-700"
+                      : availabilityStatus === "loading"
+                        ? "bg-cream-dark text-stone"
+                        : "bg-sage/15 text-sage-dark"
+                  }`}
+                >
+                  {availabilityStatus === "full"
+                    ? "Penuh"
+                    : availabilityStatus === "loading"
+                      ? "Memeriksa ketersediaan..."
+                      : checkIn && checkOut
+                        ? "Tersedia untuk tanggal yang dipilih"
+                        : "Tersedia hari ini"}
+                </div>
                 {/* Date Inputs with Validation */}
                 <div className="mb-4">
                   <DateRangeInputs
@@ -799,9 +853,10 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 {/* WhatsApp Booking Button */}
                 <motion.button
                   type="submit"
+                  disabled={availabilityStatus !== "available"}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-emerald-700/25 hover:shadow-xl hover:shadow-emerald-700/35 transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-emerald-700/25 hover:shadow-xl hover:shadow-emerald-700/35 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="w-5 h-5 text-white" />
                   {t("bookingButton")}
