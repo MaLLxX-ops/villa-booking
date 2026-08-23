@@ -112,11 +112,13 @@ export default function DateRangeInputs({
           />
           <input
             ref={checkInRef}
+            id="checkin-date-input"
             type="date"
             min={todayStr}
             value={checkIn}
             onChange={(e) => handleCheckInChange(e.target.value)}
-            className="w-full min-w-0 max-w-full bg-transparent text-xs sm:text-sm text-charcoal font-semibold outline-none cursor-pointer [color-scheme:light]"
+            className="w-full min-w-0 max-w-full bg-transparent text-base sm:text-sm text-charcoal font-semibold outline-none cursor-pointer [color-scheme:light]"
+            aria-label={tValidation("checkInLabel")}
             aria-invalid={Boolean(checkInError)}
           />
         </div>
@@ -139,7 +141,10 @@ export default function DateRangeInputs({
 
       {/* Check-Out Input */}
       <div className="relative min-w-0">
-        <label className="text-xs font-bold text-charcoal block mb-1.5 flex items-center justify-between">
+        <label
+          htmlFor="checkout-date-input"
+          className="text-xs font-bold text-charcoal block mb-1.5 flex items-center justify-between"
+        >
           <span className="truncate">{tValidation("checkOutLabel")}</span>
           {checkOut && isCheckOutValid(checkIn || todayStr, checkOut) && (
             <span className="text-[10px] sm:text-[11px] text-sage-dark font-bold shrink-0 ml-1">
@@ -168,11 +173,13 @@ export default function DateRangeInputs({
           />
           <input
             ref={checkOutRef}
+            id="checkout-date-input"
             type="date"
             min={minCheckOutStr}
             value={checkOut}
             onChange={(e) => handleCheckOutChange(e.target.value)}
-            className="w-full min-w-0 max-w-full bg-transparent text-xs sm:text-sm text-charcoal font-semibold outline-none cursor-pointer [color-scheme:light]"
+            className="w-full min-w-0 max-w-full bg-transparent text-base sm:text-sm text-charcoal font-semibold outline-none cursor-pointer [color-scheme:light]"
+            aria-label={tValidation("checkOutLabel")}
             aria-invalid={Boolean(checkOutError)}
           />
         </div>

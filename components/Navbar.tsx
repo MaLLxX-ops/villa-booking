@@ -129,10 +129,10 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-sand shadow-xs">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
+          <div className="flex items-center justify-between h-16 sm:h-20 gap-3 lg:gap-6 xl:gap-8">
             {/* ZONA 1: Brand Logo (Left) */}
-            <div className="flex items-center shrink-0">
-              <Link href="/" className="group">
+            <div className="flex items-center shrink-0 min-w-[130px] xl:min-w-[160px]">
+              <Link href="/" className="group" aria-label="StayVilla Home">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -143,31 +143,33 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* ZONA 2: Main Navigation Tabs (Center - Desktop >= lg) */}
-            <div className="hidden lg:flex items-center gap-1 xl:gap-1.5 p-1 rounded-full bg-sand/30 border border-sand/60">
-              {navLinks.map((link) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(link.href.replace("/#", "/"));
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-bold transition-all ${
-                      isActive
-                        ? "bg-white text-terracotta-dark shadow-xs"
-                        : "text-charcoal/80 hover:text-terracotta hover:bg-white/60"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
+            {/* ZONA 2: Main Navigation Tabs (Center Floating Pill - Desktop >= lg) */}
+            <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4">
+              <div className="inline-flex items-center gap-1 xl:gap-1.5 p-1.5 rounded-full bg-white/80 backdrop-blur-md border border-sand/80 shadow-xs hover:border-terracotta/30 transition-all">
+                {navLinks.map((link) => {
+                  const isActive =
+                    link.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(link.href.replace("/#", "/"));
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`px-3.5 xl:px-4 py-1.5 rounded-full text-xs xl:text-sm font-bold transition-all ${
+                        isActive
+                          ? "bg-terracotta text-white shadow-xs shadow-terracotta/20"
+                          : "text-charcoal/80 hover:text-terracotta hover:bg-cream"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
 
             {/* ZONA 3: Action Cluster & User Status (Right - Desktop >= md) */}
-            <div className="hidden md:flex items-center gap-2 lg:gap-3 shrink-0">
+            <div className="hidden md:flex items-center gap-2 lg:gap-2.5 xl:gap-3 shrink-0">
               {/* Wishlist Link with Badge */}
               <Link
                 href="/wishlist"

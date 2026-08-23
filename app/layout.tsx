@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 
@@ -6,6 +6,13 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stayvilla.id"),
@@ -54,8 +61,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" data-scroll-behavior="smooth" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-cream text-charcoal">
+    <html
+      lang="id"
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} h-full antialiased overflow-x-hidden`}
+    >
+      <body className="min-h-full flex flex-col bg-cream text-charcoal overflow-x-hidden w-full max-w-full">
         {children}
       </body>
     </html>

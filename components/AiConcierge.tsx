@@ -420,8 +420,9 @@ export default function AiConcierge({ villas }: { villas: Villa[] }) {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder={t("inputPlaceholder")}
+                aria-label={t("inputPlaceholder")}
                 disabled={isLoading}
-                className="flex-1 bg-cream px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-charcoal placeholder:text-stone-light focus:bg-white focus:ring-2 focus:ring-terracotta/20 border border-sand outline-none transition-all"
+                className="flex-1 bg-cream px-4 py-3 rounded-2xl text-base sm:text-sm font-semibold text-charcoal placeholder:text-stone-light focus:bg-white focus:ring-2 focus:ring-terracotta/20 border border-sand outline-none transition-all"
               />
               <button
                 type="submit"

@@ -107,12 +107,14 @@ export default function HeroSearch() {
             <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-sand bg-cream focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15 transition-all">
               <MapPin className="w-4 h-4 text-terracotta shrink-0" />
               <input
+                id="location-search-input"
                 type="text"
                 list="bali-regions-list"
                 placeholder={t("locationPlaceholder")}
+                aria-label={t("locationLabel")}
                 value={lokasi}
                 onChange={(e) => setLokasi(e.target.value)}
-                className="w-full bg-transparent text-sm text-charcoal font-semibold placeholder:text-stone-light outline-none"
+                className="w-full bg-transparent text-base sm:text-sm text-charcoal font-semibold placeholder:text-stone-light outline-none"
               />
               <datalist id="bali-regions-list">
                 {BALI_REGIONS.map((r) => (
