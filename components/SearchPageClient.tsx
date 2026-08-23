@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, Suspense } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,15 +26,28 @@ interface SearchPageClientProps {
 function SearchPageContent({ villas }: SearchPageClientProps) {
   const searchParams = useSearchParams();
   const t = useTranslations("Search");
-  const tValidation = useTranslations("Validation");
 
   const initialQuery = searchParams.get("q") || "";
   const initialCategoryKey = searchParams.get("cat") || "";
   const initialCheckIn = searchParams.get("checkIn") || "";
   const initialCheckOut = searchParams.get("checkOut") || "";
 
+  // Search input state with 250ms debounce and cleanup
   const [searchTerm, setSearchTerm] = useState(initialQuery);
-  const [selectedCategoryKey, setSelectedCategoryKey] = useState(initialCategoryKey);
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialQuery);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 250);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
+
+  const [selectedCategoryKey, setSelectedCategoryKey] =
+    useState(initialCategoryKey);
   const [selectedSort, setSelectedSort] = useState("");
 
   // Date Filter State
@@ -74,18 +87,17 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
     return map;
   }, [villas]);
 
-  // Filter & Sort Logic
+  // Filter & Sort Logic using debouncedSearchTerm
   const filteredVillas = useMemo(() => {
     return villas
       .filter((villa) => {
+        const query = debouncedSearchTerm.trim().toLowerCase();
         const matchesSearch =
-          !searchTerm ||
-          villa.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          villa.lokasi.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          villa.deskripsi.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          villa.fasilitas.some((f) =>
-            f.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+          !query ||
+          villa.nama.toLowerCase().includes(query) ||
+          villa.lokasi.toLowerCase().includes(query) ||
+          villa.deskripsi.toLowerCase().includes(query) ||
+          villa.fasilitas.some((f) => f.toLowerCase().includes(query));
 
         const matchesCategory =
           !selectedCategoryKey || villa.kategori_key === selectedCategoryKey;
@@ -103,10 +115,11 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           return b.jumlah_kamar - a.jumlah_kamar;
         return 0;
       });
-  }, [villas, searchTerm, selectedCategoryKey, selectedSort]);
+  }, [villas, debouncedSearchTerm, selectedCategoryKey, selectedSort]);
 
   const resetFilters = () => {
     setSearchTerm("");
+    setDebouncedSearchTerm("");
     setSelectedCategoryKey("");
     setSelectedSort("");
     setCheckIn("");
@@ -152,7 +165,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
         >
           {/* Main Controls Row */}
           <div className="flex flex-col md:flex-row gap-3.5">
-            {/* Search Input */}
+            {/* Debounced Search Input */}
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-terracotta shrink-0" />
               <input
@@ -301,7 +314,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           </div>
         </motion.div>
 
-        {/* Results Grid with Smooth Filter Transition (AnimatePresence) */}
+        {/* Results Grid with Smooth Filter Transition */}
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"

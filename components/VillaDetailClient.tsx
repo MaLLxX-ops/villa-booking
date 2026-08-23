@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,14 +30,14 @@ import {
   Calendar,
   CheckCircle2,
   X,
+  Phone,
+  MessageCircle,
 } from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
 import DateRangeInputs from "@/components/DateRangeInputs";
 import {
   calculateNights,
   isCheckOutValid,
-  getTodayString,
-  getTomorrowString,
 } from "@/lib/date-utils";
 
 interface VillaDetailClientProps {
@@ -103,6 +104,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [checkInError, setCheckInError] = useState("");
   const [checkOutError, setCheckOutError] = useState("");
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
+  const [ownerWALink, setOwnerWALink] = useState("");
 
   // Night and Price Calculation
   const nights = calculateNights(checkIn, checkOut);
@@ -151,8 +153,32 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
 
     if (hasError) return;
 
-    // Show booking success modal
+    // Formatted WhatsApp text pre-filled for this specific villa's owner
+    const message = `*RESERVASI VILLA — STAYVILLA* 🌴✨
+
+Halo Pengelola ${villa.nama}, saya ingin melakukan reservasi untuk menginap di villa Anda:
+
+📋 *Rincian Reservasi:*
+• *Villa:* ${villa.nama} (${villa.lokasi})
+• *Check-in:* ${checkIn}
+• *Check-out:* ${checkOut}
+• *Durasi:* ${activeNights} Malam
+• *Jumlah Tamu:* ${guestCount} Orang
+• *Estimasi Total:* ${formatHarga(totalPrice)} (termasuk biaya layanan & pajak)
+
+Mohon konfirmasi ketersediaan dan prosedur pembayaran/deposit selanjutnya. Terima kasih!`;
+
+    const waUrl = `https://wa.me/${villa.nomor_whatsapp_pemilik}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    setOwnerWALink(waUrl);
     setIsBookingSuccess(true);
+
+    // Open WhatsApp directly in new tab
+    if (typeof window !== "undefined") {
+      window.open(waUrl, "_blank");
+    }
   };
 
   const nextImage = () => {
@@ -188,7 +214,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        {/* Photo Gallery with smooth Motion transitions */}
+        {/* Photo Gallery with smooth Motion transitions & Next.js Image */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -197,7 +223,6 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
         >
           {/* Main Photo Viewer */}
           <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden mb-3.5 bg-sand shadow-lg border border-sand">
-            {/* Animated Photo Transition */}
             <AnimatePresence mode="wait" initial={false} custom={direction}>
               <motion.div
                 key={activeImage}
@@ -208,10 +233,13 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 transition={{ duration: 0.4, ease: "easeInOut" }}
                 className="absolute inset-0"
               >
-                <img
+                <Image
                   src={villa.galeri_foto[activeImage]}
                   alt={`${villa.nama} foto ${activeImage + 1}`}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority={activeImage === 0}
+                  sizes="(max-width: 768px) 100vw, 1200px"
+                  className="object-cover"
                 />
               </motion.div>
             </AnimatePresence>
@@ -266,10 +294,12 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                     : "border-transparent opacity-60 hover:opacity-100"
                 }`}
               >
-                <img
+                <Image
                   src={photo}
                   alt={`${villa.nama} thumbnail ${i + 1}`}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="120px"
+                  className="object-cover"
                 />
               </motion.button>
             ))}
@@ -390,7 +420,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             </div>
           </motion.div>
 
-          {/* Sticky Booking Sidebar with Fade-In + Slide from Right */}
+          {/* Sticky Booking Sidebar with Direct WhatsApp Routing */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -410,7 +440,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 </span>
               </div>
 
-              {/* Form with Real-time Calculations */}
+              {/* Form with Real-time Calculations & WhatsApp Submission */}
               <form onSubmit={handleBookingSubmit} noValidate>
                 {/* Date Inputs with Validation */}
                 <div className="mb-4">
@@ -449,7 +479,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 {/* Stay Duration & Dynamic Calculation Breakdown */}
                 <div className="border-t border-sand pt-4 mb-6 space-y-3">
                   {/* Duration Badge */}
-                  <div className="flex items-center justify-between text-xs font-bold py-1 px-3 rounded-lg bg-sand/40 text-stone">
+                  <div className="flex items-center justify-between text-xs font-bold py-1.5 px-3 rounded-lg bg-sand/40 text-stone">
                     <span className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-terracotta" />
                       {t("durationLabel")}:
@@ -495,19 +525,19 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   </div>
                 </div>
 
-                {/* Booking CTA Button */}
+                {/* WhatsApp Booking Button */}
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-terracotta to-terracotta-dark text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-terracotta/25 hover:shadow-xl hover:shadow-terracotta/35 transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-emerald-700/25 hover:shadow-xl hover:shadow-emerald-700/35 transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-5 h-5 text-gold-light" />
+                  <MessageCircle className="w-5 h-5 text-white" />
                   {t("bookingButton")}
                 </motion.button>
               </form>
 
-              {/* Trust Badge */}
+              {/* Trust Badge with Owner WA notice */}
               <div className="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-stone">
                 <ShieldCheck className="w-4 h-4 text-sage-dark shrink-0" />
                 {t("securePayment")}
@@ -517,7 +547,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
         </div>
       </div>
 
-      {/* Booking Confirmation Modal Dialog */}
+      {/* Direct WhatsApp Confirmation Modal Dialog */}
       <AnimatePresence>
         {isBookingSuccess && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/60 backdrop-blur-md">
@@ -536,8 +566,8 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
               </button>
 
               <div className="text-center">
-                <div className="w-16 h-16 rounded-2xl bg-sage/20 text-sage-dark flex items-center justify-center mx-auto mb-4 shadow-xs">
-                  <CheckCircle2 className="w-10 h-10" />
+                <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4 shadow-xs">
+                  <MessageCircle className="w-10 h-10" />
                 </div>
                 <h3 className="text-2xl font-black text-navy mb-2">
                   {t("bookingSuccessTitle")}
@@ -552,10 +582,16 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   })}
                 </p>
 
-                <div className="bg-cream rounded-2xl p-4 mb-6 border border-sand text-left space-y-2 text-sm">
+                <div className="bg-cream rounded-2xl p-4 mb-6 border border-sand text-left space-y-2.5 text-sm">
                   <div className="flex justify-between">
                     <span className="text-stone">Villa</span>
                     <span className="font-bold text-navy">{villa.nama}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone">WhatsApp Pemilik</span>
+                    <span className="font-bold text-emerald-700">
+                      +{villa.nomor_whatsapp_pemilik}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-stone">Durasi</span>
@@ -566,23 +602,36 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   <div className="flex justify-between">
                     <span className="text-stone">Tamu</span>
                     <span className="font-bold text-navy">
-                      {guestCount} Tamu
+                      {guestCount} Orang
                     </span>
                   </div>
                   <div className="flex justify-between pt-2 border-t border-sand font-black text-base">
-                    <span className="text-navy">Total Biaya</span>
+                    <span className="text-navy">Total Estimasi</span>
                     <span className="text-terracotta-dark">
                       {formatHarga(totalPrice)}
                     </span>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => setIsBookingSuccess(false)}
-                  className="w-full bg-gradient-to-r from-terracotta to-terracotta-dark text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
-                >
-                  {t("closeModal")}
-                </button>
+                <div className="space-y-2.5">
+                  {ownerWALink && (
+                    <a
+                      href={ownerWALink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white py-3.5 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      {t("openWhatsAppBtn")}
+                    </a>
+                  )}
+                  <button
+                    onClick={() => setIsBookingSuccess(false)}
+                    className="w-full bg-sand/60 hover:bg-sand text-charcoal py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer"
+                  >
+                    {t("closeModal")}
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>

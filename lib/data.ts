@@ -1,5 +1,7 @@
 export type Locale = "id" | "en" | "fr" | "zh";
 
+export const ADMIN_WHATSAPP_NUMBER = "6282163240141";
+
 export interface LocalizedString {
   id: string;
   en: string;
@@ -17,6 +19,7 @@ export interface LocalizedArray {
 export interface VillaRaw {
   id: string;
   nama: string;
+  nomor_whatsapp_pemilik: string;
   lokasi: LocalizedString;
   harga_per_malam: number;
   jumlah_kamar: number;
@@ -32,6 +35,7 @@ export interface VillaRaw {
 export interface Villa {
   id: string;
   nama: string;
+  nomor_whatsapp_pemilik: string;
   lokasi: string;
   harga_per_malam: number;
   jumlah_kamar: number;
@@ -45,10 +49,13 @@ export interface Villa {
   kategori_key: "luxury" | "family" | "studio";
 }
 
-export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "studio" })[] = [
+export const villaDataRaw: (VillaRaw & {
+  kategori_key: "luxury" | "family" | "studio";
+})[] = [
   {
     id: "villa-teratai",
     nama: "Villa Teratai",
+    nomor_whatsapp_pemilik: "6281234567801",
     kategori_key: "luxury",
     lokasi: {
       id: "Ubud, Bali",
@@ -125,6 +132,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "villa-cendana",
     nama: "Villa Cendana",
+    nomor_whatsapp_pemilik: "6281234567802",
     kategori_key: "luxury",
     lokasi: {
       id: "Seminyak, Bali",
@@ -205,6 +213,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "villa-melati",
     nama: "Villa Melati",
+    nomor_whatsapp_pemilik: "6281234567803",
     kategori_key: "family",
     lokasi: {
       id: "Canggu, Bali",
@@ -281,6 +290,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "studio-anggrek",
     nama: "Studio Anggrek",
+    nomor_whatsapp_pemilik: "6281234567804",
     kategori_key: "studio",
     lokasi: {
       id: "Sanur, Bali",
@@ -348,6 +358,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "villa-kamboja",
     nama: "Villa Kamboja",
+    nomor_whatsapp_pemilik: "6281234567805",
     kategori_key: "luxury",
     lokasi: {
       id: "Jimbaran, Bali",
@@ -428,6 +439,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "villa-flamboyan",
     nama: "Villa Flamboyan",
+    nomor_whatsapp_pemilik: "6281234567806",
     kategori_key: "family",
     lokasi: {
       id: "Tabanan, Bali",
@@ -504,6 +516,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "studio-kenanga",
     nama: "Studio Kenanga",
+    nomor_whatsapp_pemilik: "6281234567807",
     kategori_key: "studio",
     lokasi: {
       id: "Uluwatu, Bali",
@@ -575,6 +588,7 @@ export const villaDataRaw: (VillaRaw & { kategori_key: "luxury" | "family" | "st
   {
     id: "villa-dahlia",
     nama: "Villa Dahlia",
+    nomor_whatsapp_pemilik: "6281234567808",
     kategori_key: "luxury",
     lokasi: {
       id: "Nusa Dua, Bali",
@@ -674,6 +688,7 @@ export function getLocalizedVilla(
   return {
     id: villaRaw.id,
     nama: villaRaw.nama,
+    nomor_whatsapp_pemilik: villaRaw.nomor_whatsapp_pemilik,
     lokasi: villaRaw.lokasi[safeLocale] || villaRaw.lokasi.id,
     harga_per_malam: villaRaw.harga_per_malam,
     jumlah_kamar: villaRaw.jumlah_kamar,

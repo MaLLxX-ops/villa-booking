@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Search, Phone } from "lucide-react";
+import { Menu, X, Home, Search, Building2 } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Navbar() {
@@ -31,7 +31,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-7">
+          <div className="hidden md:flex items-center gap-6 lg:gap-7">
             <Link
               href="/"
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
@@ -49,6 +49,13 @@ export default function Navbar() {
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
             >
               {t("collection")}
+            </Link>
+            <Link
+              href="/untuk-pemilik"
+              className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm flex items-center gap-1.5"
+            >
+              <Building2 className="w-4 h-4 text-terracotta" />
+              {t("forOwners")}
             </Link>
 
             {/* Language Switcher */}
@@ -112,12 +119,12 @@ export default function Navbar() {
                 {t("search")}
               </Link>
               <Link
-                href="/#listing"
+                href="/untuk-pemilik"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-sand/60 text-charcoal font-semibold transition-colors"
               >
-                <Phone className="w-5 h-5 text-terracotta" />
-                {t("contact")}
+                <Building2 className="w-5 h-5 text-terracotta" />
+                {t("forOwners")}
               </Link>
               <div className="pt-2">
                 <Link

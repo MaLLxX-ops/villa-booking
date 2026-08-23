@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { Home, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
+import { Home, Mail, Phone, MapPin, Instagram, Facebook, Building2 } from "lucide-react";
+import { ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
 
 export default function Footer() {
   const t = useTranslations("Footer");
@@ -34,14 +35,20 @@ export default function Footer() {
               {[
                 { label: t("homeLink"), href: "/" },
                 { label: t("searchLink"), href: "/cari" },
-                { label: t("luxuryLink"), href: "/cari" },
-                { label: t("familyLink"), href: "/cari" },
+                { label: t("forOwnersLink"), href: "/untuk-pemilik", highlight: true },
+                { label: t("luxuryLink"), href: "/cari?cat=luxury" },
+                { label: t("familyLink"), href: "/cari?cat=family" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-cream/80 hover:text-gold-light transition-colors text-sm font-medium"
+                    className={`transition-colors text-sm font-medium flex items-center gap-1.5 ${
+                      item.highlight
+                        ? "text-gold-light hover:text-white font-bold"
+                        : "text-cream/80 hover:text-gold-light"
+                    }`}
                   >
+                    {item.highlight && <Building2 className="w-3.5 h-3.5" />}
                     {item.label}
                   </Link>
                 </li>
@@ -55,9 +62,16 @@ export default function Footer() {
               {t("contactTitle")}
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-cream/90 text-sm font-medium">
-                <Phone className="w-4 h-4 text-gold-light shrink-0" />
-                {t("phone")}
+              <li>
+                <a
+                  href={`https://wa.me/${ADMIN_WHATSAPP_NUMBER}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-cream/90 hover:text-gold-light text-sm font-medium transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-gold-light shrink-0" />
+                  {t("phone")}
+                </a>
               </li>
               <li className="flex items-center gap-3 text-cream/90 text-sm font-medium">
                 <Mail className="w-4 h-4 text-gold-light shrink-0" />

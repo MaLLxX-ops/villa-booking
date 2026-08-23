@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
@@ -13,7 +13,6 @@ interface VillaCardProps {
 }
 
 export default function VillaCard({ villa, index }: VillaCardProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const t = useTranslations("Listing");
 
   const categoryBadgeClasses: Record<string, string> = {
@@ -42,28 +41,21 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
       <Link href={`/villa/${villa.id}`} className="group block h-full">
         <div className="h-full bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-navy/10 transition-all duration-300 border border-sand hover:border-terracotta/35 flex flex-col justify-between">
           <div>
-            {/* Image Container */}
+            {/* Image Container with Next.js Image */}
             <div className="relative aspect-[4/3] overflow-hidden bg-sand">
-              {/* Shimmer Placeholder */}
-              <div
-                className={`absolute inset-0 shimmer-bg transition-opacity duration-500 ${
-                  imageLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
-                }`}
-              />
-
-              {/* Real Image */}
               {villa.galeri_foto[0] && (
-                <img
+                <Image
                   src={villa.galeri_foto[0]}
                   alt={villa.nama}
-                  onLoad={() => setImageLoaded(true)}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading={index < 4 ? "eager" : "lazy"}
                 />
               )}
 
               {/* Gradient Scrim for contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-black/20 z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-black/20 z-10 pointer-events-none" />
 
               {/* Category Badge */}
               <div className="absolute top-3.5 left-3.5 z-20">
@@ -104,15 +96,21 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
             <div className="flex items-center justify-between pt-4 border-t border-sand">
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <BedDouble className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>{villa.jumlah_kamar} {t("bedrooms")}</span>
+                <span>
+                  {villa.jumlah_kamar} {t("bedrooms")}
+                </span>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <Bath className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>{villa.jumlah_kamar_mandi} {t("bathrooms")}</span>
+                <span>
+                  {villa.jumlah_kamar_mandi} {t("bathrooms")}
+                </span>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <Users className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>{villa.kapasitas_tamu} {t("guests")}</span>
+                <span>
+                  {villa.kapasitas_tamu} {t("guests")}
+                </span>
               </div>
             </div>
           </div>
