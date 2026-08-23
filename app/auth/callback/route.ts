@@ -7,10 +7,30 @@ export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
+  const authError = requestUrl.searchParams.get("error");
+  const errorDescription = requestUrl.searchParams.get("error_description");
   const next = requestUrl.searchParams.get("next") || "/account";
 
+  // Handle direct OAuth error callback from provider/Supabase
+  if (authError) {
+    console.error("OAuth callback error:", authError, errorDescription);
+    const errorType =
+      authError === "identity_already_exists" ||
+      errorDescription?.toLowerCase().includes("already") ||
+      errorDescription?.toLowerCase().includes("linking")
+        ? "identity_conflict"
+        : "oauth_failed";
+
+    return NextResponse.redirect(
+      new URL(`/?auth=login&error=${errorType}`, requestUrl.origin)
+    );
+  }
+
   // Ensure redirect URL is absolute to the same origin
-  const redirectUrl = new URL(next.startsWith("/") ? next : `/${next}`, requestUrl.origin);
+  const redirectUrl = new URL(
+    next.startsWith("/") ? next : `/${next}`,
+    requestUrl.origin
+  );
   const response = NextResponse.redirect(redirectUrl);
 
   const supabaseUrl =
@@ -39,9 +59,20 @@ export async function GET(request: NextRequest) {
       const { error } = await supabase.auth.exchangeCodeForSession(code);
       if (error) {
         console.error("Supabase exchangeCodeForSession error:", error);
+        const errorType =
+          error.message?.toLowerCase().includes("already") ||
+          error.message?.toLowerCase().includes("linking")
+            ? "identity_conflict"
+            : "oauth_failed";
+        return NextResponse.redirect(
+          new URL(`/?auth=login&error=${errorType}`, requestUrl.origin)
+        );
       }
     } catch (err) {
       console.error("Auth callback exception:", err);
+      return NextResponse.redirect(
+        new URL("/?auth=login&error=oauth_failed", requestUrl.origin)
+      );
     }
   }
 

@@ -46,12 +46,28 @@ export default function AuthDrawer({
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Reset form when opening or changing mode
+  // Reset form when opening or changing mode and handle callback error
   useEffect(() => {
     if (isOpen) {
       setMode(initialMode);
-      setErrorMessage("");
       setSuccessMessage("");
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search);
+        const err = params.get("error");
+        if (err === "identity_conflict") {
+          setErrorMessage(
+            "Email ini sudah terdaftar dengan metode lain. Silakan login menggunakan Email & Password Anda."
+          );
+        } else if (err === "oauth_failed") {
+          setErrorMessage(
+            "Autentikasi Google gagal atau dibatalkan. Silakan coba lagi."
+          );
+        } else {
+          setErrorMessage("");
+        }
+      } else {
+        setErrorMessage("");
+      }
     }
   }, [isOpen, initialMode]);
 
