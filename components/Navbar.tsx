@@ -61,16 +61,14 @@ export default function Navbar() {
             {/* Language Switcher */}
             <LanguageSwitcher />
 
-            {/* Booking Button */}
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <Link
-                href="/cari"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md shadow-terracotta/25 hover:shadow-lg hover:shadow-terracotta/35 transition-all"
-              >
-                <Search className="w-4 h-4" />
-                {t("bookingBtn")}
-              </Link>
-            </motion.div>
+            {/* Global Booking CTA -> navigates to /cari to browse and select a villa */}
+            <Link
+              href="/cari"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md shadow-terracotta/25 hover:shadow-lg hover:shadow-terracotta/35 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              <Search className="w-4 h-4" />
+              {t("bookingBtn")}
+            </Link>
           </div>
 
           {/* Mobile Right Bar: Language Switcher + Toggle */}
@@ -130,7 +128,7 @@ export default function Navbar() {
                 <Link
                   href="/cari"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark text-white px-5 py-3 rounded-full font-bold shadow-md w-full"
+                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-5 py-3 rounded-full font-bold shadow-md w-full transition-all active:scale-98 cursor-pointer"
                 >
                   <Search className="w-4 h-4" />
                   {t("bookingNowBtn")}

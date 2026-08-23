@@ -1,11 +1,14 @@
 "use client";
 
+import { useRef, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, AlertCircle } from "lucide-react";
 import {
   getTodayString,
   getTomorrowString,
+  isDateBeforeToday,
+  isCheckOutValid,
 } from "@/lib/date-utils";
 
 interface DateRangeInputsProps {
@@ -27,22 +30,44 @@ export default function DateRangeInputs({
   checkInError,
   checkOutError,
   layout = "grid",
-  variant = "hero",
 }: DateRangeInputsProps) {
   const tValidation = useTranslations("Validation");
-  const todayStr = getTodayString();
-  const minCheckOutStr = checkIn ? getTomorrowString(checkIn) : getTomorrowString();
+
+  const [todayStr, setTodayStr] = useState(getTodayString());
+  const checkInRef = useRef<HTMLInputElement>(null);
+  const checkOutRef = useRef<HTMLInputElement>(null);
+
+  // Sync today's date on mount to prevent any SSR/client timezone mismatch
+  useEffect(() => {
+    setTodayStr(getTodayString());
+  }, []);
+
+  const minCheckOutStr = checkIn
+    ? getTomorrowString(checkIn)
+    : getTomorrowString(todayStr);
 
   const handleCheckInChange = (newVal: string) => {
+    // If entered date is in the past, reject and do not allow
+    if (newVal && isDateBeforeToday(newVal)) {
+      onCheckInChange("");
+      return;
+    }
+
     onCheckInChange(newVal);
 
-    // If new check-in makes current check-out invalid, reset check-out
+    // If new check-in makes current check-out invalid (checkout <= checkin), reset check-out
     if (checkOut && newVal && checkOut <= newVal) {
       onCheckOutChange("");
     }
   };
 
   const handleCheckOutChange = (newVal: string) => {
+    // If entered date is in the past or before/same as check-in, reject
+    if (newVal && (isDateBeforeToday(newVal) || (checkIn && newVal <= checkIn))) {
+      onCheckOutChange("");
+      return;
+    }
+
     onCheckOutChange(newVal);
   };
 
@@ -60,17 +85,24 @@ export default function DateRangeInputs({
       <div className="relative">
         <label className="text-xs font-bold text-charcoal block mb-1.5 flex items-center justify-between">
           <span>{tValidation("checkInLabel")}</span>
-          {checkIn && (
+          {checkIn && !isDateBeforeToday(checkIn) && (
             <span className="text-[11px] text-sage-dark font-bold">
               ✓ {tValidation("validSelection")}
             </span>
           )}
         </label>
         <div
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl border bg-cream transition-all ${
+          onClick={() => {
+            try {
+              checkInRef.current?.showPicker?.();
+            } catch {
+              checkInRef.current?.focus();
+            }
+          }}
+          className={`flex items-center gap-2 px-4 py-3 rounded-xl border bg-cream transition-all cursor-pointer ${
             checkInError
               ? "border-red-500 ring-2 ring-red-500/20 bg-red-50/30"
-              : "border-sand focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15"
+              : "border-sand hover:border-terracotta/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15"
           }`}
         >
           <CalendarDays
@@ -79,6 +111,7 @@ export default function DateRangeInputs({
             }`}
           />
           <input
+            ref={checkInRef}
             type="date"
             min={todayStr}
             value={checkIn}
@@ -108,17 +141,24 @@ export default function DateRangeInputs({
       <div className="relative">
         <label className="text-xs font-bold text-charcoal block mb-1.5 flex items-center justify-between">
           <span>{tValidation("checkOutLabel")}</span>
-          {checkOut && (
+          {checkOut && isCheckOutValid(checkIn || todayStr, checkOut) && (
             <span className="text-[11px] text-sage-dark font-bold">
               ✓ {tValidation("validSelection")}
             </span>
           )}
         </label>
         <div
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl border bg-cream transition-all ${
+          onClick={() => {
+            try {
+              checkOutRef.current?.showPicker?.();
+            } catch {
+              checkOutRef.current?.focus();
+            }
+          }}
+          className={`flex items-center gap-2 px-4 py-3 rounded-xl border bg-cream transition-all cursor-pointer ${
             checkOutError
               ? "border-red-500 ring-2 ring-red-500/20 bg-red-50/30"
-              : "border-sand focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15"
+              : "border-sand hover:border-terracotta/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15"
           }`}
         >
           <CalendarDays
@@ -127,6 +167,7 @@ export default function DateRangeInputs({
             }`}
           />
           <input
+            ref={checkOutRef}
             type="date"
             min={minCheckOutStr}
             value={checkOut}
