@@ -4,9 +4,20 @@ import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, SlidersHorizontal, RotateCcw } from "lucide-react";
+import {
+  Search,
+  SlidersHorizontal,
+  RotateCcw,
+  Calendar,
+  X,
+} from "lucide-react";
 import { Villa } from "@/lib/data";
 import VillaCard from "@/components/VillaCard";
+import DateRangeInputs from "@/components/DateRangeInputs";
+import {
+  calculateNights,
+  isCheckOutValid,
+} from "@/lib/date-utils";
 
 interface SearchPageClientProps {
   villas: Villa[];
@@ -15,21 +26,44 @@ interface SearchPageClientProps {
 function SearchPageContent({ villas }: SearchPageClientProps) {
   const searchParams = useSearchParams();
   const t = useTranslations("Search");
+  const tValidation = useTranslations("Validation");
+
   const initialQuery = searchParams.get("q") || "";
   const initialCategoryKey = searchParams.get("cat") || "";
+  const initialCheckIn = searchParams.get("checkIn") || "";
+  const initialCheckOut = searchParams.get("checkOut") || "";
 
   const [searchTerm, setSearchTerm] = useState(initialQuery);
   const [selectedCategoryKey, setSelectedCategoryKey] = useState(initialCategoryKey);
   const [selectedSort, setSelectedSort] = useState("");
 
-  const categories = [
-    { key: "", label: t("allCategories") },
-    { key: "luxury", label: "Villa Mewah / Luxury" },
-    { key: "family", label: "Villa Keluarga / Family" },
-    { key: "studio", label: "Studio Minimalis / Studio" },
-  ];
+  // Date Filter State
+  const [checkIn, setCheckIn] = useState(initialCheckIn);
+  const [checkOut, setCheckOut] = useState(initialCheckOut);
+  const [checkInError, setCheckInError] = useState("");
+  const [checkOutError, setCheckOutError] = useState("");
+  const [showDateFilter, setShowDateFilter] = useState(
+    Boolean(initialCheckIn || initialCheckOut)
+  );
 
-  // Derive dynamic labels from current localized villas
+  const nights = calculateNights(checkIn, checkOut);
+  const hasValidDates = nights > 0;
+
+  const handleCheckInChange = (val: string) => {
+    setCheckIn(val);
+    if (checkInError) setCheckInError("");
+    if (checkOut && !isCheckOutValid(val, checkOut)) {
+      setCheckOut("");
+      setCheckOutError("");
+    }
+  };
+
+  const handleCheckOutChange = (val: string) => {
+    setCheckOut(val);
+    if (checkOutError) setCheckOutError("");
+  };
+
+  // Derive dynamic category labels
   const localizedCategoryMap = useMemo(() => {
     const map: Record<string, string> = {};
     villas.forEach((v) => {
@@ -75,10 +109,14 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
     setSearchTerm("");
     setSelectedCategoryKey("");
     setSelectedSort("");
+    setCheckIn("");
+    setCheckOut("");
+    setCheckInError("");
+    setCheckOutError("");
   };
 
   const hasActiveFilters = Boolean(
-    searchTerm || selectedCategoryKey || selectedSort
+    searchTerm || selectedCategoryKey || selectedSort || checkIn || checkOut
   );
 
   return (
@@ -97,7 +135,10 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           <p
             className="mt-2 text-stone font-semibold text-base sm:text-lg"
             dangerouslySetInnerHTML={{
-              __html: t.raw("resultsFound").replace("{count}", filteredVillas.length.toString()),
+              __html: t.raw("resultsFound").replace(
+                "{count}",
+                filteredVillas.length.toString()
+              ),
             }}
           />
         </motion.div>
@@ -107,8 +148,9 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="bg-white rounded-2xl p-5 mb-8 border border-sand shadow-md"
+          className="bg-white rounded-2xl p-5 mb-8 border border-sand shadow-md space-y-4"
         >
+          {/* Main Controls Row */}
           <div className="flex flex-col md:flex-row gap-3.5">
             {/* Search Input */}
             <div className="flex-1 relative">
@@ -129,9 +171,15 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
               className="px-4 py-3.5 rounded-xl border border-sand bg-cream text-sm font-bold text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all cursor-pointer"
             >
               <option value="">{t("allCategories")}</option>
-              <option value="luxury">{localizedCategoryMap["luxury"] || "Luxury"}</option>
-              <option value="family">{localizedCategoryMap["family"] || "Family"}</option>
-              <option value="studio">{localizedCategoryMap["studio"] || "Studio"}</option>
+              <option value="luxury">
+                {localizedCategoryMap["luxury"] || "Luxury"}
+              </option>
+              <option value="family">
+                {localizedCategoryMap["family"] || "Family"}
+              </option>
+              <option value="studio">
+                {localizedCategoryMap["studio"] || "Studio"}
+              </option>
             </select>
 
             {/* Sort */}
@@ -147,7 +195,22 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
               <option value="kamar">{t("sortBedrooms")}</option>
             </select>
 
-            {/* Reset Button (Visible when filters are active) */}
+            {/* Date Filter Toggle Button */}
+            <button
+              onClick={() => setShowDateFilter(!showDateFilter)}
+              className={`inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-sm font-bold transition-all cursor-pointer shrink-0 ${
+                hasValidDates || showDateFilter
+                  ? "bg-navy text-white shadow-xs"
+                  : "bg-cream text-charcoal hover:bg-sand/60 border border-sand"
+              }`}
+            >
+              <Calendar className="w-4 h-4 text-terracotta" />
+              <span>
+                {hasValidDates ? `${nights} Malam Terpilih` : "Tanggal Menginap"}
+              </span>
+            </button>
+
+            {/* Reset Button */}
             {hasActiveFilters && (
               <motion.button
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -161,8 +224,50 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
             )}
           </div>
 
+          {/* Collapsible Date Range Filter Section */}
+          <AnimatePresence>
+            {showDateFilter && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="overflow-hidden pt-3 border-t border-sand"
+              >
+                <div className="bg-cream/50 p-4 rounded-xl border border-sand">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-black text-navy uppercase tracking-wider flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-terracotta" />
+                      {t("stayDatesTitle")}
+                    </span>
+                    {(checkIn || checkOut) && (
+                      <button
+                        onClick={() => {
+                          setCheckIn("");
+                          setCheckOut("");
+                        }}
+                        className="text-xs font-bold text-terracotta hover:underline flex items-center gap-1 cursor-pointer"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        {t("clearDates")}
+                      </button>
+                    )}
+                  </div>
+                  <DateRangeInputs
+                    checkIn={checkIn}
+                    checkOut={checkOut}
+                    onCheckInChange={handleCheckInChange}
+                    onCheckOutChange={handleCheckOutChange}
+                    checkInError={checkInError}
+                    checkOutError={checkOutError}
+                    layout="grid"
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Quick Category Chips */}
-          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-sand/60">
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-sand/60">
             <span className="text-xs font-bold text-stone py-1 mr-1 flex items-center">
               {t("quickCategoryLabel")}
             </span>

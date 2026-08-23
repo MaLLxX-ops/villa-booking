@@ -21,9 +21,15 @@
     "subtitle": "Handpicked luxury villas for an unforgettable island escape. From cliffside sanctuaries to minimalist studios in Bali's most coveted destinations.",
     "locationLabel": "Location",
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
+    "searchBtn": "Search Villas"
+  },
+  "Validation": {
     "checkInLabel": "Check-in",
     "checkOutLabel": "Check-out",
-    "searchBtn": "Search Villas"
+    "validSelection": "Selected",
+    "errorCheckInRequired": "Check-in date is required",
+    "errorCheckOutRequired": "Check-out date is required",
+    "errorInvalidCheckOut": "Check-out must be after check-in date"
   },
   "Stats": {
     "villaValue": "150+",
@@ -68,12 +74,17 @@
     "checkOut": "Check-out",
     "guestsCount": "Number of Guests",
     "guestUnit": "Guests",
-    "priceTimesNight": "{price} × 1 night",
-    "serviceFee": "Service fee",
+    "durationLabel": "Stay Duration",
+    "selectDatesPrompt": "Select dates to calculate stay duration and total price",
+    "priceCalculation": "{price} × {nights} nights",
+    "serviceFee": "Service fee (10%)",
     "totalEstimate": "Estimated Total",
     "bookingButton": "Book This Villa",
     "securePayment": "Secure payment & instant confirmation",
-    "photoCount": "{current} / {total}"
+    "photoCount": "{current} / {total}",
+    "bookingSuccessTitle": "Booking Request Confirmed!",
+    "bookingSuccessDesc": "Thank you! Your reservation request for {villaName} for {nights} nights ({checkIn} to {checkOut}) for {guests} guests has been processed.",
+    "closeModal": "Close & Done"
   },
   "Search": {
     "title": "Find Your Perfect Villa",
@@ -90,7 +101,9 @@
     "emptyTitle": "No Matching Villas Found",
     "emptyDesc": "We couldn't find any properties matching your current filters. Try relaxing your search criteria or keywords.",
     "resetAllBtn": "Reset All Filters",
-    "loading": "Loading villas..."
+    "loading": "Loading villas...",
+    "stayDatesTitle": "Stay Dates Filter",
+    "clearDates": "Clear Dates"
   },
   "Footer": {
     "brandDesc": "Premier luxury villa booking platform in Bali. Experience extraordinary stays across the world's most enchanting tropical paradise.",

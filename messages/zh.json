@@ -21,9 +21,15 @@
     "subtitle": "精挑细选的顶级度假庄园，为您打造难忘的海岛度假时光。从悬崖奢华秘境到核心地段的极简美学空间。",
     "locationLabel": "目的地",
     "locationPlaceholder": "乌布, 水明漾, 仓古...",
+    "searchBtn": "搜索别墅"
+  },
+  "Validation": {
     "checkInLabel": "入住日期",
     "checkOutLabel": "退房日期",
-    "searchBtn": "搜索别墅"
+    "validSelection": "已选择",
+    "errorCheckInRequired": "请先选择入住日期",
+    "errorCheckOutRequired": "请选择退房日期",
+    "errorInvalidCheckOut": "退房日期必须晚于入住日期"
   },
   "Stats": {
     "villaValue": "150+",
@@ -68,12 +74,17 @@
     "checkOut": "退房日期",
     "guestsCount": "入住人数",
     "guestUnit": "位住客",
-    "priceTimesNight": "{price} × 1 晚",
-    "serviceFee": "平台服务费",
+    "durationLabel": "入住晚数",
+    "selectDatesPrompt": "请选择入离日期以计算确切入住晚数与总价",
+    "priceCalculation": "{price} × {nights} 晚",
+    "serviceFee": "平台服务费 (10%)",
     "totalEstimate": "预估总费用",
     "bookingButton": "立即预订此房源",
     "securePayment": "加密安全支付 · 即时订单确认",
-    "photoCount": "{current} / {total}"
+    "photoCount": "{current} / {total}",
+    "bookingSuccessTitle": "预订申请已成功提交！",
+    "bookingSuccessDesc": "感谢您的预订！您为 {villaName} 提交的 {nights} 晚预订（{checkIn} 至 {checkOut}，共 {guests} 位住客）已成功受理。",
+    "closeModal": "关闭并完成"
   },
   "Search": {
     "title": "寻找理想度假别墅",
@@ -90,7 +101,9 @@
     "emptyTitle": "未找到匹配的房源",
     "emptyDesc": "抱歉，暂无完全符合您当前筛选条件的别墅。建议放宽筛选要求或尝试搜索其他关键词。",
     "resetAllBtn": "重置所有筛选",
-    "loading": "正在加载别墅数据..."
+    "loading": "正在加载别墅数据...",
+    "stayDatesTitle": "按入住日期筛选",
+    "clearDates": "清空日期"
   },
   "Footer": {
     "brandDesc": "巴厘岛首屈一指的奢华别墅在线预订平台。为您在世界顶级热带度假胜地呈现无与伦比的入住体验。",

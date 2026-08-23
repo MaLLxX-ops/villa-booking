@@ -21,9 +21,15 @@
     "subtitle": "Koleksi villa premium pilihan untuk pengalaman liburan tak terlupakan. Dari retreat mewah hingga studio minimalis di lokasi terbaik Bali.",
     "locationLabel": "Lokasi",
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
+    "searchBtn": "Cari Villa"
+  },
+  "Validation": {
     "checkInLabel": "Check-in",
     "checkOutLabel": "Check-out",
-    "searchBtn": "Cari Villa"
+    "validSelection": "Sesuai",
+    "errorCheckInRequired": "Tanggal check-in wajib diisi",
+    "errorCheckOutRequired": "Tanggal check-out wajib diisi",
+    "errorInvalidCheckOut": "Tanggal check-out harus setelah check-in"
   },
   "Stats": {
     "villaValue": "150+",
@@ -68,12 +74,17 @@
     "checkOut": "Check-out",
     "guestsCount": "Jumlah Tamu",
     "guestUnit": "Tamu",
-    "priceTimesNight": "{price} × 1 malam",
-    "serviceFee": "Biaya layanan",
+    "durationLabel": "Durasi Menginap",
+    "selectDatesPrompt": "Pilih tanggal untuk melihat total durasi & harga",
+    "priceCalculation": "{price} × {nights} malam",
+    "serviceFee": "Biaya layanan (10%)",
     "totalEstimate": "Total Estimasi",
     "bookingButton": "Booking Sekarang",
     "securePayment": "Pembayaran aman & konfirmasi instan",
-    "photoCount": "{current} / {total}"
+    "photoCount": "{current} / {total}",
+    "bookingSuccessTitle": "Pemesanan Berhasil Diproses!",
+    "bookingSuccessDesc": "Permintaan reservasi Anda untuk {villaName} selama {nights} malam ({checkIn} s/d {checkOut}) untuk {guests} tamu berhasil dibuat.",
+    "closeModal": "Tutup & Selesai"
   },
   "Search": {
     "title": "Cari Villa Impian",
@@ -90,7 +101,9 @@
     "emptyTitle": "Tidak Ada Villa yang Cocok",
     "emptyDesc": "Tidak ada properti yang memenuhi filter pencarian Anda. Coba kurangi filter atau cari kata kunci lain.",
     "resetAllBtn": "Reset Semua Filter",
-    "loading": "Memuat villa..."
+    "loading": "Memuat villa...",
+    "stayDatesTitle": "Rentang Tanggal Menginap",
+    "clearDates": "Hapus Tanggal"
   },
   "Footer": {
     "brandDesc": "Platform booking villa premium di Bali. Temukan pengalaman menginap terbaik di destinasi tropis paling memukau di dunia.",

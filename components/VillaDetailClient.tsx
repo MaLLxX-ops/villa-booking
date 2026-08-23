@@ -26,8 +26,18 @@ import {
   Sparkles,
   Star,
   ShieldCheck,
+  Calendar,
+  CheckCircle2,
+  X,
 } from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
+import DateRangeInputs from "@/components/DateRangeInputs";
+import {
+  calculateNights,
+  isCheckOutValid,
+  getTodayString,
+  getTomorrowString,
+} from "@/lib/date-utils";
 
 interface VillaDetailClientProps {
   villa: Villa;
@@ -83,6 +93,67 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [activeImage, setActiveImage] = useState(0);
   const [direction, setDirection] = useState(0);
   const t = useTranslations("Detail");
+  const tValidation = useTranslations("Validation");
+
+  // Booking Form State
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [guestCount, setGuestCount] = useState(2);
+
+  const [checkInError, setCheckInError] = useState("");
+  const [checkOutError, setCheckOutError] = useState("");
+  const [isBookingSuccess, setIsBookingSuccess] = useState(false);
+
+  // Night and Price Calculation
+  const nights = calculateNights(checkIn, checkOut);
+  const hasValidDates = nights > 0;
+  const activeNights = hasValidDates ? nights : 1;
+
+  const basePrice = villa.harga_per_malam * activeNights;
+  const serviceFee = Math.round(basePrice * 0.1);
+  const totalPrice = basePrice + serviceFee;
+
+  const handleCheckInChange = (val: string) => {
+    setCheckIn(val);
+    if (checkInError) setCheckInError("");
+    if (checkOut && !isCheckOutValid(val, checkOut)) {
+      setCheckOut("");
+      setCheckOutError("");
+    }
+  };
+
+  const handleCheckOutChange = (val: string) => {
+    setCheckOut(val);
+    if (checkOutError) setCheckOutError("");
+  };
+
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let hasError = false;
+
+    if (!checkIn) {
+      setCheckInError(tValidation("errorCheckInRequired"));
+      hasError = true;
+    } else {
+      setCheckInError("");
+    }
+
+    if (!checkOut) {
+      setCheckOutError(tValidation("errorCheckOutRequired"));
+      hasError = true;
+    } else if (checkIn && !isCheckOutValid(checkIn, checkOut)) {
+      setCheckOutError(tValidation("errorInvalidCheckOut"));
+      hasError = true;
+    } else {
+      setCheckOutError("");
+    }
+
+    if (hasError) return;
+
+    // Show booking success modal
+    setIsBookingSuccess(true);
+  };
 
   const nextImage = () => {
     setDirection(1);
@@ -339,31 +410,31 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 </span>
               </div>
 
-              {/* Date Inputs */}
-              <div className="space-y-4 mb-6">
-                <div>
-                  <label className="text-xs font-bold text-charcoal block mb-1.5">
-                    {t("checkIn")}
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-3 rounded-xl border border-sand text-sm font-medium bg-cream text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all"
+              {/* Form with Real-time Calculations */}
+              <form onSubmit={handleBookingSubmit} noValidate>
+                {/* Date Inputs with Validation */}
+                <div className="mb-4">
+                  <DateRangeInputs
+                    checkIn={checkIn}
+                    checkOut={checkOut}
+                    onCheckInChange={handleCheckInChange}
+                    onCheckOutChange={handleCheckOutChange}
+                    checkInError={checkInError}
+                    checkOutError={checkOutError}
+                    layout="stack"
                   />
                 </div>
-                <div>
-                  <label className="text-xs font-bold text-charcoal block mb-1.5">
-                    {t("checkOut")}
-                  </label>
-                  <input
-                    type="date"
-                    className="w-full px-4 py-3 rounded-xl border border-sand text-sm font-medium bg-cream text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all"
-                  />
-                </div>
-                <div>
+
+                {/* Guest Count Selection */}
+                <div className="mb-6">
                   <label className="text-xs font-bold text-charcoal block mb-1.5">
                     {t("guestsCount")}
                   </label>
-                  <select className="w-full px-4 py-3 rounded-xl border border-sand text-sm font-bold bg-cream text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all">
+                  <select
+                    value={guestCount}
+                    onChange={(e) => setGuestCount(Number(e.target.value))}
+                    className="w-full px-4 py-3 rounded-xl border border-sand text-sm font-bold bg-cream text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all cursor-pointer"
+                  >
                     {Array.from(
                       { length: villa.kapasitas_tamu },
                       (_, i) => i + 1
@@ -374,48 +445,67 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                     ))}
                   </select>
                 </div>
-              </div>
 
-              {/* Price Breakdown Calculation */}
-              <div className="border-t border-sand pt-4 mb-6 space-y-2.5">
-                <div className="flex justify-between text-sm">
-                  <span className="text-stone font-medium">
-                    {t("priceTimesNight", {
-                      price: formatHarga(villa.harga_per_malam),
-                    })}
-                  </span>
-                  <span className="text-charcoal font-bold">
-                    {formatHarga(villa.harga_per_malam)}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-stone font-medium">
-                    {t("serviceFee")}
-                  </span>
-                  <span className="text-charcoal font-bold">
-                    {formatHarga(Math.round(villa.harga_per_malam * 0.1))}
-                  </span>
-                </div>
-                <div className="flex justify-between text-base font-black pt-3 border-t border-sand">
-                  <span className="text-navy">{t("totalEstimate")}</span>
-                  <span className="text-terracotta-dark text-lg">
-                    {formatHarga(
-                      villa.harga_per_malam +
-                        Math.round(villa.harga_per_malam * 0.1)
-                    )}
-                  </span>
-                </div>
-              </div>
+                {/* Stay Duration & Dynamic Calculation Breakdown */}
+                <div className="border-t border-sand pt-4 mb-6 space-y-3">
+                  {/* Duration Badge */}
+                  <div className="flex items-center justify-between text-xs font-bold py-1 px-3 rounded-lg bg-sand/40 text-stone">
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-terracotta" />
+                      {t("durationLabel")}:
+                    </span>
+                    <span
+                      className={`font-black ${
+                        hasValidDates ? "text-terracotta-dark" : "text-stone"
+                      }`}
+                    >
+                      {hasValidDates
+                        ? `${nights} malam`
+                        : t("selectDatesPrompt")}
+                    </span>
+                  </div>
 
-              {/* Booking CTA Button */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-terracotta to-terracotta-dark text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-terracotta/25 hover:shadow-xl hover:shadow-terracotta/35 transition-all cursor-pointer flex items-center justify-center gap-2"
-              >
-                <Sparkles className="w-5 h-5 text-gold-light" />
-                {t("bookingButton")}
-              </motion.button>
+                  {/* Calculation Line */}
+                  <div className="flex justify-between text-sm">
+                    <span className="text-stone font-medium">
+                      {formatHarga(villa.harga_per_malam)} × {activeNights}{" "}
+                      malam
+                    </span>
+                    <span className="text-charcoal font-bold">
+                      {formatHarga(basePrice)}
+                    </span>
+                  </div>
+
+                  {/* Service Fee */}
+                  <div className="flex justify-between text-sm">
+                    <span className="text-stone font-medium">
+                      {t("serviceFee")}
+                    </span>
+                    <span className="text-charcoal font-bold">
+                      {formatHarga(serviceFee)}
+                    </span>
+                  </div>
+
+                  {/* Total Amount */}
+                  <div className="flex justify-between text-base font-black pt-3 border-t border-sand">
+                    <span className="text-navy">{t("totalEstimate")}</span>
+                    <span className="text-terracotta-dark text-xl">
+                      {formatHarga(totalPrice)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Booking CTA Button */}
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-gradient-to-r from-terracotta to-terracotta-dark text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-terracotta/25 hover:shadow-xl hover:shadow-terracotta/35 transition-all cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <Sparkles className="w-5 h-5 text-gold-light" />
+                  {t("bookingButton")}
+                </motion.button>
+              </form>
 
               {/* Trust Badge */}
               <div className="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-stone">
@@ -426,6 +516,78 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
           </motion.div>
         </div>
       </div>
+
+      {/* Booking Confirmation Modal Dialog */}
+      <AnimatePresence>
+        {isBookingSuccess && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/60 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-sand shadow-2xl relative overflow-hidden"
+            >
+              <button
+                onClick={() => setIsBookingSuccess(false)}
+                className="absolute top-4 right-4 p-2 rounded-xl text-stone hover:bg-sand/60 transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-2xl bg-sage/20 text-sage-dark flex items-center justify-center mx-auto mb-4 shadow-xs">
+                  <CheckCircle2 className="w-10 h-10" />
+                </div>
+                <h3 className="text-2xl font-black text-navy mb-2">
+                  {t("bookingSuccessTitle")}
+                </h3>
+                <p className="text-stone text-sm leading-relaxed mb-6 font-medium">
+                  {t("bookingSuccessDesc", {
+                    villaName: villa.nama,
+                    nights: activeNights,
+                    checkIn: checkIn,
+                    checkOut: checkOut,
+                    guests: guestCount,
+                  })}
+                </p>
+
+                <div className="bg-cream rounded-2xl p-4 mb-6 border border-sand text-left space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-stone">Villa</span>
+                    <span className="font-bold text-navy">{villa.nama}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone">Durasi</span>
+                    <span className="font-bold text-navy">
+                      {activeNights} Malam ({checkIn} → {checkOut})
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-stone">Tamu</span>
+                    <span className="font-bold text-navy">
+                      {guestCount} Tamu
+                    </span>
+                  </div>
+                  <div className="flex justify-between pt-2 border-t border-sand font-black text-base">
+                    <span className="text-navy">Total Biaya</span>
+                    <span className="text-terracotta-dark">
+                      {formatHarga(totalPrice)}
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setIsBookingSuccess(false)}
+                  className="w-full bg-gradient-to-r from-terracotta to-terracotta-dark text-white py-3.5 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+                >
+                  {t("closeModal")}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

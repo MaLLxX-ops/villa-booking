@@ -21,9 +21,15 @@
     "subtitle": "Une sélection exclusive de villas de luxe pour des vacances inoubliables. Des sanctuaires perchés sur les falaises aux studios épurés au cœur de Bali.",
     "locationLabel": "Destination",
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
+    "searchBtn": "Rechercher une Villa"
+  },
+  "Validation": {
     "checkInLabel": "Arrivée",
     "checkOutLabel": "Départ",
-    "searchBtn": "Rechercher une Villa"
+    "validSelection": "Sélectionné",
+    "errorCheckInRequired": "La date d'arrivée est requise",
+    "errorCheckOutRequired": "La date de départ est requise",
+    "errorInvalidCheckOut": "La date de départ doit être postérieure à l'arrivée"
   },
   "Stats": {
     "villaValue": "150+",
@@ -68,12 +74,17 @@
     "checkOut": "Départ",
     "guestsCount": "Nombre d'Invités",
     "guestUnit": "Invités",
-    "priceTimesNight": "{price} × 1 nuit",
-    "serviceFee": "Frais de service",
+    "durationLabel": "Durée du Séjour",
+    "selectDatesPrompt": "Sélectionnez vos dates pour calculer la durée et le prix total",
+    "priceCalculation": "{price} × {nights} nuits",
+    "serviceFee": "Frais de service (10%)",
     "totalEstimate": "Total Estimé",
     "bookingButton": "Réserver ce Séjour",
     "securePayment": "Paiement sécurisé & confirmation immédiate",
-    "photoCount": "{current} / {total}"
+    "photoCount": "{current} / {total}",
+    "bookingSuccessTitle": "Demande de Réservation Confirmée !",
+    "bookingSuccessDesc": "Merci ! Votre demande de séjour pour {villaName} d'une durée de {nights} nuits (du {checkIn} au {checkOut}) pour {guests} personnes a été enregistrée.",
+    "closeModal": "Fermer"
   },
   "Search": {
     "title": "Trouvez Votre Villa Idéale",
@@ -90,7 +101,9 @@
     "emptyTitle": "Aucune Villa Trouvée",
     "emptyDesc": "Aucun hébergement ne correspond à vos critères actuels. Essayez d'élargir votre recherche.",
     "resetAllBtn": "Réinitialiser les Filtres",
-    "loading": "Chargement des villas..."
+    "loading": "Chargement des villas...",
+    "stayDatesTitle": "Dates de Séjour",
+    "clearDates": "Effacer les Dates"
   },
   "Footer": {
     "brandDesc": "Plateforme de réservation de villas de prestige à Bali. Vivez une expérience inoubliable au cœur du paradis tropical balinais.",
