@@ -77,16 +77,16 @@ export default function DateRangeInputs({
     <div
       className={
         isStack
-          ? "space-y-4"
+          ? "space-y-3 sm:space-y-4"
           : "grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4"
       }
     >
       {/* Check-In Input */}
-      <div className="relative">
+      <div className="relative min-w-0">
         <label className="text-xs font-bold text-charcoal block mb-1.5 flex items-center justify-between">
-          <span>{tValidation("checkInLabel")}</span>
+          <span className="truncate">{tValidation("checkInLabel")}</span>
           {checkIn && !isDateBeforeToday(checkIn) && (
-            <span className="text-[11px] text-sage-dark font-bold">
+            <span className="text-[10px] sm:text-[11px] text-sage-dark font-bold shrink-0 ml-1">
               ✓ {tValidation("validSelection")}
             </span>
           )}
@@ -99,7 +99,7 @@ export default function DateRangeInputs({
               checkInRef.current?.focus();
             }
           }}
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl border bg-cream transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl border bg-cream transition-all cursor-pointer min-w-0 max-w-full overflow-hidden ${
             checkInError
               ? "border-red-500 ring-2 ring-red-500/20 bg-red-50/30"
               : "border-sand hover:border-terracotta/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15"
@@ -116,7 +116,7 @@ export default function DateRangeInputs({
             min={todayStr}
             value={checkIn}
             onChange={(e) => handleCheckInChange(e.target.value)}
-            className="w-full bg-transparent text-sm text-charcoal font-semibold outline-none cursor-pointer"
+            className="w-full min-w-0 max-w-full bg-transparent text-xs sm:text-sm text-charcoal font-semibold outline-none cursor-pointer [color-scheme:light]"
             aria-invalid={Boolean(checkInError)}
           />
         </div>
@@ -131,18 +131,18 @@ export default function DateRangeInputs({
               className="flex items-center gap-1 mt-1.5 text-xs font-bold text-red-600"
             >
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-              <span>{checkInError}</span>
+              <span className="break-words">{checkInError}</span>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
       {/* Check-Out Input */}
-      <div className="relative">
+      <div className="relative min-w-0">
         <label className="text-xs font-bold text-charcoal block mb-1.5 flex items-center justify-between">
-          <span>{tValidation("checkOutLabel")}</span>
+          <span className="truncate">{tValidation("checkOutLabel")}</span>
           {checkOut && isCheckOutValid(checkIn || todayStr, checkOut) && (
-            <span className="text-[11px] text-sage-dark font-bold">
+            <span className="text-[10px] sm:text-[11px] text-sage-dark font-bold shrink-0 ml-1">
               ✓ {tValidation("validSelection")}
             </span>
           )}
@@ -155,7 +155,7 @@ export default function DateRangeInputs({
               checkOutRef.current?.focus();
             }
           }}
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl border bg-cream transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl border bg-cream transition-all cursor-pointer min-w-0 max-w-full overflow-hidden ${
             checkOutError
               ? "border-red-500 ring-2 ring-red-500/20 bg-red-50/30"
               : "border-sand hover:border-terracotta/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15"
@@ -172,7 +172,7 @@ export default function DateRangeInputs({
             min={minCheckOutStr}
             value={checkOut}
             onChange={(e) => handleCheckOutChange(e.target.value)}
-            className="w-full bg-transparent text-sm text-charcoal font-semibold outline-none cursor-pointer"
+            className="w-full min-w-0 max-w-full bg-transparent text-xs sm:text-sm text-charcoal font-semibold outline-none cursor-pointer [color-scheme:light]"
             aria-invalid={Boolean(checkOutError)}
           />
         </div>
@@ -187,7 +187,7 @@ export default function DateRangeInputs({
               className="flex items-center gap-1 mt-1.5 text-xs font-bold text-red-600"
             >
               <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-              <span>{checkOutError}</span>
+              <span className="break-words">{checkOutError}</span>
             </motion.div>
           )}
         </AnimatePresence>

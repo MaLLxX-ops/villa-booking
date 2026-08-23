@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Home, Search, Building2 } from "lucide-react";
+import { Menu, X, Home, Search, Building2, Globe, Coins } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CurrencySelector from "@/components/CurrencySelector";
 
@@ -14,25 +14,25 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-sand shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0">
             <motion.div
               whileHover={{ rotate: 5, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-terracotta to-terracotta-dark flex items-center justify-center shadow-md shadow-terracotta/25"
+              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-terracotta to-terracotta-dark flex items-center justify-center shadow-md shadow-terracotta/25 shrink-0"
             >
-              <Home className="w-5 h-5 text-white" />
+              <Home className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </motion.div>
-            <span className="text-xl sm:text-2xl font-black tracking-tight">
+            <span className="text-lg sm:text-2xl font-black tracking-tight">
               <span className="text-navy">Stay</span>
               <span className="text-terracotta">Villa</span>
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-5 lg:gap-6">
+          {/* Desktop Nav (>= md) */}
+          <div className="hidden md:flex items-center gap-4 lg:gap-6">
             <Link
               href="/"
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
@@ -68,33 +68,33 @@ export default function Navbar() {
             {/* Global Booking CTA -> navigates to /cari to browse and select a villa */}
             <Link
               href="/cari"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md shadow-terracotta/25 hover:shadow-lg hover:shadow-terracotta/35 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md shadow-terracotta/25 hover:shadow-lg hover:shadow-terracotta/35 transition-all hover:scale-105 active:scale-95 cursor-pointer shrink-0"
             >
               <Search className="w-4 h-4" />
               {t("bookingBtn")}
             </Link>
           </div>
 
-          {/* Mobile Right Bar: Currency Selector + Language Switcher + Toggle */}
-          <div className="flex items-center gap-1.5 md:hidden">
+          {/* Mobile Header Right Toolbar (< md): Currency, Language, Hamburger */}
+          <div className="flex items-center gap-1 sm:gap-2 md:hidden">
             <CurrencySelector />
             <LanguageSwitcher />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-xl text-charcoal hover:bg-sand/60 transition-colors"
+              className="p-1.5 sm:p-2 rounded-xl text-charcoal hover:bg-sand/60 transition-colors"
               aria-label="Menu navigasi"
             >
               {isOpen ? (
-                <X className="w-6 h-6 text-charcoal" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-charcoal" />
               ) : (
-                <Menu className="w-6 h-6 text-charcoal" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-charcoal" />
               )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -102,9 +102,9 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden bg-cream border-b border-sand shadow-lg overflow-hidden"
+            className="md:hidden bg-cream border-b border-sand shadow-xl overflow-hidden"
           >
-            <div className="px-4 py-4 space-y-1">
+            <div className="px-4 py-4 space-y-1.5">
               <Link
                 href="/"
                 onClick={() => setIsOpen(false)}
@@ -129,11 +129,13 @@ export default function Navbar() {
                 <Building2 className="w-5 h-5 text-terracotta" />
                 {t("forOwners")}
               </Link>
+
+              {/* Mobile CTA */}
               <div className="pt-2">
                 <Link
                   href="/cari"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-5 py-3 rounded-full font-bold shadow-md w-full transition-all active:scale-98 cursor-pointer"
+                  className="flex items-center justify-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-5 py-3 rounded-xl font-bold shadow-md w-full transition-all active:scale-98 cursor-pointer"
                 >
                   <Search className="w-4 h-4" />
                   {t("bookingNowBtn")}

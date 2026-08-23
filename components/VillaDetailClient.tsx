@@ -218,7 +218,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
         </Link>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 lg:pb-20">
         {/* Photo Gallery with smooth Motion transitions & Next.js Image */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -432,20 +432,23 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             transition={{ duration: 0.65, delay: 0.25, ease: "easeOut" }}
             className="lg:col-span-1"
           >
-            <div className="sticky top-24 bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-xl shadow-navy/8">
+            <div
+              id="booking-card-sidebar"
+              className="lg:sticky lg:top-28 bg-white rounded-2xl p-5 sm:p-8 border border-sand shadow-xl shadow-navy/8"
+            >
               {/* Price Display */}
               <div className="mb-6 pb-6 border-b border-sand">
                 <div className="flex items-baseline gap-2 flex-wrap">
-                  <span className="text-3xl font-black text-terracotta-dark tracking-tight">
+                  <span className="text-2xl sm:text-3xl font-black text-terracotta-dark tracking-tight">
                     {formatHarga(villa.harga_per_malam)}
                   </span>
                   {nightEstimate && (
-                    <span className="text-stone font-bold text-sm">
+                    <span className="text-stone font-bold text-xs sm:text-sm">
                       {nightEstimate}
                     </span>
                   )}
                 </div>
-                <span className="text-stone font-bold text-sm block mt-0.5">
+                <span className="text-stone font-bold text-xs sm:text-sm block mt-0.5">
                   {t("perNight")} {t("includesTax")}
                 </span>
               </div>
@@ -583,6 +586,39 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             </div>
           </motion.div>
         </div>
+      </div>
+
+      {/* Mobile Floating Booking Action Bar (only visible on < lg screens) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-sand px-4 py-3 shadow-2xl flex items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-baseline gap-1.5 flex-wrap">
+            <span className="text-base sm:text-lg font-black text-terracotta-dark leading-tight">
+              {formatHarga(villa.harga_per_malam)}
+            </span>
+            {nightEstimate && (
+              <span className="text-[10px] sm:text-xs text-stone font-bold">
+                {nightEstimate}
+              </span>
+            )}
+          </div>
+          <span className="text-[10px] text-stone font-semibold block">
+            {t("perNight")} {t("includesTax")}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            const formEl = document.getElementById("booking-card-sidebar");
+            if (formEl) {
+              formEl.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+          }}
+          className="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 active:scale-95 text-white px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shrink-0 cursor-pointer"
+        >
+          <MessageCircle className="w-4 h-4" />
+          <span>{t("bookingButton")}</span>
+        </button>
       </div>
 
       {/* Direct WhatsApp Confirmation Modal Dialog */}
