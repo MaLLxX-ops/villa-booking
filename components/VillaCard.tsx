@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { MapPin, BedDouble, Bath, Users } from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
@@ -13,26 +14,17 @@ interface VillaCardProps {
 
 export default function VillaCard({ villa, index }: VillaCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const t = useTranslations("Listing");
 
-  const categoryBadges: Record<string, { bg: string; text: string }> = {
-    "Villa Mewah": {
-      bg: "bg-navy/90 text-gold-light border-gold-light/40",
-      text: "Villa Mewah",
-    },
-    "Villa Keluarga": {
-      bg: "bg-navy/90 text-sage-light border-sage-light/40",
-      text: "Villa Keluarga",
-    },
-    "Studio Minimalis": {
-      bg: "bg-navy/90 text-terracotta-light border-terracotta-light/40",
-      text: "Studio Minimalis",
-    },
+  const categoryBadgeClasses: Record<string, string> = {
+    luxury: "bg-navy/90 text-gold-light border-gold-light/40",
+    family: "bg-navy/90 text-sage-light border-sage-light/40",
+    studio: "bg-navy/90 text-terracotta-light border-terracotta-light/40",
   };
 
-  const badge = categoryBadges[villa.kategori] || {
-    bg: "bg-navy/90 text-white border-white/30",
-    text: villa.kategori,
-  };
+  const badgeClass =
+    categoryBadgeClasses[villa.kategori_key] ||
+    "bg-navy/90 text-white border-white/30";
 
   return (
     <motion.div
@@ -76,9 +68,9 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
               {/* Category Badge */}
               <div className="absolute top-3.5 left-3.5 z-20">
                 <span
-                  className={`text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md border shadow-xs ${badge.bg}`}
+                  className={`text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md border shadow-xs ${badgeClass}`}
                 >
-                  {badge.text}
+                  {villa.kategori}
                 </span>
               </div>
 
@@ -89,7 +81,7 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
                     {formatHarga(villa.harga_per_malam)}
                   </span>
                   <span className="text-stone font-bold text-[11px] block mt-1">
-                    per malam
+                    {t("perNight")}
                   </span>
                 </div>
               </div>
@@ -112,15 +104,15 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
             <div className="flex items-center justify-between pt-4 border-t border-sand">
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <BedDouble className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>{villa.jumlah_kamar} Kamar</span>
+                <span>{villa.jumlah_kamar} {t("bedrooms")}</span>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <Bath className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>{villa.jumlah_kamar_mandi} Mandi</span>
+                <span>{villa.jumlah_kamar_mandi} {t("bathrooms")}</span>
               </div>
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <Users className="w-4 h-4 text-sage-dark shrink-0" />
-                <span>{villa.kapasitas_tamu} Tamu</span>
+                <span>{villa.kapasitas_tamu} {t("guests")}</span>
               </div>
             </div>
           </div>

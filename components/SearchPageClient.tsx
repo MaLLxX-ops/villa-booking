@@ -2,6 +2,7 @@
 
 import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, SlidersHorizontal, RotateCcw } from "lucide-react";
 import { Villa } from "@/lib/data";
@@ -13,14 +14,31 @@ interface SearchPageClientProps {
 
 function SearchPageContent({ villas }: SearchPageClientProps) {
   const searchParams = useSearchParams();
+  const t = useTranslations("Search");
   const initialQuery = searchParams.get("q") || "";
-  const initialCategory = searchParams.get("kategori") || "";
+  const initialCategoryKey = searchParams.get("cat") || "";
 
   const [searchTerm, setSearchTerm] = useState(initialQuery);
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCategoryKey, setSelectedCategoryKey] = useState(initialCategoryKey);
   const [selectedSort, setSelectedSort] = useState("");
 
-  const categories = ["Semua Kategori", "Villa Mewah", "Villa Keluarga", "Studio Minimalis"];
+  const categories = [
+    { key: "", label: t("allCategories") },
+    { key: "luxury", label: "Villa Mewah / Luxury" },
+    { key: "family", label: "Villa Keluarga / Family" },
+    { key: "studio", label: "Studio Minimalis / Studio" },
+  ];
+
+  // Derive dynamic labels from current localized villas
+  const localizedCategoryMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    villas.forEach((v) => {
+      if (v.kategori_key) {
+        map[v.kategori_key] = v.kategori;
+      }
+    });
+    return map;
+  }, [villas]);
 
   // Filter & Sort Logic
   const filteredVillas = useMemo(() => {
@@ -30,32 +48,37 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           !searchTerm ||
           villa.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
           villa.lokasi.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          villa.deskripsi.toLowerCase().includes(searchTerm.toLowerCase());
+          villa.deskripsi.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          villa.fasilitas.some((f) =>
+            f.toLowerCase().includes(searchTerm.toLowerCase())
+          );
 
         const matchesCategory =
-          !selectedCategory ||
-          selectedCategory === "Semua Kategori" ||
-          villa.kategori === selectedCategory;
+          !selectedCategoryKey || villa.kategori_key === selectedCategoryKey;
 
         return matchesSearch && matchesCategory;
       })
       .sort((a, b) => {
-        if (selectedSort === "harga-asc") return a.harga_per_malam - b.harga_per_malam;
-        if (selectedSort === "harga-desc") return b.harga_per_malam - a.harga_per_malam;
-        if (selectedSort === "kapasitas") return b.kapasitas_tamu - a.kapasitas_tamu;
-        if (selectedSort === "kamar") return b.jumlah_kamar - a.jumlah_kamar;
+        if (selectedSort === "harga-asc")
+          return a.harga_per_malam - b.harga_per_malam;
+        if (selectedSort === "harga-desc")
+          return b.harga_per_malam - a.harga_per_malam;
+        if (selectedSort === "kapasitas")
+          return b.kapasitas_tamu - a.kapasitas_tamu;
+        if (selectedSort === "kamar")
+          return b.jumlah_kamar - a.jumlah_kamar;
         return 0;
       });
-  }, [villas, searchTerm, selectedCategory, selectedSort]);
+  }, [villas, searchTerm, selectedCategoryKey, selectedSort]);
 
   const resetFilters = () => {
     setSearchTerm("");
-    setSelectedCategory("");
+    setSelectedCategoryKey("");
     setSelectedSort("");
   };
 
   const hasActiveFilters = Boolean(
-    searchTerm || (selectedCategory && selectedCategory !== "Semua Kategori") || selectedSort
+    searchTerm || selectedCategoryKey || selectedSort
   );
 
   return (
@@ -69,11 +92,14 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           className="mb-8"
         >
           <h1 className="text-3xl sm:text-4xl font-black text-navy tracking-tight">
-            Cari Villa Impian
+            {t("title")}
           </h1>
-          <p className="mt-2 text-stone font-semibold text-base sm:text-lg">
-            Menampilkan <span className="text-terracotta-dark font-black">{filteredVillas.length}</span> villa yang sesuai kriteria Anda
-          </p>
+          <p
+            className="mt-2 text-stone font-semibold text-base sm:text-lg"
+            dangerouslySetInnerHTML={{
+              __html: t.raw("resultsFound").replace("{count}", filteredVillas.length.toString()),
+            }}
+          />
         </motion.div>
 
         {/* Filter Bar */}
@@ -89,7 +115,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-terracotta shrink-0" />
               <input
                 type="text"
-                placeholder="Cari berdasarkan nama atau lokasi (Ubud, Canggu...)"
+                placeholder={t("searchPlaceholder")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-sand bg-cream text-sm font-semibold text-charcoal placeholder:text-stone focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all"
@@ -98,15 +124,14 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
 
             {/* Category Filter */}
             <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedCategoryKey}
+              onChange={(e) => setSelectedCategoryKey(e.target.value)}
               className="px-4 py-3.5 rounded-xl border border-sand bg-cream text-sm font-bold text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all cursor-pointer"
             >
-              {categories.map((cat) => (
-                <option key={cat} value={cat === "Semua Kategori" ? "" : cat}>
-                  {cat}
-                </option>
-              ))}
+              <option value="">{t("allCategories")}</option>
+              <option value="luxury">{localizedCategoryMap["luxury"] || "Luxury"}</option>
+              <option value="family">{localizedCategoryMap["family"] || "Family"}</option>
+              <option value="studio">{localizedCategoryMap["studio"] || "Studio"}</option>
             </select>
 
             {/* Sort */}
@@ -115,11 +140,11 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
               onChange={(e) => setSelectedSort(e.target.value)}
               className="px-4 py-3.5 rounded-xl border border-sand bg-cream text-sm font-bold text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all cursor-pointer"
             >
-              <option value="">Urutkan Berdasarkan</option>
-              <option value="harga-asc">Harga: Terendah ke Tertinggi</option>
-              <option value="harga-desc">Harga: Tertinggi ke Terendah</option>
-              <option value="kapasitas">Kapasitas Tamu Terbesar</option>
-              <option value="kamar">Jumlah Kamar Terbanyak</option>
+              <option value="">{t("sortPlaceholder")}</option>
+              <option value="harga-asc">{t("sortPriceAsc")}</option>
+              <option value="harga-desc">{t("sortPriceDesc")}</option>
+              <option value="kapasitas">{t("sortGuests")}</option>
+              <option value="kamar">{t("sortBedrooms")}</option>
             </select>
 
             {/* Reset Button (Visible when filters are active) */}
@@ -131,7 +156,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
                 className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-sand/70 hover:bg-sand text-charcoal text-sm font-bold transition-colors cursor-pointer shrink-0"
               >
                 <RotateCcw className="w-4 h-4" />
-                Reset
+                {t("resetBtn")}
               </motion.button>
             )}
           </div>
@@ -139,25 +164,32 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           {/* Quick Category Chips */}
           <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-sand/60">
             <span className="text-xs font-bold text-stone py-1 mr-1 flex items-center">
-              Kategori Cepat:
+              {t("quickCategoryLabel")}
             </span>
-            {categories.map((cat) => {
-              const isSelected =
-                (cat === "Semua Kategori" && !selectedCategory) ||
-                selectedCategory === cat;
+            <button
+              onClick={() => setSelectedCategoryKey("")}
+              className={`text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                !selectedCategoryKey
+                  ? "bg-terracotta text-white shadow-xs"
+                  : "bg-cream text-stone hover:text-charcoal hover:bg-sand/60 border border-sand"
+              }`}
+            >
+              {t("allCategories")}
+            </button>
+            {["luxury", "family", "studio"].map((key) => {
+              const label = localizedCategoryMap[key] || key;
+              const isSelected = selectedCategoryKey === key;
               return (
                 <button
-                  key={cat}
-                  onClick={() =>
-                    setSelectedCategory(cat === "Semua Kategori" ? "" : cat)
-                  }
+                  key={key}
+                  onClick={() => setSelectedCategoryKey(key)}
                   className={`text-xs font-bold px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
                     isSelected
                       ? "bg-terracotta text-white shadow-xs"
                       : "bg-cream text-stone hover:text-charcoal hover:bg-sand/60 border border-sand"
                   }`}
                 >
-                  {cat}
+                  {label}
                 </button>
               );
             })}
@@ -199,17 +231,17 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
                 <SlidersHorizontal className="w-8 h-8 text-terracotta" />
               </div>
               <h2 className="text-xl sm:text-2xl font-black text-navy mb-2">
-                Tidak Ada Villa yang Cocok
+                {t("emptyTitle")}
               </h2>
               <p className="text-stone font-medium text-sm sm:text-base mb-6">
-                Tidak ada properti yang memenuhi filter pencarian Anda. Coba kurangi filter atau cari kata kunci lain.
+                {t("emptyDesc")}
               </p>
               <button
                 onClick={resetFilters}
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition-all cursor-pointer text-sm"
               >
                 <RotateCcw className="w-4 h-4" />
-                Reset Semua Filter
+                {t("resetAllBtn")}
               </button>
             </motion.div>
           )}
@@ -220,13 +252,15 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
 }
 
 export default function SearchPageClient({ villas }: SearchPageClientProps) {
+  const t = useTranslations("Search");
+
   return (
     <Suspense
       fallback={
         <div className="min-h-screen bg-cream pt-20 flex items-center justify-center">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-terracotta border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-stone font-bold">Memuat villa...</p>
+            <p className="text-stone font-bold">{t("loading")}</p>
           </div>
         </div>
       }

@@ -1,0 +1,116 @@
+{
+  "Metadata": {
+    "title": "StayVilla — 发现您在巴厘岛的梦幻独栋别墅",
+    "description": "便捷预订巴厘岛尊享私人度假别墅。探索我们精选的奢华庄园、温馨家庭别墅与时尚极简公寓，尽享顶级热带海岛风情。",
+    "detailSuffix": "StayVilla 巴厘岛"
+  },
+  "Navbar": {
+    "home": "首页",
+    "search": "寻找别墅",
+    "collection": "精选系列",
+    "contact": "联系我们",
+    "bookingBtn": "立即预订",
+    "bookingNowBtn": "立即预订",
+    "language": "语言"
+  },
+  "Hero": {
+    "badge": "尊享精选别墅系列",
+    "headlineP1": "探索您在",
+    "headlineP2": "巴厘岛的",
+    "headlineP3": "梦幻居所",
+    "subtitle": "精挑细选的顶级度假庄园，为您打造难忘的海岛度假时光。从悬崖奢华秘境到核心地段的极简美学空间。",
+    "locationLabel": "目的地",
+    "locationPlaceholder": "乌布, 水明漾, 仓古...",
+    "checkInLabel": "入住日期",
+    "checkOutLabel": "退房日期",
+    "searchBtn": "搜索别墅"
+  },
+  "Stats": {
+    "villaValue": "150+",
+    "villaLabel": "精选独栋别墅",
+    "ratingValue": "4.9",
+    "ratingLabel": "住客平均好评",
+    "locationValue": "8",
+    "locationLabel": "巴厘岛核心度假区",
+    "secureValue": "100%",
+    "secureLabel": "安全预订保障"
+  },
+  "Categories": {
+    "title": "按房型分类浏览",
+    "subtitle": "每个类别均经过精心甄选，精准满足您的旅行品味与个性化度假需求",
+    "luxuryTitle": "顶级奢华别墅",
+    "luxuryDesc": "配备私属无边泳池、专属主厨与管家服务的高端度假庄园。",
+    "familyTitle": "家庭温馨别墅",
+    "familyDesc": "开阔空间布局、齐备的高端设施与私密庭院，尽享天伦之乐。",
+    "studioTitle": "极简美学公寓",
+    "studioDesc": "紧凑精致、融合现代设计与热带风情，专为情侣或独行探索者打造。",
+    "viewCollection": "查看该系列"
+  },
+  "Listing": {
+    "title": "精选推荐别墅",
+    "subtitle": "以严苛的私密性、奢华度与舒适标准精心甄选的巴厘岛度假杰作",
+    "perNight": "每晚",
+    "bedrooms": "卧室",
+    "bathrooms": "浴室",
+    "guests": "住客"
+  },
+  "Detail": {
+    "backHome": "返回首页",
+    "reviews": "条住客真实点评",
+    "bedrooms": "卧室数量",
+    "bathrooms": "卫浴配置",
+    "maxGuests": "最多容纳",
+    "aboutTitle": "关于此别墅",
+    "facilitiesTitle": "尊享配套设施",
+    "perNight": "每晚",
+    "includesTax": "(已含各项税费)",
+    "checkIn": "入住日期",
+    "checkOut": "退房日期",
+    "guestsCount": "入住人数",
+    "guestUnit": "位住客",
+    "priceTimesNight": "{price} × 1 晚",
+    "serviceFee": "平台服务费",
+    "totalEstimate": "预估总费用",
+    "bookingButton": "立即预订此房源",
+    "securePayment": "加密安全支付 · 即时订单确认",
+    "photoCount": "{current} / {total}"
+  },
+  "Search": {
+    "title": "寻找理想度假别墅",
+    "resultsFound": "为您找到 <span class=\"text-terracotta-dark font-black\">{count}</span> 处符合条件的专属房源",
+    "searchPlaceholder": "按别墅名称或区域搜索 (乌布, 仓古...)",
+    "allCategories": "所有房型分类",
+    "sortPlaceholder": "排序方式",
+    "sortPriceAsc": "价格：从低到高",
+    "sortPriceDesc": "价格：从高到低",
+    "sortGuests": "容纳人数最多",
+    "sortBedrooms": "卧室数量最多",
+    "resetBtn": "重置",
+    "quickCategoryLabel": "快捷筛选：",
+    "emptyTitle": "未找到匹配的房源",
+    "emptyDesc": "抱歉，暂无完全符合您当前筛选条件的别墅。建议放宽筛选要求或尝试搜索其他关键词。",
+    "resetAllBtn": "重置所有筛选",
+    "loading": "正在加载别墅数据..."
+  },
+  "Footer": {
+    "brandDesc": "巴厘岛首屈一指的奢华别墅在线预订平台。为您在世界顶级热带度假胜地呈现无与伦比的入住体验。",
+    "navTitle": "网站导航",
+    "homeLink": "首页",
+    "searchLink": "寻找别墅",
+    "luxuryLink": "奢华别墅",
+    "familyLink": "家庭别墅",
+    "contactTitle": "联系方式",
+    "phone": "+62 812 3456 7890",
+    "email": "hello@stayvilla.id",
+    "address": "Jl. Sunset Road No. 88, Seminyak, Bali 80361",
+    "followTitle": "关注我们",
+    "copyright": "© {year} StayVilla. 保留所有权利。",
+    "demoNote": "演示模板 — 支持根据客户需求全面定制"
+  },
+  "Languages": {
+    "id": "Indonesia",
+    "en": "English",
+    "fr": "Français",
+    "zh": "中文"
+  }
+}

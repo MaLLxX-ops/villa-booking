@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Villa } from "@/lib/data";
 import VillaCard from "@/components/VillaCard";
@@ -9,6 +10,8 @@ interface ListingSectionProps {
 }
 
 export default function ListingSection({ villas }: ListingSectionProps) {
+  const t = useTranslations("Listing");
+
   return (
     <section id="listing" className="py-20 bg-cream-dark border-t border-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,11 +23,10 @@ export default function ListingSection({ villas }: ListingSectionProps) {
           className="text-center mb-14"
         >
           <h2 className="text-3xl sm:text-4xl font-black text-navy tracking-tight">
-            Koleksi Villa Pilihan
+            {t("title")}
           </h2>
           <p className="mt-3 text-stone max-w-xl mx-auto text-base sm:text-lg">
-            Handpicked villa terbaik dengan standar kualitas tertinggi untuk
-            kenyamanan dan kemewahan liburan Anda
+            {t("subtitle")}
           </p>
         </motion.div>
 

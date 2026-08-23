@@ -1,12 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, Search, Phone } from "lucide-react";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const t = useTranslations("Navbar");
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-sand shadow-xs">
@@ -28,48 +31,56 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-7">
             <Link
               href="/"
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
             >
-              Beranda
+              {t("home")}
             </Link>
             <Link
               href="/cari"
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
             >
-              Cari Villa
+              {t("search")}
             </Link>
             <Link
               href="/#listing"
               className="text-charcoal hover:text-terracotta font-semibold transition-colors text-sm"
             >
-              Koleksi
+              {t("collection")}
             </Link>
+
+            {/* Language Switcher */}
+            <LanguageSwitcher />
+
+            {/* Booking Button */}
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
               <Link
                 href="/cari"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-md shadow-terracotta/25 hover:shadow-lg hover:shadow-terracotta/35 transition-all"
               >
                 <Search className="w-4 h-4" />
-                Booking
+                {t("bookingBtn")}
               </Link>
             </motion.div>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-xl text-charcoal hover:bg-sand/60 transition-colors"
-            aria-label="Menu navigasi"
-          >
-            {isOpen ? (
-              <X className="w-6 h-6 text-charcoal" />
-            ) : (
-              <Menu className="w-6 h-6 text-charcoal" />
-            )}
-          </button>
+          {/* Mobile Right Bar: Language Switcher + Toggle */}
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSwitcher />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-xl text-charcoal hover:bg-sand/60 transition-colors"
+              aria-label="Menu navigasi"
+            >
+              {isOpen ? (
+                <X className="w-6 h-6 text-charcoal" />
+              ) : (
+                <Menu className="w-6 h-6 text-charcoal" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -90,7 +101,7 @@ export default function Navbar() {
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-sand/60 text-charcoal font-semibold transition-colors"
               >
                 <Home className="w-5 h-5 text-terracotta" />
-                Beranda
+                {t("home")}
               </Link>
               <Link
                 href="/cari"
@@ -98,7 +109,7 @@ export default function Navbar() {
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-sand/60 text-charcoal font-semibold transition-colors"
               >
                 <Search className="w-5 h-5 text-terracotta" />
-                Cari Villa
+                {t("search")}
               </Link>
               <Link
                 href="/#listing"
@@ -106,7 +117,7 @@ export default function Navbar() {
                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-sand/60 text-charcoal font-semibold transition-colors"
               >
                 <Phone className="w-5 h-5 text-terracotta" />
-                Hubungi Kami
+                {t("contact")}
               </Link>
               <div className="pt-2">
                 <Link
@@ -115,7 +126,7 @@ export default function Navbar() {
                   className="flex items-center justify-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark text-white px-5 py-3 rounded-full font-bold shadow-md w-full"
                 >
                   <Search className="w-4 h-4" />
-                  Booking Sekarang
+                  {t("bookingNowBtn")}
                 </Link>
               </div>
             </div>

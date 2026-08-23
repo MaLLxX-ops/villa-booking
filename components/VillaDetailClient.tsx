@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -34,42 +35,54 @@ interface VillaDetailClientProps {
 
 const facilityIcons: Record<string, React.ElementType> = {
   wifi: Wifi,
-  "wifi kecepatan tinggi": Wifi,
   dapur: UtensilsCrossed,
-  "dapur lengkap": UtensilsCrossed,
-  "dapur professional": UtensilsCrossed,
-  "dapur kecil (kitchenette)": UtensilsCrossed,
+  kitchen: UtensilsCrossed,
+  cuisine: UtensilsCrossed,
   kitchenette: UtensilsCrossed,
   parkir: Car,
-  "parkir pribadi": Car,
-  "kolam renang": Waves,
-  "kolam renang pribadi": Waves,
-  "kolam renang infinity": Waves,
-  "infinity pool": Waves,
-  "kolam renang 25m": Waves,
-  "smart tv": Tv,
+  parking: Car,
+  kolam: Waves,
+  pool: Waves,
+  piscine: Waves,
+  infinity: Waves,
+  tv: Tv,
   ac: Wind,
-  "ac sentral": Wind,
-  "kipas angin & ac": Wind,
+  climatisation: Wind,
   taman: TreePalm,
-  "taman tropis": TreePalm,
-  "taman 1 hektar": TreePalm,
+  garden: TreePalm,
+  jardin: TreePalm,
   gym: Dumbbell,
-  "gym pribadi": Dumbbell,
-  "sarapan lokal inklusif": Coffee,
-  "pemandangan laut": Eye,
-  "pemandangan sawah": Eye,
-  "balkon laut": Eye,
+  fitness: Dumbbell,
+  sarapan: Coffee,
+  breakfast: Coffee,
+  "petit-déjeuner": Coffee,
+  laut: Eye,
+  ocean: Eye,
+  mer: Eye,
+  sawah: Eye,
+  "rice field": Eye,
+  rizières: Eye,
+  balkon: Eye,
+  balcon: Eye,
+  balcony: Eye,
+  spa: Waves,
+  sauna: Waves,
+  tennis: Dumbbell,
+  yoga: TreePalm,
 };
 
 function getFacilityIcon(facility: string): React.ElementType {
-  const key = facility.toLowerCase();
-  return facilityIcons[key] || Check;
+  const lower = facility.toLowerCase();
+  for (const [key, icon] of Object.entries(facilityIcons)) {
+    if (lower.includes(key)) return icon;
+  }
+  return Check;
 }
 
 export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [activeImage, setActiveImage] = useState(0);
   const [direction, setDirection] = useState(0);
+  const t = useTranslations("Detail");
 
   const nextImage = () => {
     setDirection(1);
@@ -99,7 +112,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
           className="inline-flex items-center gap-2 text-charcoal hover:text-terracotta-dark transition-colors text-sm font-bold group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Kembali ke Beranda
+          {t("backHome")}
         </Link>
       </div>
 
@@ -137,7 +150,10 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
 
             {/* Image counter */}
             <div className="absolute bottom-4 right-4 z-20 bg-navy/85 backdrop-blur-md text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full border border-white/20 shadow-md">
-              {activeImage + 1} / {villa.galeri_foto.length}
+              {t("photoCount", {
+                current: activeImage + 1,
+                total: villa.galeri_foto.length,
+              })}
             </div>
 
             {/* Navigation Arrows */}
@@ -208,7 +224,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   <Star className="w-4 h-4 fill-gold text-gold" />
                   <span className="text-sm font-black text-charcoal">4.9</span>
                   <span className="text-stone font-semibold text-sm">
-                    (128 ulasan tamu)
+                    (128 {t("reviews")})
                   </span>
                 </div>
               </div>
@@ -229,21 +245,21 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 {
                   icon: BedDouble,
                   value: villa.jumlah_kamar,
-                  label: "Kamar Tidur",
+                  label: t("bedrooms"),
                   color: "text-terracotta",
                   bg: "bg-terracotta/15",
                 },
                 {
                   icon: Bath,
                   value: villa.jumlah_kamar_mandi,
-                  label: "Kamar Mandi",
+                  label: t("bathrooms"),
                   color: "text-sage-dark",
                   bg: "bg-sage/15",
                 },
                 {
                   icon: Users,
                   value: villa.kapasitas_tamu,
-                  label: "Tamu Maks",
+                  label: t("maxGuests"),
                   color: "text-navy",
                   bg: "bg-navy/15",
                 },
@@ -270,7 +286,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             {/* Comprehensive Description */}
             <div className="bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-sm">
               <h2 className="text-xl sm:text-2xl font-black text-navy mb-4">
-                Tentang Villa Ini
+                {t("aboutTitle")}
               </h2>
               <p className="text-charcoal/90 leading-relaxed text-base sm:text-lg font-normal">
                 {villa.deskripsi}
@@ -280,7 +296,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             {/* Facilities List with Icons */}
             <div className="bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-sm">
               <h2 className="text-xl sm:text-2xl font-black text-navy mb-6">
-                Fasilitas Unggulan
+                {t("facilitiesTitle")}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {villa.fasilitas.map((f) => {
@@ -319,7 +335,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   </span>
                 </div>
                 <span className="text-stone font-bold text-sm block mt-0.5">
-                  per malam (termasuk pajak)
+                  {t("perNight")} {t("includesTax")}
                 </span>
               </div>
 
@@ -327,7 +343,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
               <div className="space-y-4 mb-6">
                 <div>
                   <label className="text-xs font-bold text-charcoal block mb-1.5">
-                    Check-in
+                    {t("checkIn")}
                   </label>
                   <input
                     type="date"
@@ -336,7 +352,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 </div>
                 <div>
                   <label className="text-xs font-bold text-charcoal block mb-1.5">
-                    Check-out
+                    {t("checkOut")}
                   </label>
                   <input
                     type="date"
@@ -345,7 +361,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 </div>
                 <div>
                   <label className="text-xs font-bold text-charcoal block mb-1.5">
-                    Jumlah Tamu
+                    {t("guestsCount")}
                   </label>
                   <select className="w-full px-4 py-3 rounded-xl border border-sand text-sm font-bold bg-cream text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all">
                     {Array.from(
@@ -353,7 +369,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                       (_, i) => i + 1
                     ).map((n) => (
                       <option key={n} value={n}>
-                        {n} Tamu
+                        {n} {t("guestUnit")}
                       </option>
                     ))}
                   </select>
@@ -364,20 +380,24 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
               <div className="border-t border-sand pt-4 mb-6 space-y-2.5">
                 <div className="flex justify-between text-sm">
                   <span className="text-stone font-medium">
-                    {formatHarga(villa.harga_per_malam)} × 1 malam
+                    {t("priceTimesNight", {
+                      price: formatHarga(villa.harga_per_malam),
+                    })}
                   </span>
                   <span className="text-charcoal font-bold">
                     {formatHarga(villa.harga_per_malam)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-stone font-medium">Biaya layanan</span>
+                  <span className="text-stone font-medium">
+                    {t("serviceFee")}
+                  </span>
                   <span className="text-charcoal font-bold">
                     {formatHarga(Math.round(villa.harga_per_malam * 0.1))}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-black pt-3 border-t border-sand">
-                  <span className="text-navy">Total Estimasi</span>
+                  <span className="text-navy">{t("totalEstimate")}</span>
                   <span className="text-terracotta-dark text-lg">
                     {formatHarga(
                       villa.harga_per_malam +
@@ -394,13 +414,13 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 className="w-full bg-gradient-to-r from-terracotta to-terracotta-dark text-white py-4 rounded-xl font-bold text-base shadow-lg shadow-terracotta/25 hover:shadow-xl hover:shadow-terracotta/35 transition-all cursor-pointer flex items-center justify-center gap-2"
               >
                 <Sparkles className="w-5 h-5 text-gold-light" />
-                Booking Sekarang
+                {t("bookingButton")}
               </motion.button>
 
               {/* Trust Badge */}
               <div className="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-stone">
                 <ShieldCheck className="w-4 h-4 text-sage-dark shrink-0" />
-                Pembayaran aman & konfirmasi instan
+                {t("securePayment")}
               </div>
             </div>
           </motion.div>

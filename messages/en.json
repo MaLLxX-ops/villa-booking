@@ -1,0 +1,116 @@
+{
+  "Metadata": {
+    "title": "StayVilla — Discover Your Dream Villa in Bali",
+    "description": "Book luxury private villas in Bali with ease. Choose from our curated collection of luxury estates, family retreats, and chic minimal studios in prime locations.",
+    "detailSuffix": "StayVilla Bali"
+  },
+  "Navbar": {
+    "home": "Home",
+    "search": "Find Villas",
+    "collection": "Collection",
+    "contact": "Contact Us",
+    "bookingBtn": "Book Now",
+    "bookingNowBtn": "Book Now",
+    "language": "Language"
+  },
+  "Hero": {
+    "badge": "Premium Villa Collection",
+    "headlineP1": "Discover Your",
+    "headlineP2": "Dream Villa",
+    "headlineP3": "in Bali",
+    "subtitle": "Handpicked luxury villas for an unforgettable island escape. From cliffside sanctuaries to minimalist studios in Bali's most coveted destinations.",
+    "locationLabel": "Location",
+    "locationPlaceholder": "Ubud, Seminyak, Canggu...",
+    "checkInLabel": "Check-in",
+    "checkOutLabel": "Check-out",
+    "searchBtn": "Search Villas"
+  },
+  "Stats": {
+    "villaValue": "150+",
+    "villaLabel": "Premium Villas",
+    "ratingValue": "4.9",
+    "ratingLabel": "Average Rating",
+    "locationValue": "8",
+    "locationLabel": "Destinations in Bali",
+    "secureValue": "100%",
+    "secureLabel": "Secure Booking"
+  },
+  "Categories": {
+    "title": "Choose by Villa Category",
+    "subtitle": "Each category is thoughtfully curated to match your travel style and bespoke desires",
+    "luxuryTitle": "Luxury Villas",
+    "luxuryDesc": "Ultra-luxury living with infinity pools, private chefs, and world-class hospitality.",
+    "familyTitle": "Family Retreats",
+    "familyDesc": "Spacious layouts, lavish amenities, and private grounds for memorable family holidays.",
+    "studioTitle": "Minimalist Studios",
+    "studioDesc": "Compact, modern, and aesthetically styled spaces for couples and solo nomads.",
+    "viewCollection": "Explore Collection"
+  },
+  "Listing": {
+    "title": "Featured Villa Collection",
+    "subtitle": "Exclusively curated properties meeting the highest standards of luxury, privacy, and comfort",
+    "perNight": "per night",
+    "bedrooms": "Beds",
+    "bathrooms": "Baths",
+    "guests": "Guests"
+  },
+  "Detail": {
+    "backHome": "Back to Home",
+    "reviews": "guest reviews",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "maxGuests": "Max Guests",
+    "aboutTitle": "About This Villa",
+    "facilitiesTitle": "Key Amenities",
+    "perNight": "per night",
+    "includesTax": "(taxes included)",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guestsCount": "Number of Guests",
+    "guestUnit": "Guests",
+    "priceTimesNight": "{price} × 1 night",
+    "serviceFee": "Service fee",
+    "totalEstimate": "Estimated Total",
+    "bookingButton": "Book This Villa",
+    "securePayment": "Secure payment & instant confirmation",
+    "photoCount": "{current} / {total}"
+  },
+  "Search": {
+    "title": "Find Your Perfect Villa",
+    "resultsFound": "Displaying <span class=\"text-terracotta-dark font-black\">{count}</span> villas matching your criteria",
+    "searchPlaceholder": "Search by name or destination (Ubud, Canggu...)",
+    "allCategories": "All Categories",
+    "sortPlaceholder": "Sort By",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low",
+    "sortGuests": "Highest Guest Capacity",
+    "sortBedrooms": "Most Bedrooms",
+    "resetBtn": "Reset",
+    "quickCategoryLabel": "Quick Filter:",
+    "emptyTitle": "No Matching Villas Found",
+    "emptyDesc": "We couldn't find any properties matching your current filters. Try relaxing your search criteria or keywords.",
+    "resetAllBtn": "Reset All Filters",
+    "loading": "Loading villas..."
+  },
+  "Footer": {
+    "brandDesc": "Premier luxury villa booking platform in Bali. Experience extraordinary stays across the world's most enchanting tropical paradise.",
+    "navTitle": "Navigation",
+    "homeLink": "Home",
+    "searchLink": "Find Villas",
+    "luxuryLink": "Luxury Villas",
+    "familyLink": "Family Retreats",
+    "contactTitle": "Contact",
+    "phone": "+62 812 3456 7890",
+    "email": "hello@stayvilla.id",
+    "address": "Sunset Road No. 88, Seminyak, Bali 80361",
+    "followTitle": "Follow Us",
+    "copyright": "© {year} StayVilla. All rights reserved.",
+    "demoNote": "Demo Template — Fully Customizable"
+  },
+  "Languages": {
+    "id": "Indonesia",
+    "en": "English",
+    "fr": "Français",
+    "zh": "中文"
+  }
+}

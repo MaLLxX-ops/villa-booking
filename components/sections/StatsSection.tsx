@@ -1,40 +1,43 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Home, Star, MapPin, Shield } from "lucide-react";
 
-const stats = [
-  {
-    icon: Home,
-    value: "150+",
-    label: "Villa Premium",
-    color: "text-terracotta",
-    bg: "bg-terracotta/15",
-  },
-  {
-    icon: Star,
-    value: "4.9",
-    label: "Rating Rata-rata",
-    color: "text-gold",
-    bg: "bg-gold/15",
-  },
-  {
-    icon: MapPin,
-    value: "8",
-    label: "Lokasi di Bali",
-    color: "text-sage",
-    bg: "bg-sage/15",
-  },
-  {
-    icon: Shield,
-    value: "100%",
-    label: "Booking Aman",
-    color: "text-navy",
-    bg: "bg-navy/15",
-  },
-];
-
 export default function StatsSection() {
+  const t = useTranslations("Stats");
+
+  const stats = [
+    {
+      icon: Home,
+      value: t("villaValue"),
+      label: t("villaLabel"),
+      color: "text-terracotta",
+      bg: "bg-terracotta/15",
+    },
+    {
+      icon: Star,
+      value: t("ratingValue"),
+      label: t("ratingLabel"),
+      color: "text-gold",
+      bg: "bg-gold/15",
+    },
+    {
+      icon: MapPin,
+      value: t("locationValue"),
+      label: t("locationLabel"),
+      color: "text-sage",
+      bg: "bg-sage/15",
+    },
+    {
+      icon: Shield,
+      value: t("secureValue"),
+      label: t("secureLabel"),
+      color: "text-navy",
+      bg: "bg-navy/15",
+    },
+  ];
+
   return (
     <section className="relative py-16 bg-white border-y border-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

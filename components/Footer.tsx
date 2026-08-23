@@ -1,7 +1,10 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { Home, Mail, Phone, MapPin, Instagram, Facebook } from "lucide-react";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+
   return (
     <footer className="bg-navy text-cream">
       {/* Main Footer */}
@@ -18,22 +21,21 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-cream/85 leading-relaxed text-sm">
-              Platform booking villa premium di Bali. Temukan pengalaman menginap
-              terbaik di destinasi tropis paling memukau di dunia.
+              {t("brandDesc")}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Navigasi
+              {t("navTitle")}
             </h3>
             <ul className="space-y-3">
               {[
-                { label: "Beranda", href: "/" },
-                { label: "Cari Villa", href: "/cari" },
-                { label: "Villa Mewah", href: "/cari" },
-                { label: "Villa Keluarga", href: "/cari" },
+                { label: t("homeLink"), href: "/" },
+                { label: t("searchLink"), href: "/cari" },
+                { label: t("luxuryLink"), href: "/cari" },
+                { label: t("familyLink"), href: "/cari" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -50,20 +52,20 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Kontak
+              {t("contactTitle")}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-cream/90 text-sm font-medium">
                 <Phone className="w-4 h-4 text-gold-light shrink-0" />
-                +62 812 3456 7890
+                {t("phone")}
               </li>
               <li className="flex items-center gap-3 text-cream/90 text-sm font-medium">
                 <Mail className="w-4 h-4 text-gold-light shrink-0" />
-                hello@stayvilla.id
+                {t("email")}
               </li>
               <li className="flex items-start gap-3 text-cream/90 text-sm font-medium">
                 <MapPin className="w-4 h-4 text-gold-light shrink-0 mt-0.5" />
-                Jl. Sunset Road No. 88, Seminyak, Bali 80361
+                {t("address")}
               </li>
             </ul>
           </div>
@@ -71,7 +73,7 @@ export default function Footer() {
           {/* Social */}
           <div>
             <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              Ikuti Kami
+              {t("followTitle")}
             </h3>
             <div className="flex gap-3">
               {[
@@ -95,10 +97,10 @@ export default function Footer() {
       <div className="border-t border-white/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-cream/70 text-sm font-medium">
-            &copy; {new Date().getFullYear()} StayVilla. All rights reserved.
+            {t("copyright", { year: new Date().getFullYear() })}
           </p>
           <p className="text-cream/70 text-xs font-medium">
-            Template Demo — Siap Dikustomisasi
+            {t("demoNote")}
           </p>
         </div>
       </div>

@@ -1,0 +1,116 @@
+{
+  "Metadata": {
+    "title": "StayVilla — Trouvez la Villa de Vos Rêves à Bali",
+    "description": "Réservez des villas privées de luxe à Bali en toute simplicité. Découvrez notre collection exclusive de domaines d'exception, villas familiales et studios design.",
+    "detailSuffix": "StayVilla Bali"
+  },
+  "Navbar": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "collection": "Collection",
+    "contact": "Contact",
+    "bookingBtn": "Réserver",
+    "bookingNowBtn": "Réserver Maintenant",
+    "language": "Langue"
+  },
+  "Hero": {
+    "badge": "Collection de Villas Premium",
+    "headlineP1": "Trouvez la Villa",
+    "headlineP2": "de Vos Rêves",
+    "headlineP3": "à Bali",
+    "subtitle": "Une sélection exclusive de villas de luxe pour des vacances inoubliables. Des sanctuaires perchés sur les falaises aux studios épurés au cœur de Bali.",
+    "locationLabel": "Destination",
+    "locationPlaceholder": "Ubud, Seminyak, Canggu...",
+    "checkInLabel": "Arrivée",
+    "checkOutLabel": "Départ",
+    "searchBtn": "Rechercher une Villa"
+  },
+  "Stats": {
+    "villaValue": "150+",
+    "villaLabel": "Villas d'Exception",
+    "ratingValue": "4.9",
+    "ratingLabel": "Note Moyenne",
+    "locationValue": "8",
+    "locationLabel": "Destinations à Bali",
+    "secureValue": "100%",
+    "secureLabel": "Réservation Sécurisée"
+  },
+  "Categories": {
+    "title": "Catégories de Villas",
+    "subtitle": "Chaque catégorie est soigneusement conçue pour répondre à vos envies de séjour sur mesure",
+    "luxuryTitle": "Villas de Luxe",
+    "luxuryDesc": "Séjour ultra-prestigieux avec piscines à débordement et prestations hôtelières 5 étoiles.",
+    "familyTitle": "Villas Familiales",
+    "familyDesc": "Espaces généreux, équipements haut de gamme et intimité totale pour vos réunions familiales.",
+    "studioTitle": "Studios Minimalistes",
+    "studioDesc": "Design contemporain épuré et chaleureux pour couples et voyageurs solitaires.",
+    "viewCollection": "Voir la Collection"
+  },
+  "Listing": {
+    "title": "Sélection de Villas Privées",
+    "subtitle": "Des propriétés triées sur le volet répondant aux critères les plus stricts de confort et d'élégance",
+    "perNight": "par nuit",
+    "bedrooms": "Chambres",
+    "bathrooms": "Bains",
+    "guests": "Invités"
+  },
+  "Detail": {
+    "backHome": "Retour à l'Accueil",
+    "reviews": "avis voyageurs",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de Bain",
+    "maxGuests": "Capacité Max",
+    "aboutTitle": "À Propos de Cette Villa",
+    "facilitiesTitle": "Équipements & Services",
+    "perNight": "par nuit",
+    "includesTax": "(taxes incluses)",
+    "checkIn": "Arrivée",
+    "checkOut": "Départ",
+    "guestsCount": "Nombre d'Invités",
+    "guestUnit": "Invités",
+    "priceTimesNight": "{price} × 1 nuit",
+    "serviceFee": "Frais de service",
+    "totalEstimate": "Total Estimé",
+    "bookingButton": "Réserver ce Séjour",
+    "securePayment": "Paiement sécurisé & confirmation immédiate",
+    "photoCount": "{current} / {total}"
+  },
+  "Search": {
+    "title": "Trouvez Votre Villa Idéale",
+    "resultsFound": "<span class=\"text-terracotta-dark font-black\">{count}</span> villas correspondent à vos critères de recherche",
+    "searchPlaceholder": "Rechercher par nom ou destination (Ubud, Canggu...)",
+    "allCategories": "Toutes les Catégories",
+    "sortPlaceholder": "Trier Par",
+    "sortPriceAsc": "Prix : Croissant",
+    "sortPriceDesc": "Prix : Décroissant",
+    "sortGuests": "Capacité d'Accueil Maximale",
+    "sortBedrooms": "Nombre de Chambres",
+    "resetBtn": "Réinitialiser",
+    "quickCategoryLabel": "Filtres Rapides :",
+    "emptyTitle": "Aucune Villa Trouvée",
+    "emptyDesc": "Aucun hébergement ne correspond à vos critères actuels. Essayez d'élargir votre recherche.",
+    "resetAllBtn": "Réinitialiser les Filtres",
+    "loading": "Chargement des villas..."
+  },
+  "Footer": {
+    "brandDesc": "Plateforme de réservation de villas de prestige à Bali. Vivez une expérience inoubliable au cœur du paradis tropical balinais.",
+    "navTitle": "Navigation",
+    "homeLink": "Accueil",
+    "searchLink": "Rechercher",
+    "luxuryLink": "Villas de Luxe",
+    "familyLink": "Villas Familiales",
+    "contactTitle": "Contact",
+    "phone": "+62 812 3456 7890",
+    "email": "hello@stayvilla.id",
+    "address": "Sunset Road No. 88, Seminyak, Bali 80361",
+    "followTitle": "Suivez-Nous",
+    "copyright": "© {year} StayVilla. Tous droits réservés.",
+    "demoNote": "Modèle de Démonstration — Personnalisable"
+  },
+  "Languages": {
+    "id": "Indonesia",
+    "en": "English",
+    "fr": "Français",
+    "zh": "中文"
+  }
+}

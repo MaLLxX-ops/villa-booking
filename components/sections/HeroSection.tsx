@@ -1,10 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Palmtree, Sparkles } from "lucide-react";
 import HeroSearch from "@/components/HeroSearch";
 
 export default function HeroSection() {
+  const t = useTranslations("Hero");
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
       {/* Background Pattern */}
@@ -30,7 +33,7 @@ export default function HeroSection() {
           className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md text-terracotta-dark px-4 py-2 rounded-full text-sm font-bold border border-terracotta/25 mb-6 shadow-sm"
         >
           <Sparkles className="w-4 h-4 text-terracotta" />
-          Premium Villa Collection
+          {t("badge")}
         </motion.div>
 
         {/* Headline (Appears first) */}
@@ -40,12 +43,12 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.25, ease: "easeOut" }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-[1.15] tracking-tight"
         >
-          <span className="text-navy">Temukan Villa</span>
+          <span className="text-navy">{t("headlineP1")}</span>
           <br />
           <span className="bg-gradient-to-r from-terracotta to-terracotta-dark bg-clip-text text-transparent">
-            Impian Anda
+            {t("headlineP2")}
           </span>
-          <span className="text-navy"> di Bali</span>
+          <span className="text-navy"> {t("headlineP3")}</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -55,8 +58,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
           className="mt-6 text-lg sm:text-xl text-stone max-w-2xl mx-auto leading-relaxed font-normal"
         >
-          Koleksi villa premium pilihan untuk pengalaman liburan tak terlupakan.
-          Dari retreat mewah hingga studio minimalis di lokasi terbaik Bali.
+          {t("subtitle")}
         </motion.p>
 
         {/* Tropical Icon Divider */}

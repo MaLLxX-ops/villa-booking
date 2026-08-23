@@ -1,0 +1,116 @@
+{
+  "Metadata": {
+    "title": "StayVilla — Temukan Villa Impian Anda di Bali",
+    "description": "Booking villa premium di Bali dengan mudah. Pilih dari koleksi villa mewah, villa keluarga, dan studio minimalis di lokasi terbaik.",
+    "detailSuffix": "StayVilla Bali"
+  },
+  "Navbar": {
+    "home": "Beranda",
+    "search": "Cari Villa",
+    "collection": "Koleksi",
+    "contact": "Hubungi Kami",
+    "bookingBtn": "Booking",
+    "bookingNowBtn": "Booking Sekarang",
+    "language": "Bahasa"
+  },
+  "Hero": {
+    "badge": "Koleksi Villa Premium",
+    "headlineP1": "Temukan Villa",
+    "headlineP2": "Impian Anda",
+    "headlineP3": "di Bali",
+    "subtitle": "Koleksi villa premium pilihan untuk pengalaman liburan tak terlupakan. Dari retreat mewah hingga studio minimalis di lokasi terbaik Bali.",
+    "locationLabel": "Lokasi",
+    "locationPlaceholder": "Ubud, Seminyak, Canggu...",
+    "checkInLabel": "Check-in",
+    "checkOutLabel": "Check-out",
+    "searchBtn": "Cari Villa"
+  },
+  "Stats": {
+    "villaValue": "150+",
+    "villaLabel": "Villa Premium",
+    "ratingValue": "4.9",
+    "ratingLabel": "Rating Rata-rata",
+    "locationValue": "8",
+    "locationLabel": "Lokasi di Bali",
+    "secureValue": "100%",
+    "secureLabel": "Booking Aman"
+  },
+  "Categories": {
+    "title": "Pilih Kategori Villa",
+    "subtitle": "Setiap kategori dirancang khusus untuk memenuhi gaya liburan dan kebutuhan Anda",
+    "luxuryTitle": "Villa Mewah",
+    "luxuryDesc": "Pengalaman menginap ultra-premium dengan infinity pool dan fasilitas kelas dunia.",
+    "familyTitle": "Villa Keluarga",
+    "familyDesc": "Ruang luas, fasilitas lengkap, dan suasana privat untuk liburan keluarga tercinta.",
+    "studioTitle": "Studio Minimalis",
+    "studioDesc": "Desain compact, modern, dan estetik untuk pelancong solo atau pasangan berlibur.",
+    "viewCollection": "Lihat Koleksi"
+  },
+  "Listing": {
+    "title": "Koleksi Villa Pilihan",
+    "subtitle": "Handpicked villa terbaik dengan standar kualitas tertinggi untuk kenyamanan dan kemewahan liburan Anda",
+    "perNight": "per malam",
+    "bedrooms": "Kamar",
+    "bathrooms": "Mandi",
+    "guests": "Tamu"
+  },
+  "Detail": {
+    "backHome": "Kembali ke Beranda",
+    "reviews": "ulasan tamu",
+    "bedrooms": "Kamar Tidur",
+    "bathrooms": "Kamar Mandi",
+    "maxGuests": "Tamu Maks",
+    "aboutTitle": "Tentang Villa Ini",
+    "facilitiesTitle": "Fasilitas Unggulan",
+    "perNight": "per malam",
+    "includesTax": "(termasuk pajak)",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guestsCount": "Jumlah Tamu",
+    "guestUnit": "Tamu",
+    "priceTimesNight": "{price} × 1 malam",
+    "serviceFee": "Biaya layanan",
+    "totalEstimate": "Total Estimasi",
+    "bookingButton": "Booking Sekarang",
+    "securePayment": "Pembayaran aman & konfirmasi instan",
+    "photoCount": "{current} / {total}"
+  },
+  "Search": {
+    "title": "Cari Villa Impian",
+    "resultsFound": "Menampilkan <span class=\"text-terracotta-dark font-black\">{count}</span> villa yang sesuai kriteria Anda",
+    "searchPlaceholder": "Cari berdasarkan nama atau lokasi (Ubud, Canggu...)",
+    "allCategories": "Semua Kategori",
+    "sortPlaceholder": "Urutkan Berdasarkan",
+    "sortPriceAsc": "Harga: Terendah ke Tertinggi",
+    "sortPriceDesc": "Harga: Tertinggi ke Terendah",
+    "sortGuests": "Kapasitas Tamu Terbesar",
+    "sortBedrooms": "Jumlah Kamar Terbanyak",
+    "resetBtn": "Reset",
+    "quickCategoryLabel": "Kategori Cepat:",
+    "emptyTitle": "Tidak Ada Villa yang Cocok",
+    "emptyDesc": "Tidak ada properti yang memenuhi filter pencarian Anda. Coba kurangi filter atau cari kata kunci lain.",
+    "resetAllBtn": "Reset Semua Filter",
+    "loading": "Memuat villa..."
+  },
+  "Footer": {
+    "brandDesc": "Platform booking villa premium di Bali. Temukan pengalaman menginap terbaik di destinasi tropis paling memukau di dunia.",
+    "navTitle": "Navigasi",
+    "homeLink": "Beranda",
+    "searchLink": "Cari Villa",
+    "luxuryLink": "Villa Mewah",
+    "familyLink": "Villa Keluarga",
+    "contactTitle": "Kontak",
+    "phone": "+62 812 3456 7890",
+    "email": "hello@stayvilla.id",
+    "address": "Jl. Sunset Road No. 88, Seminyak, Bali 80361",
+    "followTitle": "Ikuti Kami",
+    "copyright": "© {year} StayVilla. All rights reserved.",
+    "demoNote": "Template Demo — Siap Dikustomisasi"
+  },
+  "Languages": {
+    "id": "Indonesia",
+    "en": "English",
+    "fr": "Français",
+    "zh": "中文"
+  }
+}

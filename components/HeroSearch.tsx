@@ -1,12 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { Search, MapPin, CalendarDays } from "lucide-react";
 
 export default function HeroSearch() {
   const router = useRouter();
+  const t = useTranslations("Hero");
   const [lokasi, setLokasi] = useState("");
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -31,13 +33,13 @@ export default function HeroSearch() {
           {/* Location */}
           <div className="relative">
             <label className="absolute -top-2.5 left-3 bg-white px-2 text-xs font-bold text-terracotta-dark z-10">
-              Lokasi
+              {t("locationLabel")}
             </label>
             <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-sand bg-cream/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15 transition-all">
               <MapPin className="w-4 h-4 text-terracotta shrink-0" />
               <input
                 type="text"
-                placeholder="Ubud, Seminyak, Canggu..."
+                placeholder={t("locationPlaceholder")}
                 value={lokasi}
                 onChange={(e) => setLokasi(e.target.value)}
                 className="w-full bg-transparent text-sm text-charcoal font-medium placeholder:text-stone-light outline-none"
@@ -48,7 +50,7 @@ export default function HeroSearch() {
           {/* Check-In */}
           <div className="relative">
             <label className="absolute -top-2.5 left-3 bg-white px-2 text-xs font-bold text-terracotta-dark z-10">
-              Check-in
+              {t("checkInLabel")}
             </label>
             <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-sand bg-cream/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15 transition-all">
               <CalendarDays className="w-4 h-4 text-terracotta shrink-0" />
@@ -64,7 +66,7 @@ export default function HeroSearch() {
           {/* Check-Out */}
           <div className="relative">
             <label className="absolute -top-2.5 left-3 bg-white px-2 text-xs font-bold text-terracotta-dark z-10">
-              Check-out
+              {t("checkOutLabel")}
             </label>
             <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-sand bg-cream/50 focus-within:bg-white focus-within:border-terracotta focus-within:ring-2 focus-within:ring-terracotta/15 transition-all">
               <CalendarDays className="w-4 h-4 text-terracotta shrink-0" />
@@ -87,7 +89,7 @@ export default function HeroSearch() {
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-8 py-3.5 rounded-xl font-bold shadow-md shadow-terracotta/25 hover:shadow-lg hover:shadow-terracotta/35 transition-all cursor-pointer"
           >
             <Search className="w-4 h-4" />
-            Cari Villa
+            {t("searchBtn")}
           </motion.button>
         </div>
       </div>
