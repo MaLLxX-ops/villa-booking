@@ -1,0 +1,2 @@
+import { requireAdmin } from "@/lib/supabase/admin"; import AdminNav from "@/components/AdminNav"; import AdminAvailabilityClient from "@/components/AdminAvailabilityClient";
+export default async function AdminAvailabilityPage() { await requireAdmin(); return <div className="min-h-screen bg-cream lg:flex"><AdminNav /><main className="flex-1 p-5 sm:p-8"><AdminAvailabilityClient /></main></div>; }

@@ -83,3 +83,31 @@ html {
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
+
+.field {
+  width: 100%;
+  border: 1px solid var(--color-sand);
+  border-radius: 0.5rem;
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  padding: 0.75rem;
+  outline: none;
+}
+
+.field:focus {
+  border-color: var(--color-terracotta);
+  background: var(--color-white);
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  color: var(--color-terracotta-dark);
+}
+
+.icon-button:hover {
+  background: var(--color-cream-dark);
+}

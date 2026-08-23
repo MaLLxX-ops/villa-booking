@@ -1,0 +1,2 @@
+import { requireAdmin } from "@/lib/supabase/admin"; import AdminNav from "@/components/AdminNav"; import AdminVillasClient from "@/components/AdminVillasClient";
+export default async function AdminVillasPage() { await requireAdmin(); return <div className="min-h-screen bg-cream lg:flex"><AdminNav /><main className="flex-1 p-5 sm:p-8"><AdminVillasClient /></main></div>; }

@@ -36,6 +36,7 @@ export default function OwnersRegistrationForm() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [generatedWALink, setGeneratedWALink] = useState("");
 
   const handleChange = (
@@ -50,7 +51,7 @@ export default function OwnersRegistrationForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newErrors: Record<string, string> = {};
@@ -69,6 +70,27 @@ export default function OwnersRegistrationForm() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    let response: Response;
+    try {
+      response = await fetch("/api/owners", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+    } catch {
+      setErrors({ form: "Koneksi gagal. Silakan coba lagi." });
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!response.ok) {
+      const result = await response.json().catch(() => null);
+      setErrors({ form: result?.error || "Pendaftaran gagal disimpan." });
+      setIsSubmitting(false);
       return;
     }
 
@@ -92,6 +114,7 @@ export default function OwnersRegistrationForm() {
     if (typeof window !== "undefined") {
       window.open(waUrl, "_blank");
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -340,17 +363,21 @@ export default function OwnersRegistrationForm() {
         <div className="pt-2 text-center space-y-3">
           <motion.button
             type="submit"
+            disabled={isSubmitting}
             whileHover={{ scale: 1.015 }}
             whileTap={{ scale: 0.985 }}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-terracotta to-terracotta-dark text-white px-10 py-4 rounded-2xl font-black text-base shadow-lg shadow-terracotta/25 hover:shadow-xl hover:shadow-terracotta/35 transition-all cursor-pointer"
           >
             <Send className="w-5 h-5" />
-            {t("submitBtn")}
+            {isSubmitting ? "Menyimpan..." : t("submitBtn")}
           </motion.button>
           <p className="text-xs text-stone font-medium max-w-lg mx-auto">
             {t("submitNotice")}
           </p>
         </div>
+        {errors.form && (
+          <p className="text-center text-sm text-red-600 font-bold">{errors.form}</p>
+        )}
       </form>
 
       {/* Success Notification Banner */}
