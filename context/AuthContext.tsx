@@ -9,6 +9,9 @@ interface AuthContextValue {
   user: User | null;
   isLoading: boolean;
   signInWithGoogle: () => Promise<void>;
+  signInWithPassword: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, fullName?: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -46,6 +49,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   };
 
+  const signInWithPassword = async (email: string, password: string) => {
+    const supabase = createSupabaseBrowserClient();
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) throw error;
+    router.refresh();
+  };
+
+  const signUp = async (email: string, password: string, fullName?: string) => {
+    const supabase = createSupabaseBrowserClient();
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName || undefined,
+        },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    if (error) throw error;
+  };
+
+  const resetPassword = async (email: string) => {
+    const supabase = createSupabaseBrowserClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/callback?next=/account`,
+    });
+    if (error) throw error;
+  };
+
   const signOut = async () => {
     const supabase = createSupabaseBrowserClient();
     const { error } = await supabase.auth.signOut();
@@ -54,7 +90,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, signInWithGoogle, signOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isLoading,
+        signInWithGoogle,
+        signInWithPassword,
+        signUp,
+        resetPassword,
+        signOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
