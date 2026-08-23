@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import { type Locale } from "@/lib/data";
+import { AuthProvider } from "@/context/AuthContext";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -114,18 +115,20 @@ export default async function LocaleLayout({
   const villas = await getSupabaseVillas(locale as Locale);
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <CurrencyProvider>
-        <WishlistProvider>
-          <CompareProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <CompareFloatingBar villas={villas} />
-            <AiConcierge villas={villas} />
-          </CompareProvider>
-        </WishlistProvider>
-      </CurrencyProvider>
-    </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AuthProvider>
+            <CurrencyProvider>
+              <WishlistProvider>
+                <CompareProvider>
+                  <Navbar />
+                  <main className="flex-1">{children}</main>
+                  <Footer />
+                  <CompareFloatingBar villas={villas} />
+                  <AiConcierge villas={villas} />
+                </CompareProvider>
+              </WishlistProvider>
+            </CurrencyProvider>
+          </AuthProvider>
+        </NextIntlClientProvider>
   );
 }

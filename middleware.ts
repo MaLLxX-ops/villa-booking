@@ -6,6 +6,10 @@ import { routing } from "./i18n/routing";
 const handleI18n = createMiddleware(routing);
 
 export default async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/auth/")) {
+    return NextResponse.next();
+  }
+
   if (!request.nextUrl.pathname.startsWith("/admin")) {
     return handleI18n(request);
   }

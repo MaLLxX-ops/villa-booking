@@ -13,18 +13,43 @@ import {
   Heart,
   Map,
   Scale,
+  LogIn,
+  LogOut,
 } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CurrencySelector from "@/components/CurrencySelector";
 import Logo from "@/components/Logo";
 import { useWishlist } from "@/context/WishlistContext";
 import { useCompare } from "@/context/CompareContext";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("Navbar");
   const { count: wishlistCount } = useWishlist();
   const { count: compareCount } = useCompare();
+  const { user, isLoading: isAuthLoading, signInWithGoogle, signOut } = useAuth();
+  const [authError, setAuthError] = useState("");
+
+  const handleGoogleLogin = async () => {
+    setAuthError("");
+    try {
+      await signInWithGoogle();
+    } catch {
+      setAuthError("Login Google gagal. Silakan coba lagi.");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+    } catch {
+      setAuthError("Logout gagal. Silakan coba lagi.");
+    }
+  };
+
+  const userName = user?.user_metadata?.full_name || user?.email || "Tamu";
+  const userInitial = userName.charAt(0).toUpperCase();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-sand shadow-xs">
@@ -126,6 +151,29 @@ export default function Navbar() {
             {/* Language Switcher */}
             <LanguageSwitcher />
 
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-3 py-2 text-xs font-bold text-charcoal hover:border-terracotta"
+                title="Logout"
+              >
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-navy text-xs text-white">
+                  {userInitial}
+                </span>
+                <span className="max-w-24 truncate">{userName}</span>
+                <LogOut className="h-3.5 w-3.5" />
+              </button>
+            ) : (
+              <button
+                onClick={handleGoogleLogin}
+                disabled={isAuthLoading}
+                className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-3 py-2 text-xs font-bold text-charcoal hover:border-terracotta disabled:opacity-60"
+              >
+                <LogIn className="h-4 w-4 text-terracotta" />
+                Login dengan Google
+              </button>
+            )}
+
             {/* Global Booking CTA */}
             <Link
               href="/cari"
@@ -159,6 +207,26 @@ export default function Navbar() {
 
             <CurrencySelector />
             <LanguageSwitcher />
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="relative flex h-8 w-8 items-center justify-center rounded-full bg-navy text-xs font-black text-white"
+                aria-label="Logout"
+                title={`Logout ${userName}`}
+              >
+                {userInitial}
+              </button>
+            ) : (
+              <button
+                onClick={handleGoogleLogin}
+                disabled={isAuthLoading}
+                className="rounded-xl p-1.5 text-charcoal hover:bg-sand/60 disabled:opacity-60"
+                aria-label="Login dengan Google"
+                title="Login dengan Google"
+              >
+                <LogIn className="h-5 w-5" />
+              </button>
+            )}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-1.5 sm:p-2 rounded-xl text-charcoal hover:bg-sand/60 transition-colors"
@@ -193,6 +261,10 @@ export default function Navbar() {
                 <Home className="w-5 h-5 text-terracotta" />
                 {t("home")}
               </Link>
+
+              {authError && (
+                <p className="px-4 text-xs font-bold text-red-600">{authError}</p>
+              )}
               <Link
                 href="/cari"
                 onClick={() => setIsOpen(false)}
