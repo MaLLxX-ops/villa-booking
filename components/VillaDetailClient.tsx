@@ -33,7 +33,12 @@ import {
   Phone,
   MessageCircle,
 } from "lucide-react";
-import { Villa, formatHarga } from "@/lib/data";
+import {
+  formatHarga,
+  Villa,
+  ADMIN_WHATSAPP_NUMBER,
+} from "@/lib/data";
+import { generateBookingWhatsAppUrl } from "@/lib/whatsapp-templates";
 import DateRangeInputs from "@/components/DateRangeInputs";
 import {
   calculateNights,
@@ -153,24 +158,17 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
 
     if (hasError) return;
 
-    // Formatted WhatsApp text pre-filled for this specific villa's owner
-    const message = `*RESERVASI VILLA — STAYVILLA* 🌴✨
-
-Halo Pengelola ${villa.nama}, saya ingin melakukan reservasi untuk menginap di villa Anda:
-
-📋 *Rincian Reservasi:*
-• *Villa:* ${villa.nama} (${villa.lokasi})
-• *Check-in:* ${checkIn}
-• *Check-out:* ${checkOut}
-• *Durasi:* ${activeNights} Malam
-• *Jumlah Tamu:* ${guestCount} Orang
-• *Estimasi Total:* ${formatHarga(totalPrice)} (termasuk biaya layanan & pajak)
-
-Mohon konfirmasi ketersediaan dan prosedur pembayaran/deposit selanjutnya. Terima kasih!`;
-
-    const waUrl = `https://wa.me/${villa.nomor_whatsapp_pemilik}?text=${encodeURIComponent(
-      message
-    )}`;
+    // Generate strictly English WhatsApp reservation message for the owner
+    const { url: waUrl } = generateBookingWhatsAppUrl({
+      villaName: villa.nama,
+      villaLocation: villa.lokasi,
+      checkIn,
+      checkOut,
+      nights: activeNights,
+      guests: guestCount,
+      totalPriceFormatted: formatHarga(totalPrice),
+      ownerWhatsAppNumber: villa.nomor_whatsapp_pemilik,
+    });
 
     setOwnerWALink(waUrl);
     setIsBookingSuccess(true);

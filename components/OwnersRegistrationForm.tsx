@@ -18,6 +18,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
+import { generateOwnerRegistrationWhatsAppUrl } from "@/lib/whatsapp-templates";
 
 export default function OwnersRegistrationForm() {
   const t = useTranslations("Owners");
@@ -71,31 +72,19 @@ export default function OwnersRegistrationForm() {
       return;
     }
 
-    // Format WhatsApp message to Admin (082163240141)
-    const cleanWA = formData.nomorWA.replace(/[^0-9+]/g, "");
-    const message = `*PENDAFTARAN VILLA BARU — STAYVILLA* 🌴✨
+    // Format WhatsApp message to Admin (082163240141) strictly in English
+    const { url: waUrl } = generateOwnerRegistrationWhatsAppUrl({
+      namaVilla: formData.namaVilla,
+      namaPemilik: formData.namaPemilik,
+      nomorWA: formData.nomorWA,
+      lokasi: formData.lokasi,
+      jumlahKamar: formData.jumlahKamar,
+      rentangHarga: formData.rentangHarga,
+      deskripsi: formData.deskripsi,
+      socialLink: formData.socialLink,
+      adminWhatsAppNumber: ADMIN_WHATSAPP_NUMBER,
+    });
 
-Halo Admin StayVilla, saya ingin mendaftarkan properti villa saya untuk kanal booking langsung:
-
-📋 *Detail Properti:*
-• *Nama Villa:* ${formData.namaVilla}
-• *Nama Pemilik/Pengelola:* ${formData.namaPemilik}
-• *WhatsApp Pemilik:* ${cleanWA}
-• *Lokasi:* ${formData.lokasi}
-• *Jumlah Kamar:* ${formData.jumlahKamar} Kamar
-• *Rentang Harga:* ${formData.rentangHarga} / malam
-
-📝 *Deskripsi & Keunggulan:*
-${formData.deskripsi}
-
-🌐 *Social Media / Website:*
-${formData.socialLink.trim() || "-"}
-
-Mohon konfirmasi langkah verifikasi & kurasi listing selanjutnya. Terima kasih!`;
-
-    const waUrl = `https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      message
-    )}`;
     setGeneratedWALink(waUrl);
     setIsSubmitted(true);
 

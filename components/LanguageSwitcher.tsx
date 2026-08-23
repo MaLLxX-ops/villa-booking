@@ -18,6 +18,8 @@ const languages: LanguageOption[] = [
   { code: "en", label: "English", nativeLabel: "English (US)", flag: "🇬🇧" },
   { code: "fr", label: "Français", nativeLabel: "Français", flag: "🇫🇷" },
   { code: "zh", label: "Chinese", nativeLabel: "简体中文", flag: "🇨🇳" },
+  { code: "ja", label: "Japanese", nativeLabel: "日本語", flag: "🇯🇵" },
+  { code: "ko", label: "Korean", nativeLabel: "한국어", flag: "🇰🇷" },
 ];
 
 export default function LanguageSwitcher() {
@@ -80,7 +82,7 @@ export default function LanguageSwitcher() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute right-0 mt-2 w-48 bg-white rounded-2xl p-1.5 shadow-xl border border-sand z-50 overflow-hidden"
+            className="absolute right-0 mt-2 w-52 bg-white rounded-2xl p-1.5 shadow-xl border border-sand z-50 overflow-hidden"
           >
             <div className="px-3 py-2 border-b border-sand/50 mb-1">
               <div className="flex items-center gap-1.5 text-xs font-black text-stone uppercase tracking-wider">
@@ -89,7 +91,7 @@ export default function LanguageSwitcher() {
               </div>
             </div>
 
-            <div className="space-y-0.5">
+            <div className="space-y-0.5 max-h-64 overflow-y-auto scrollbar-none">
               {languages.map((lang) => {
                 const isActive = lang.code === currentLocale;
                 return (

@@ -1,4 +1,4 @@
-export type Locale = "id" | "en" | "fr" | "zh";
+export type Locale = "id" | "en" | "fr" | "zh" | "ja" | "ko";
 
 export const ADMIN_WHATSAPP_NUMBER = "6282163240141";
 
@@ -7,6 +7,8 @@ export interface LocalizedString {
   en: string;
   fr: string;
   zh: string;
+  ja: string;
+  ko: string;
 }
 
 export interface LocalizedArray {
@@ -14,6 +16,8 @@ export interface LocalizedArray {
   en: string[];
   fr: string[];
   zh: string[];
+  ja: string[];
+  ko: string[];
 }
 
 export interface VillaRaw {
@@ -62,6 +66,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Ubud, Bali",
       fr: "Ubud, Bali",
       zh: "乌布, 巴厘岛",
+      ja: "バリ島、ウブド",
+      ko: "발리 우붓",
     },
     harga_per_malam: 3_500_000,
     jumlah_kamar: 4,
@@ -72,6 +78,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Hidden amidst the lush tropical canopy of Ubud, Villa Teratai offers a luxury sanctuary harmoniously integrated with nature. Surrounded by terraced rice fields and verdant ravines, this estate features a private infinity pool overlooking the valley, an open-air yoga pavilion, and contemporary Balinese interiors crafted with rich teakwood and natural stone.",
       fr: "Nichée au cœur de la canopée tropicale d'Ubud, la Villa Teratai offre un sanctuaire luxueux en harmonie avec la nature. Entourée de rizières en terrasses et d'une forêt luxuriante, cette propriété dispose d'une piscine à débordement privée avec vue sur la vallée, d'un pavillon de yoga en plein air et d'intérieurs balinais contemporains.",
       zh: "隐匿于乌布郁郁葱葱的热带树冠之中，莲花别墅（Villa Teratai）为您提供与自然完美融合的奢华居所。别墅周围环绕着层层梯田与青翠山谷，拥有俯瞰壮丽山谷的私人无边泳池、露天瑜伽亭，以及采用名贵柚木与天然石材打造的当代巴厘岛风情内饰。",
+      ja: "ウブドの緑豊かな熱帯雨林に佇むヴィラ・テラタイは、自然と調和した贅沢な滞在をお届けします。棚田と緑深い渓谷に囲まれ、プライベートインフィニティプール、オープンエアのヨガパビリオン、チーク材と自然石を用いた現代的なバリ風インテリアを備えています。",
+      ko: "우붓의 울창한 열대 숲속에 자리한 빌라 테라타이는 자연과 완벽한 조화를 이루는 럭셔리 휴식처입니다. 계단식 논과 푸른 계곡으로 둘러싸여 있으며, 프라이빗 인피니티 풀, 야외 요가 파빌리온, 고급 티크 원목과 천연석으로 꾸며진 모던 발리풍 인테리어를 자랑합니다.",
     },
     fasilitas: {
       id: [
@@ -114,6 +122,26 @@ export const villaDataRaw: (VillaRaw & {
         "露天瑜伽亭",
         "礼宾管家服务",
       ],
+      ja: [
+        "インフィニティプール",
+        "高速Wi-Fi",
+        "フルキッチン",
+        "エアコン",
+        "専用駐車場",
+        "トロピカルガーデン",
+        "ヨガパビリオン",
+        "コンシェルジュサービス",
+      ],
+      ko: [
+        "인피니티 풀",
+        "고속 Wi-Fi",
+        "풀옵션 주방",
+        "에어컨",
+        "전용 주차장",
+        "열대 정원",
+        "요가 파빌리온",
+        "컨시어지 서비스",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80",
@@ -127,6 +155,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Luxury Villa",
       fr: "Villa de Luxe",
       zh: "奢华别墅",
+      ja: "高級ヴィラ",
+      ko: "럭셔리 빌라",
     },
   },
   {
@@ -139,6 +169,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Seminyak, Bali",
       fr: "Seminyak, Bali",
       zh: "水明漾, 巴厘岛",
+      ja: "バリ島、スミニャック",
+      ko: "발리 스미냑",
     },
     harga_per_malam: 5_200_000,
     jumlah_kamar: 5,
@@ -149,6 +181,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Villa Cendana epitomizes tropical luxury in the vibrant heart of Seminyak. Just steps from pristine beaches and world-class dining, this villa masterfully combines sleek contemporary architecture with authentic Balinese elements. Features en-suite bathrooms in all suites, an outdoor sunken pool bar, and an open gazebo for starry dining.",
       fr: "La Villa Cendana incarne le luxe tropical au cœur de Seminyak. À quelques pas des plages et des meilleurs restaurants de Bali, elle allie architecture contemporaine et artisanat balinais traditionnel. Chaque suite dispose d'une salle de bain attenante, d'un bar de piscine et d'un gazebo pour des dîners sous les étoiles.",
       zh: "檀香别墅（Villa Cendana）是水明漾核心区域热带奢华的典范。毗邻著名海滩与顶尖餐厅酒吧，别墅将时尚的现代建筑与地道巴厘传统工艺精妙结合。所有套房均配备独立卫浴，设有户外下沉式泳池酒吧与星空用餐凉亭。",
+      ja: "スミニャックの中心部に位置するヴィラ・チェンダナは、トロピカルラグジュアリーの象徴です。ビーチや一流レストランからすぐの好立地にあり、スタイリッシュな現代建築と伝統的なバリの職人技が見事に融合しています。全室専用バスルーム付きで、プールサイドバーや星空の下で食事ができるガゼボを完備。",
+      ko: "스미냑 중심가에 위치한 빌라 첸다나는 트로피컬 럭셔리의 정수를 선보입니다. 해변과 유명 레스토랑에서 도보 거리에 있으며, 세련된 현대 건축과 발리 전통 예술이 조화를 이룹니다. 전 객실 전용 욕실과 야외 풀사이드 바, 별빛 아래 식사를 즐길 수 있는 가제보를 갖추고 있습니다.",
     },
     fasilitas: {
       id: [
@@ -195,6 +229,28 @@ export const villaDataRaw: (VillaRaw & {
         "专属管家服务",
         "私人健身房",
       ],
+      ja: [
+        "プライベートプール",
+        "高速Wi-Fi",
+        "グルメキッチン",
+        "エアコン",
+        "プールサイドバー",
+        "ガゼボ",
+        "スマートTV",
+        "バトラーサービス",
+        "専用ジム",
+      ],
+      ko: [
+        "프라이빗 수영장",
+        "고속 Wi-Fi",
+        "고급 주방",
+        "에어컨",
+        "풀사이드 바",
+        "가제보",
+        "스마트 TV",
+        "집사 서비스",
+        "전용 피트니스",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
@@ -208,6 +264,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Luxury Villa",
       fr: "Villa de Luxe",
       zh: "奢华别墅",
+      ja: "高級ヴィラ",
+      ko: "럭셔리 빌라",
     },
   },
   {
@@ -220,6 +278,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Canggu, Bali",
       fr: "Canggu, Bali",
       zh: "仓古, 巴厘岛",
+      ja: "バリ島、チャングー",
+      ko: "발리 짱구",
     },
     harga_per_malam: 2_800_000,
     jumlah_kamar: 3,
@@ -230,6 +290,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Located in vibrant Canggu, Villa Melati offers the perfect blend of coastal living and chic residential comfort. Featuring bohemian-modern design, a rooftop sunset lounge, and immediate access to top surf breaks and trendy cafes. Perfect for families or friend getaways.",
       fr: "Située dans le quartier prisé de Canggu, la Villa Melati marie à la perfection style balnéaire bohème et grand confort. Dotée d'un lounge rooftop pour admirer le coucher de soleil et d'un accès rapide aux plages de surf et cafés branchés.",
       zh: "茉莉别墅（Villa Melati）坐落于潮流聚集地仓古，将悠闲的海滨生活与时尚的居家舒适感完美融合。采用波西米亚现代风格设计，配备日落屋顶酒廊，便捷直达冲浪胜地与人气咖啡馆。",
+      ja: "トレンディなチャングーエリアに位置するヴィラ・メラティは、コースタルライフと快適な住空間が融合したヴィラです。ボヘミアンモダンスタイルのデザイン、夕日を望むルーフトップラウンジ、ビーチや人気カフェへの優れたアクセス性を誇ります。",
+      ko: "트렌디한 짱구 지역에 위치한 빌라 멜라티는 해변의 여유로움과 안락한 주거 공간이 완벽하게 어우러진 곳입니다. 보헤미안 모던 디자인, 일몰을 감상할 수 있는 루프탑 라운지, 서핑 명소 및 유명 카페와의 뛰어난 접근성을 자랑합니다.",
     },
     fasilitas: {
       id: [
@@ -272,6 +334,26 @@ export const villaDataRaw: (VillaRaw & {
         "烧烤专用区",
         "智能电视",
       ],
+      ja: [
+        "スイミングプール",
+        "高速Wi-Fi",
+        "フルキッチン",
+        "エアコン",
+        "ルーフトップラウンジ",
+        "無料レンタサイクル",
+        "BBQエリア",
+        "スマートTV",
+      ],
+      ko: [
+        "수영장",
+        "고속 Wi-Fi",
+        "풀옵션 주방",
+        "에어컨",
+        "루프탑 라운지",
+        "무료 자전거 대여",
+        "바베큐 공간",
+        "스마트 TV",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
@@ -285,6 +367,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Family Villa",
       fr: "Villa Familiale",
       zh: "家庭度假别墅",
+      ja: "ファミリーヴィラ",
+      ko: "패밀리 빌라",
     },
   },
   {
@@ -297,6 +381,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Sanur, Bali",
       fr: "Sanur, Bali",
       zh: "沙努尔, 巴厘岛",
+      ja: "バリ島、サヌール",
+      ko: "발리 사누르",
     },
     harga_per_malam: 1_200_000,
     jumlah_kamar: 1,
@@ -307,6 +393,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Studio Anggrek is a refined minimalist sanctuary along the tranquil shores of Sanur. Tailored for couples and solo adventurers, it pairs Japanese wabi-sabi aesthetics with Balinese tropical warmth. Features floor-to-ceiling garden windows and direct boardwalk beach access.",
       fr: "Le Studio Anggrek est une retraite minimaliste et élégante sur la côte paisible de Sanur. Conçu pour les couples et voyageurs solo, il associe la sérénité japonaise à la chaleur tropicale balinaise, avec de grandes baies vitrées donnant sur le jardin.",
       zh: "兰花雅筑（Studio Anggrek）是坐落于沙努尔宁静海岸线的精致极简度假公寓。专为情侣或独行探索者打造，巧妙融合日式侘寂美学与巴厘热带温润风情，设有通透的落地景观窗与私享花园露台。",
+      ja: "サヌールの穏やかなビーチサイドに位置するスタジオ・アングレックは、洗練されたミニマリストの隠れ家です。カップルや一人旅に最適で、日本の侘び寂びの美意識とバリのトロピカルな温もりが調和しています。",
+      ko: "사누르의 고요한 해변가에 자리 잡은 스튜디오 앙그렉은 감각적인 미니멀리스트 휴식처입니다. 커플 및 나홀로 여행객에게 최적화되어 있으며, 일본의 절제된 미학과 발리의 따뜻한 감성이 어우러져 있습니다.",
     },
     fasilitas: {
       id: [
@@ -341,6 +429,22 @@ export const villaDataRaw: (VillaRaw & {
         "直达海滩通道",
         "私人观景露台",
       ],
+      ja: [
+        "高速Wi-Fi",
+        "エアコン",
+        "キチネット（簡易キッチン）",
+        "スマートTV",
+        "ビーチ直結アクセス",
+        "専用テラス",
+      ],
+      ko: [
+        "고속 Wi-Fi",
+        "에어컨",
+        "간이 주방",
+        "스마트 TV",
+        "해변 직결 통로",
+        "전용 테라스",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80",
@@ -353,6 +457,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Minimalist Studio",
       fr: "Studio Minimaliste",
       zh: "极简公寓",
+      ja: "ミニマリストスタジオ",
+      ko: "미니멀 스튜디오",
     },
   },
   {
@@ -365,6 +471,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Jimbaran, Bali",
       fr: "Jimbaran, Bali",
       zh: "金巴兰, 巴厘岛",
+      ja: "バリ島、ジンバラン",
+      ko: "발리 짐바란",
     },
     harga_per_malam: 4_100_000,
     jumlah_kamar: 4,
@@ -375,6 +483,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Perched atop the dramatic cliffs of Jimbaran with panoramic views across the Indian Ocean, Villa Kamboja presents sheer coastal grandeur. Built with native limestone and ironwood, boasting an infinity pool merging seamlessly with the azure horizon and a private cliffside sunset deck.",
       fr: "Perchée sur les falaises majestueuses de Jimbaran avec vue imprenable sur l'océan Indien, la Villa Kamboja offre un luxe côtier spectaculaire. Construite en pierre calcaire et bois de fer, avec une piscine à débordement fusionnant avec l'horizon.",
       zh: "鸡蛋花别墅（Villa Kamboja）屹立于金巴兰雄伟的悬崖之巅，饱览印度洋无垠全景。别墅采用当地石灰岩与珍贵铁木精工构筑，无边泳池与碧海蓝天无缝相接，配有私人悬崖日落观景露台。",
+      ja: "ジンバランの壮大な断崖の上に佇み、インド洋のパノラマビューを一望できるヴィラ・カンボジャ。石灰岩とアイアンウッドで建てられ、海と一体化するインフィニティプールと崖の上のサンデッキを備えています。",
+      ko: "짐바란의 웅장한 절벽 위에 자리하여 인도양의 파노라마 전망을 자랑하는 빌라 캄보자. 천연 석회석과 고급 목재로 지어졌으며, 푸른 수평선과 이어지는 인피니티 풀 및 절벽 일몰 데크를 갖추고 있습니다.",
     },
     fasilitas: {
       id: [
@@ -421,6 +531,28 @@ export const villaDataRaw: (VillaRaw & {
         "私人主厨服务",
         "按摩浴缸水疗",
       ],
+      ja: [
+        "インフィニティプール",
+        "高速Wi-Fi",
+        "グルメキッチン",
+        "エアコン",
+        "オーシャンビュー",
+        "サンデッキ",
+        "ホームシアター",
+        "専属シェフサービス",
+        "ジャグジースパ",
+      ],
+      ko: [
+        "인피니티 풀",
+        "고속 Wi-Fi",
+        "고급 주방",
+        "에어컨",
+        "오션뷰",
+        "선셋 일광욕 데크",
+        "홈시어터",
+        "전담 셰프 서비스",
+        "자쿠지 스파",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
@@ -434,6 +566,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Luxury Villa",
       fr: "Villa de Luxe",
       zh: "奢华别墅",
+      ja: "高級ヴィラ",
+      ko: "럭셔리 빌라",
     },
   },
   {
@@ -446,6 +580,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Tabanan, Bali",
       fr: "Tabanan, Bali",
       zh: "塔巴南, 巴厘岛",
+      ja: "バリ島、タバナン",
+      ko: "발리 타바난",
     },
     harga_per_malam: 2_200_000,
     jumlah_kamar: 3,
@@ -456,6 +592,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Set amidst the emerald rice terraces of Tabanan, Villa Flamboyan offers an authentic Balinese countryside experience refined with modern luxury. Traditional alang-alang thatched architecture meets contemporary comforts, offering awe-inspiring views of Mount Batukaru.",
       fr: "Au milieu des rizières d'émeraude de Tabanan, la Villa Flamboyan offre une expérience balinaise rurale authentique et raffinée. Toits de chaume traditionnels et confort moderne avec vue grandiose sur le mont Batukaru.",
       zh: "凤凰木庄园（Villa Flamboyan）坐落在塔巴南碧绿的梯田怀抱中，为您带来融入现代雅致的纯正巴厘田园体验。传统茅草屋顶建筑搭配现代设施，晨起可远眺巴图卡鲁圣山的壮丽景致。",
+      ja: "タバナンのエメラルド色に輝く棚田に囲まれたヴィラ・フランボヤンは、モダンな設備を備えた本物のバリ田園リゾート体験を提供します。バトゥカル山を望む絶景と静寂に包まれた空間をお楽しみいただけます。",
+      ko: "타바난의 에메랄드빛 계단식 논으로 둘러싸인 빌라 플람보얀은 현대적인 편의시설을 갖춘 정통 발리 시골 휴양 경험을 선사합니다. 바투카루 산의 웅장한 전망과 평화로운 자연을 만끽할 수 있습니다.",
     },
     fasilitas: {
       id: [
@@ -498,6 +636,26 @@ export const villaDataRaw: (VillaRaw & {
         "静修冥想空间",
         "含地道巴厘早餐",
       ],
+      ja: [
+        "プール",
+        "Wi-Fi",
+        "フルキッチン",
+        "エアコン＆ファン",
+        "水田ビュー",
+        "無料自転車",
+        "瞑想スペース",
+        "地元食材の朝食付き",
+      ],
+      ko: [
+        "수영장",
+        "Wi-Fi",
+        "주방 시설",
+        "에어컨 및 팬",
+        "논 전망(라이스필드 뷰)",
+        "무료 자전거",
+        "명상 샬라",
+        "현지식 조식 포함",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80",
@@ -511,6 +669,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Family Villa",
       fr: "Villa Familiale",
       zh: "家庭度假别墅",
+      ja: "ファミリーヴィラ",
+      ko: "패밀리 빌라",
     },
   },
   {
@@ -523,6 +683,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Uluwatu, Bali",
       fr: "Uluwatu, Bali",
       zh: "乌鲁瓦图, 巴厘岛",
+      ja: "バリ島、ウルワツ",
+      ko: "발리 울루와투",
     },
     harga_per_malam: 1_500_000,
     jumlah_kamar: 1,
@@ -533,6 +695,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Perched above the legendary surf breaks of Uluwatu, Studio Kenanga showcases an industrial-tropical aesthetic. Polished concrete meets cascading flora, terrazzo flooring, and an open ocean-facing balcony. Minutes from world-class waves and iconic sunset temples.",
       fr: "Surplombant les falaises d'Uluwatu, le Studio Kenanga allie style industriel et végétation tropicale. Béton ciré, terrazzo et balcon privé face aux vagues de l'océan Indien. Proche des meilleurs spots de surf et du temple emblématique.",
       zh: "依兰寓所（Studio Kenanga）高悬于乌鲁瓦图传奇冲浪胜地之上，展现工业风与热带植被的酷炫碰撞。清水混凝土墙面、水磨石地面与面海开阔阳台，距著名冲浪浪点与乌鲁瓦图情人崖神庙仅数分钟之遥。",
+      ja: "ウルワツの有名なサーフスポットを見下ろす断崖に建つスタジオ・ケナンガは、インダストリアルとトロピカルが融合した洗練された空間です。打ち放しコンクリートと緑豊かな植物、海を望む開放的なバルコニーが魅力です。",
+      ko: "울루와투의 유명 서핑 포인트가 내려다보이는 절벽에 위치한 스튜디오 케낭가는 인더스트리얼과 트로피컬 감성이 조화를 이룹니다. 노출 콘크리트와 싱그러운 식물, 바다를 향한 프라이빗 발코니가 돋보입니다.",
     },
     fasilitas: {
       id: [
@@ -571,6 +735,24 @@ export const villaDataRaw: (VillaRaw & {
         "露天雨淋花洒",
         "浮潜装备提供",
       ],
+      ja: [
+        "高速Wi-Fi",
+        "エアコン",
+        "キチネット",
+        "スマートTV",
+        "オーシャンビューバルコニー",
+        "屋外レインシャワー",
+        "シュノーケリング用品",
+      ],
+      ko: [
+        "고속 Wi-Fi",
+        "에어컨",
+        "간이 주방",
+        "스마트 TV",
+        "오션뷰 발코니",
+        "야외 레인 샤워",
+        "스노클링 장비",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80",
@@ -583,6 +765,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Minimalist Studio",
       fr: "Studio Minimaliste",
       zh: "极简公寓",
+      ja: "ミニマリストスタジオ",
+      ko: "미니멀 스튜디오",
     },
   },
   {
@@ -595,6 +779,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Nusa Dua, Bali",
       fr: "Nusa Dua, Bali",
       zh: "努沙杜瓦, 巴厘岛",
+      ja: "バリ島、ヌサドゥア",
+      ko: "발리 누사두아",
     },
     harga_per_malam: 6_800_000,
     jumlah_kamar: 6,
@@ -605,6 +791,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Villa Dahlia stands as the crown jewel of our collection — an imperial private estate in the exclusive enclaves of Nusa Dua. Boasting six master suites, a 25-meter Olympic-style pool, full-service spa, private tennis court, and one hectare of manicured gardens with 24-hour butler service.",
       fr: "La Villa Dahlia est le fleuron de notre collection : un domaine d'exception à Nusa Dua. Comprenant six suites de maître, une piscine de 25 mètres, un spa privé, un court de tennis et un hectare de jardins luxuriants avec majordome 24h/24.",
       zh: "大丽花庄园（Villa Dahlia）是我们至臻奢华系列的传世之作——坐落于努沙杜瓦尊贵区域的私密皇家庄园。拥有6间五星级豪华套房、25米半奥林匹克泳池、私人水疗中心、网球场与一公顷私家热带花园，配备24小时全天候管家服务。",
+      ja: "ヌサドゥアの高級リゾートエリアに佇むヴィラ・ダリアは、当コレクションの最高峰を誇るプライベートエステートです。25mプール、フルサービススパ、専用テニスコート、1ヘクタールの広大な庭園と24時間バトラーサービスを備えています。",
+      ko: "누사두아의 프라이빗 단지에 자리 잡은 빌라 달리아는 최고급 럭셔리 에스테이트입니다. 25미터 랩 풀, 풀서비스 스파, 전용 테니스 코트, 1헥타르 규모의 열대 정원 및 24시간 전담 버틀러 서비스를 제공합니다.",
     },
     fasilitas: {
       id: [
@@ -659,6 +847,32 @@ export const villaDataRaw: (VillaRaw & {
         "直升机停机坪",
         "商务会议室",
       ],
+      ja: [
+        "25mプール",
+        "超高速Wi-Fi",
+        "プロ仕様キッチン",
+        "全館空調",
+        "スパ＆サウナ",
+        "テニスコート",
+        "ジム",
+        "1ヘクタールの庭園",
+        "24時間バトラー",
+        "ヘリポート利用可",
+        "会議室",
+      ],
+      ko: [
+        "25m 수영장",
+        "초고속 Wi-Fi",
+        "전문가용 주방",
+        "중앙 냉난방",
+        "스파 및 사우나",
+        "테니스 코트",
+        "피트니스 센터",
+        "1헥타르 정원",
+        "24시간 집사 서비스",
+        "헬리패드",
+        "회의실",
+      ],
     },
     galeri_foto: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
@@ -673,6 +887,8 @@ export const villaDataRaw: (VillaRaw & {
       en: "Luxury Villa",
       fr: "Villa de Luxe",
       zh: "奢华别墅",
+      ja: "高級ヴィラ",
+      ko: "럭셔리 빌拉",
     },
   },
 ];
@@ -681,7 +897,9 @@ export function getLocalizedVilla(
   villaRaw: (typeof villaDataRaw)[number],
   locale: Locale = "id"
 ): Villa {
-  const safeLocale: Locale = ["id", "en", "fr", "zh"].includes(locale)
+  const safeLocale: Locale = ["id", "en", "fr", "zh", "ja", "ko"].includes(
+    locale
+  )
     ? locale
     : "id";
 
