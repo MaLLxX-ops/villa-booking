@@ -32,6 +32,7 @@ export default function Footer() {
                 { label: t("homeLink"), href: "/" },
                 { label: t("searchLink"), href: "/cari" },
                 { label: t("forOwnersLink"), href: "/untuk-pemilik", highlight: true },
+                { label: t("helpLink"), href: "/help" },
                 { label: t("luxuryLink"), href: "/cari?cat=luxury" },
                 { label: t("familyLink"), href: "/cari?cat=family" },
               ].map((item) => (
@@ -103,7 +104,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar with Privacy Policy & Terms of Service */}
+      {/* Bottom Bar with Help, Privacy Policy & Terms of Service */}
       <div className="border-t border-white/15">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <p className="text-cream/70 text-sm font-medium">
@@ -111,7 +112,14 @@ export default function Footer() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-semibold text-cream/80">
             <Link
-              href="/privacy"
+              href="/help"
+              className="hover:text-gold-light transition-colors"
+            >
+              {t("helpLink")}
+            </Link>
+            <span className="text-cream/30">•</span>
+            <Link
+              href="/privacy-policy"
               className="hover:text-gold-light transition-colors"
             >
               {t("privacyLink")}

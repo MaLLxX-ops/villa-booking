@@ -28,7 +28,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PrivacyPage({
+export default async function PrivacyPolicyPage({
   params,
 }: {
   params: Promise<{ locale: string }>;

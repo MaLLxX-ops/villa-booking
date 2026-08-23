@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
-import PrivacyPageClient from "@/components/PrivacyPageClient";
+import HelpPageClient from "@/components/HelpPageClient";
 
-const privacyMetadataMap: Record<string, () => Promise<any>> = {
+const helpMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
   en: () => import("@/messages/en.json"),
   fr: () => import("@/messages/fr.json"),
@@ -17,18 +17,18 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   try {
-    const loader = privacyMetadataMap[locale] || privacyMetadataMap.id;
+    const loader = helpMetadataMap[locale] || helpMetadataMap.id;
     const messages = (await loader()).default;
     return {
-      title: `${messages.Privacy.metaTitle} — StayVilla`,
-      description: messages.Privacy.metaDesc,
+      title: `${messages.Help.title} — StayVilla`,
+      description: messages.Help.subtitle,
     };
   } catch {
-    return { title: "Kebijakan Privasi — StayVilla" };
+    return { title: "Pusat Bantuan & FAQ — StayVilla" };
   }
 }
 
-export default async function PrivacyPage({
+export default async function HelpPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -36,5 +36,5 @@ export default async function PrivacyPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <PrivacyPageClient />;
+  return <HelpPageClient />;
 }

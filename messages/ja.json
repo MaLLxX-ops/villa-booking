@@ -190,7 +190,8 @@
     "stayDatesTitle": "宿泊期間",
     "clearDates": "日付をクリア",
     "nightsSelected": "{count} 泊選択中",
-    "stayDates": "宿泊日"
+    "stayDates": "宿泊日",
+    "viewOnMap": "地図で見る"
   },
   "Footer": {
     "brandDesc": "バリ島の高級プライベートヴィラ予約プラットフォーム。世界で最も魅惑的な南国の楽園で、贅沢な滞在をお楽しみください。",
@@ -200,6 +201,7 @@
     "luxuryLink": "高級ヴィラ",
     "familyLink": "ファミリーヴィラ",
     "forOwnersLink": "ヴィラを掲載する",
+    "helpLink": "ヘルプセンター＆FAQ",
     "privacyLink": "プライバシーポリシー",
     "termsLink": "利用規約",
     "contactTitle": "お問い合わせ",
@@ -320,7 +322,12 @@
     "viewDetail": "詳細を見る",
     "bookNow": "WAで予約",
     "removeColumn": "削除",
-    "addMoreBtn": "他のヴィラを追加"
+    "addMoreBtn": "他のヴィラを追加",
+    "quickPickTitle": "比較するヴィラをクイック選択:",
+    "action": "アクション",
+    "backHome": "ホームに戻る",
+    "ready": "✓ 準備完了",
+    "compared": "✓ 比較中"
   },
   "Map": {
     "badge": "バリ島インタラクティブマップ",
@@ -333,7 +340,11 @@
     "viewDetail": "詳細を見る",
     "perNight": "/ 泊",
     "exploreMap": "マップを開く",
-    "centerBali": "バリ島中心部"
+    "centerBali": "バリ島中心部",
+    "backHome": "ホームに戻る",
+    "catLuxury": "ラグジュアリーヴィラ",
+    "catFamily": "ファミリーヴィラ",
+    "catStudio": "スタジオ"
   },
   "Trending": {
     "badge": "大人気",
@@ -342,5 +353,37 @@
     "popularBadge": "人気",
     "viewAll": "すべてのコレクションを見る",
     "scrollHint": "スワイプして他のヴィラを見る"
+  },
+  "Help": {
+    "badge": "ヘルプセンター＆よくある質問",
+    "title": "StayVilla ヘルプセンター",
+    "subtitle": "ヴィラ予約の流れ、直通決済の仕組み、サポートに関する疑問にお答えします",
+    "catBooking": "予約・滞在について",
+    "catPayment": "料金・お支払いについて",
+    "catHost": "ヴィラ掲載・サポート",
+    "qBookingFlow": "ヴィラの予約手順を教えてください",
+    "aBookingFlow": "お好みのヴィラと滞在日程・人数を選択し、「WhatsAppで予約」をクリックしてください。予約詳細が自動入力され、オーナーのWhatsAppチャットが直接開きます。空室確認や料金決済はオーナーとお客様の間で直接行われます（本サイト上での決済処理は行われません）。",
+    "qPaymentOnSite": "支払いはこのウェブサイト上で行われますか？",
+    "aPaymentOnSite": "いいえ。StayVillaは厳選ヴィラの紹介・接続プラットフォームであり、サイト上でのオンライン決済や手数料徴収は行っておりません。手付金および残金の支払いは、WhatsAppで合意されたオーナーの公式銀行口座へ直接お振込みいただきます。",
+    "qNoReply": "オーナーから返信がない場合はどうすればいいですか？",
+    "aNoReply": "通常は営業時間内に数時間以内で返信されます。24時間以上返信がない場合は、カタログから他のヴィラをご検討いただくか、StayVillaサポート窓口（WhatsApp）までご連絡ください。",
+    "qCancellation": "キャンセルポリシーについて教えてください",
+    "aCancellation": "キャンセル、返金、日程変更の規定は各ヴィラオーナーによって定められています。手付金をお支払いになる前に、WhatsApp上でキャンセル規定を書面にて確認・合意することをお勧めいたします。",
+    "qPriceFinal": "掲載されている料金は確定料金ですか？",
+    "aPriceFinal": "掲載料金は1泊あたりの基本目安料金です。ハイシーズン・年末年始などの繁忙期や滞在日数、オーナーとの個別相談により最終確定料金が変動する場合があります。",
+    "qCurrency": "決済にはどの通貨が使用されますか？",
+    "aCurrency": "正式な請求および最終決済はすべてインドネシアルピア（IDR）で行われます。ウェブサイト上の外貨表示は、最新の為替レートに基づく参考目安額です。",
+    "qListVilla": "自分のヴィラをStayVillaに掲載するには？",
+    "aListVilla": "バリ島のヴィラオーナー様や管理者様は、「ヴィラを掲載する」（/untuk-pemilik）ページから登録フォームをご送信いただけます。当チームが無料で審査・リスティング作成を行います。",
+    "stillNeedHelpTitle": "ご不明な点は解決しましたか？",
+    "stillNeedHelpDesc": "StayVillaサポートチームがプラットフォームのご利用やご予約の相談をサポートいたします。",
+    "chatAdminBtn": "WhatsAppでサポートに相談",
+    "forOwnersCta": "ヴィラの掲載をご検討中のオーナー様へ",
+    "forOwnersCtaDesc": "低手数料で直予約を最大化し、WhatsAppに直接届く新規ゲストの予約を獲得しましょう。",
+    "forOwnersBtn": "オーナー向け詳細を見る",
+    "allCategories": "すべてのFAQ",
+    "searchPlaceholder": "予約、支払い、ヴィラに関する質問を検索...",
+    "emptyFaqTitle": "該当する質問が見つかりません",
+    "emptyFaqDesc": "別のキーワードで検索するか、「すべてのFAQ」を選択してください。"
   }
 }

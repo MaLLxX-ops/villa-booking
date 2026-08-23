@@ -190,7 +190,8 @@
     "stayDatesTitle": "Stay Dates Filter",
     "clearDates": "Clear Dates",
     "nightsSelected": "{count} Nights Selected",
-    "stayDates": "Stay Dates"
+    "stayDates": "Stay Dates",
+    "viewOnMap": "View on Map"
   },
   "Footer": {
     "brandDesc": "Premier luxury villa booking platform in Bali. Experience extraordinary stays across the world's most enchanting tropical paradise.",
@@ -200,6 +201,7 @@
     "luxuryLink": "Luxury Villas",
     "familyLink": "Family Retreats",
     "forOwnersLink": "List Your Villa",
+    "helpLink": "Help Center & FAQ",
     "privacyLink": "Privacy Policy",
     "termsLink": "Terms of Service",
     "contactTitle": "Contact",
@@ -320,7 +322,12 @@
     "viewDetail": "View Details",
     "bookNow": "Book via WA",
     "removeColumn": "Remove",
-    "addMoreBtn": "Add Another Villa"
+    "addMoreBtn": "Add Another Villa",
+    "quickPickTitle": "Quick Pick Villas to Compare:",
+    "action": "Action",
+    "backHome": "Back to Home",
+    "ready": "✓ Ready",
+    "compared": "✓ Compared"
   },
   "Map": {
     "badge": "Interactive Bali Map",
@@ -333,7 +340,11 @@
     "viewDetail": "View Details",
     "perNight": "per night",
     "exploreMap": "Explore Interactive Map",
-    "centerBali": "Bali Center"
+    "centerBali": "Bali Center",
+    "backHome": "Back to Home",
+    "catLuxury": "Luxury Villa",
+    "catFamily": "Family Villa",
+    "catStudio": "Studio"
   },
   "Trending": {
     "badge": "Most Popular",
@@ -342,5 +353,37 @@
     "popularBadge": "Popular",
     "viewAll": "View Full Collection",
     "scrollHint": "Swipe to explore more villas"
+  },
+  "Help": {
+    "badge": "Help Center & FAQ",
+    "title": "StayVilla Help Center",
+    "subtitle": "Find quick answers about villa reservations, direct payment workflows, and our concierge services in Bali",
+    "catBooking": "Booking & Reservations",
+    "catPayment": "Payments & Pricing",
+    "catHost": "Villa Hosts & Support",
+    "qBookingFlow": "How do I book a villa on StayVilla?",
+    "aBookingFlow": "Select your preferred villa, choose your check-in & check-out dates and guest count, then click 'Book via WhatsApp'. Our system automatically generates a formatted reservation summary and opens a direct WhatsApp chat with the villa host. Availability confirmation, special requests, and payment are settled directly between you and the host (not processed on this website).",
+    "qPaymentOnSite": "Is payment processed on this website?",
+    "aPaymentOnSite": "No. StayVilla operates as a curated directory connector and does not process payments or collect guest fees on the site. All financial transactions (deposit and final settlement) are transferred directly to the villa owner's verified bank account as agreed in WhatsApp.",
+    "qNoReply": "What should I do if the villa host doesn't reply?",
+    "aNoReply": "Hosts typically respond within a few hours during business hours. If you haven't received a reply within 24 hours, you can explore alternative villas in our collection or reach out to StayVilla Admin via WhatsApp for assistance.",
+    "qCancellation": "What is the cancellation policy?",
+    "aCancellation": "Cancellation, refund, and rescheduling policies are set individually by each villa owner. We recommend confirming the cancellation terms in writing directly on WhatsApp before completing any deposit transfer.",
+    "qPriceFinal": "Are the listed prices final?",
+    "aPriceFinal": "Listed prices are indicative base nightly rates. The final rate may adjust based on seasonality (peak/high season), length of stay, or custom host promotions agreed upon during WhatsApp confirmation.",
+    "qCurrency": "What currency is used for payment?",
+    "aCurrency": "All official invoicing and final payments are settled in Indonesian Rupiah (IDR). Foreign currency displays on our site are indicative estimates based on prevailing exchange rates for your convenience.",
+    "qListVilla": "How can I list my villa on StayVilla?",
+    "aListVilla": "Villa owners or managers in Bali can register their properties by visiting our 'List Your Villa' page (/untuk-pemilik) and completing the short registration form. Our team will verify and prepare your curated listing free of charge.",
+    "stillNeedHelpTitle": "Still Have Questions?",
+    "stillNeedHelpDesc": "StayVilla support team is ready to assist you with inquiries and reservation guidance.",
+    "chatAdminBtn": "Chat with Support on WhatsApp",
+    "forOwnersCta": "Interested in Listing Your Villa?",
+    "forOwnersCtaDesc": "Maximize direct guest reservations straight to your WhatsApp with lower commissions.",
+    "forOwnersBtn": "Explore Host Program",
+    "allCategories": "All FAQs",
+    "searchPlaceholder": "Search questions about booking, payments, villas...",
+    "emptyFaqTitle": "No matching questions found",
+    "emptyFaqDesc": "Try using different keywords or select the All FAQs category."
   }
 }

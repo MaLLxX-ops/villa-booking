@@ -164,7 +164,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
             className="inline-flex items-center gap-2 bg-white hover:bg-cream-dark text-terracotta-dark border border-sand px-5 py-2.5 rounded-full font-bold text-sm shadow-xs transition-all hover:scale-105 active:scale-95 shrink-0 self-start sm:self-auto"
           >
             <Map className="w-4 h-4 text-terracotta" />
-            <span>Lihat di Peta</span>
+            <span>{t("viewOnMap")}</span>
           </Link>
         </motion.div>
 

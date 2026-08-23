@@ -30,6 +30,7 @@ export default function VillaCard({
   isPopular = false,
 }: VillaCardProps) {
   const t = useTranslations("Listing");
+  const tCompare = useTranslations("Compare");
   const { formatEstimate } = useCurrency();
   const { isSaved, toggleWishlist } = useWishlist();
   const { isSelected, toggleCompare, isMaxReached } = useCompare();
@@ -212,7 +213,7 @@ export default function VillaCard({
 
               {compared && (
                 <span className="text-[10px] font-bold text-terracotta-dark bg-terracotta/10 px-2 py-0.5 rounded-full">
-                  ✓ Siap
+                  {tCompare("ready")}
                 </span>
               )}
             </div>

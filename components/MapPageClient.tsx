@@ -46,7 +46,7 @@ export default function MapPageClient({ villas }: MapPageClientProps) {
             className="inline-flex items-center gap-2 text-charcoal hover:text-terracotta transition-colors text-sm font-bold group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Kembali ke Beranda</span>
+            <span>{t("backHome")}</span>
           </Link>
         </div>
 
@@ -75,9 +75,9 @@ export default function MapPageClient({ villas }: MapPageClientProps) {
             <div className="flex flex-wrap items-center gap-2 self-start md:self-auto">
               {[
                 { key: "all", label: t("allCategories") },
-                { key: "luxury", label: "Villa Mewah" },
-                { key: "family", label: "Villa Keluarga" },
-                { key: "studio", label: "Studio" },
+                { key: "luxury", label: t("catLuxury") },
+                { key: "family", label: t("catFamily") },
+                { key: "studio", label: t("catStudio") },
               ].map((cat) => (
                 <button
                   key={cat.key}

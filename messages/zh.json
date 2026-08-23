@@ -190,7 +190,8 @@
     "stayDatesTitle": "入住日期区间",
     "clearDates": "清除日期",
     "nightsSelected": "已选 {count} 晚",
-    "stayDates": "入住日期"
+    "stayDates": "入住日期",
+    "viewOnMap": "在地图上查看"
   },
   "Footer": {
     "brandDesc": "巴厘岛高端私人度假别墅预订平台。在世界上最迷人的热带度假天堂，为您打造无与伦比的奢华下榻体验。",
@@ -200,6 +201,7 @@
     "luxuryLink": "奢华庄园",
     "familyLink": "亲子家庭",
     "forOwnersLink": "房东入驻",
+    "helpLink": "帮助中心与FAQ",
     "privacyLink": "隐私政策",
     "termsLink": "服务条款",
     "contactTitle": "联系方式",
@@ -320,7 +322,12 @@
     "viewDetail": "查看详情",
     "bookNow": "通过WA预订",
     "removeColumn": "删除",
-    "addMoreBtn": "添加更多别墅"
+    "addMoreBtn": "添加更多别墅",
+    "quickPickTitle": "快速选择要对比的别墅：",
+    "action": "操作",
+    "backHome": "返回首页",
+    "ready": "✓ 已就绪",
+    "compared": "✓ 已对比"
   },
   "Map": {
     "badge": "巴厘岛互动地图",
@@ -333,7 +340,11 @@
     "viewDetail": "查看房源",
     "perNight": "/ 晚",
     "exploreMap": "开启互动地图",
-    "centerBali": "巴厘岛中心"
+    "centerBali": "巴厘岛中心",
+    "backHome": "返回首页",
+    "catLuxury": "奢华庄园",
+    "catFamily": "亲子家庭",
+    "catStudio": "独栋单间"
   },
   "Trending": {
     "badge": "最受欢迎",
@@ -342,5 +353,37 @@
     "popularBadge": "人气推荐",
     "viewAll": "查看全部精选",
     "scrollHint": "滑动探索更多热门别墅"
+  },
+  "Help": {
+    "badge": "帮助中心与常见问题",
+    "title": "StayVilla 帮助中心",
+    "subtitle": "快速了解巴厘岛别墅预订流程、房东直连支付机制与平台相关服务",
+    "catBooking": "预订与入住流程",
+    "catPayment": "支付与价格说明",
+    "catHost": "房东合作与支持",
+    "qBookingFlow": "在 StayVilla 上如何预订别墅？",
+    "aBookingFlow": "挑选您心仪的别墅，选择入住与退房日期及人数，点击“通过WhatsApp预订”。系统将自动生成格式化预订信息并直接打开房东的WhatsApp对话。房态确认、特殊需求及付款均由您与房东直接协商达成（不在本网站内线上扣款）。",
+    "qPaymentOnSite": "款项是在本网站线上支付吗？",
+    "aPaymentOnSite": "不是。StayVilla 作为精选别墅直连目录平台，不在线上处理支付或向房客收取预订费。所有订金与尾款均按照您在WhatsApp上与房东商定的方式，直接转账至房东官方银行账户。",
+    "qNoReply": "如果房东没有及时回复怎么办？",
+    "aNoReply": "房东通常会在工作时间内数小时内回复。若超过24小时未收到回复，您可以浏览目录中的其他备选别墅，或通过WhatsApp联系StayVilla平台客服协助沟通协调。",
+    "qCancellation": "退订与取消政策是怎样的？",
+    "aCancellation": "取消、退款或改期政策由各别墅房东自行制定。我们强烈建议您在支付定金前，在WhatsApp上与房东书面确认并达成一致的取消退改条款。",
+    "qPriceFinal": "网站上显示的价格是最终价格吗？",
+    "aPriceFinal": "网站展示的价格为标准基准参考价。最终价格可能会因节假日旺季、入住天数或房东在WhatsApp沟通时提供的专属优惠而有所浮动。",
+    "qCurrency": "支付结算使用什么货币？",
+    "aCurrency": "所有正式账单及最终结算均以印尼盾（IDR）为准。网站上显示的外币换算金额仅供预算参考，依据最新市场汇率实时换算。",
+    "qListVilla": "如何将我的别墅上线到 StayVilla？",
+    "aListVilla": "巴厘岛的别墅业主或托管经理可前往“房东入驻”页面（/untuk-pemilik）填写房源登记表。我们的团队将免费协助审核并上线您的精选房源。",
+    "stillNeedHelpTitle": "仍有疑问需要协助？",
+    "stillNeedHelpDesc": "StayVilla 客服团队随时准备为您解答平台使用及预订协调相关问题。",
+    "chatAdminBtn": "通过WhatsApp联系客服",
+    "forOwnersCta": "想在平台发布您的别墅？",
+    "forOwnersCtaDesc": "以更低佣金拓展直客预订渠道，让订单直接发送至您的WhatsApp。",
+    "forOwnersBtn": "了解房东入驻计划",
+    "allCategories": "所有常见问题",
+    "searchPlaceholder": "搜索有关预订、付款、别墅的问题...",
+    "emptyFaqTitle": "未找到匹配的问题",
+    "emptyFaqDesc": "请尝试使用其他关键词或选择“所有常见问题”分类。"
   }
 }

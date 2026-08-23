@@ -190,7 +190,8 @@
     "stayDatesTitle": "Dates de Séjour",
     "clearDates": "Effacer les Dates",
     "nightsSelected": "{count} Nuits Sélectionnées",
-    "stayDates": "Dates du Séjour"
+    "stayDates": "Dates du Séjour",
+    "viewOnMap": "Voir sur la carte"
   },
   "Footer": {
     "brandDesc": "Plateforme de réservation de villas de prestige à Bali. Vivez une expérience inoubliable au cœur du paradis tropical balinais.",
@@ -200,6 +201,7 @@
     "luxuryLink": "Villas de Luxe",
     "familyLink": "Villas Familiales",
     "forOwnersLink": "Inscrire Votre Villa",
+    "helpLink": "Centre d'Aide & FAQ",
     "privacyLink": "Politique de Confidentialité",
     "termsLink": "Conditions Générales",
     "contactTitle": "Contact",
@@ -320,7 +322,12 @@
     "viewDetail": "Voir les Détails",
     "bookNow": "Réserver via WA",
     "removeColumn": "Supprimer",
-    "addMoreBtn": "Ajouter une Autre Villa"
+    "addMoreBtn": "Ajouter une Autre Villa",
+    "quickPickTitle": "Sélection rapide de villas à comparer :",
+    "action": "Action",
+    "backHome": "Retour à l'accueil",
+    "ready": "✓ Prêt",
+    "compared": "✓ Comparé"
   },
   "Map": {
     "badge": "Carte Interactive de Bali",
@@ -333,7 +340,11 @@
     "viewDetail": "Voir la Villa",
     "perNight": "par nuit",
     "exploreMap": "Ouvrir la Carte Interactive",
-    "centerBali": "Centre de Bali"
+    "centerBali": "Centre de Bali",
+    "backHome": "Retour à l'accueil",
+    "catLuxury": "Villa de Luxe",
+    "catFamily": "Villa Familiale",
+    "catStudio": "Studio"
   },
   "Trending": {
     "badge": "Les Plus Demandées",
@@ -342,5 +353,37 @@
     "popularBadge": "Populaire",
     "viewAll": "Voir Toute la Collection",
     "scrollHint": "Glissez pour découvrir d'autres villas"
+  },
+  "Help": {
+    "badge": "Centre d'Aide & FAQ",
+    "title": "Centre d'Aide StayVilla",
+    "subtitle": "Trouvez des réponses rapides sur le déroulement des réservations, les paiements directs et nos services à Bali",
+    "catBooking": "Réservation & Séjour",
+    "catPayment": "Paiements & Tarifs",
+    "catHost": "Propriétaires & Support",
+    "qBookingFlow": "Comment réserver une villa sur StayVilla ?",
+    "aBookingFlow": "Sélectionnez votre villa idéale, indiquez vos dates de séjour et le nombre de personnes, puis cliquez sur 'Réserver via WhatsApp'. Notre plateforme prépare automatiquement votre récapitulatif de réservation et ouvre une conversation WhatsApp directe avec le propriétaire. La confirmation de disponibilité et le règlement s'effectuent directement entre vous et l'hôte (aucun paiement sur le site).",
+    "qPaymentOnSite": "Le paiement est-il effectué sur ce site web ?",
+    "aPaymentOnSite": "Non. StayVilla agit en tant qu'annuaire sélectif de mise en relation et n'encaisse aucun paiement sur le site. Tous les règlements (acompte et solde) sont transférés directement sur le compte bancaire officiel de l'hôte selon les modalités convenues sur WhatsApp.",
+    "qNoReply": "Que faire si le propriétaire ne répond pas ?",
+    "aNoReply": "Les hôtes répondent généralement en quelques heures. Si vous n'avez pas de retour sous 24 heures, vous pouvez sélectionner une autre villa de notre collection ou contacter l'équipe support StayVilla sur WhatsApp pour obtenir de l'aide.",
+    "qCancellation": "Quelle est la politique d'annulation ?",
+    "aCancellation": "Les conditions d'annulation, de remboursement ou de report sont fixées librement par chaque propriétaire de villa. Nous vous recommandons de convenir des conditions par écrit directement sur WhatsApp avant d'effectuer tout virement d'acompte.",
+    "qPriceFinal": "Les tarifs affichés sont-ils définitifs ?",
+    "aPriceFinal": "Les tarifs indiqués sont des prix de base indicatifs par nuitée. Le montant final peut varier selon la saisonnalité (haute/très haute saison), la durée du séjour ou d'éventuelles réductions convenues avec le propriétaire sur WhatsApp.",
+    "qCurrency": "Quelle devise est utilisée pour le paiement ?",
+    "aCurrency": "Toute facturation officielle et règlement final sont effectués en roupies indonésiennes (IDR). Les conversions en devises étrangères affichées sur le site sont fournies à titre indicatif pour votre confort.",
+    "qListVilla": "Comment inscrire ma villa sur StayVilla ?",
+    "aListVilla": "Les propriétaires ou gestionnaires de villas à Bali peuvent inscrire leur bien via la page 'Inscrire Votre Villa' (/untuk-pemilik) en remplissant le formulaire dédié. Notre équipe vérifie et publie votre annonce gratuitement.",
+    "stillNeedHelpTitle": "Vous Avez Encore des Questions ?",
+    "stillNeedHelpDesc": "Notre équipe d'assistance est disponible pour vous guider dans vos démarches et réservations.",
+    "chatAdminBtn": "Contacter le Support sur WhatsApp",
+    "forOwnersCta": "Vous Possédez une Villa à Bali ?",
+    "forOwnersCtaDesc": "Développez vos réservations directes sur votre propre WhatsApp avec des commissions réduites.",
+    "forOwnersBtn": "Découvrir le Programme Hôtes",
+    "allCategories": "Toutes les FAQ",
+    "searchPlaceholder": "Rechercher des questions sur les réservations, paiements, villas...",
+    "emptyFaqTitle": "Aucune question correspondante trouvée",
+    "emptyFaqDesc": "Essayez d'autres mots-clés ou sélectionnez la catégorie Toutes les FAQ."
   }
 }

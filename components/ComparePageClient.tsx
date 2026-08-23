@@ -64,7 +64,7 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
             className="inline-flex items-center gap-2 text-charcoal hover:text-terracotta transition-colors text-sm font-bold group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Kembali ke Beranda</span>
+            <span>{t("backHome")}</span>
           </Link>
         </div>
 
@@ -138,7 +138,7 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
             {/* Quick Pick from Catalog */}
             <div>
               <h3 className="text-xl font-bold text-navy mb-4">
-                Pilih Cepat Villa untuk Dibandingkan:
+                {t("quickPickTitle")}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {availableVillas.slice(0, 4).map((villa) => (
@@ -304,7 +304,9 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                       >
                         <div className="flex items-center gap-2">
                           <BedDouble className="w-4 h-4 text-terracotta" />
-                          <span>{villa.jumlah_kamar} Kamar</span>
+                          <span>
+                            {villa.jumlah_kamar} {t("bedrooms")}
+                          </span>
                         </div>
                       </td>
                     ))}
@@ -325,7 +327,9 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                       >
                         <div className="flex items-center gap-2">
                           <Bath className="w-4 h-4 text-sage-dark" />
-                          <span>{villa.jumlah_kamar_mandi} Kamar Mandi</span>
+                          <span>
+                            {villa.jumlah_kamar_mandi} {t("bathrooms")}
+                          </span>
                         </div>
                       </td>
                     ))}
@@ -346,7 +350,9 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                       >
                         <div className="flex items-center gap-2">
                           <Users className="w-4 h-4 text-navy" />
-                          <span>Maks {villa.kapasitas_tamu} Tamu</span>
+                          <span>
+                            {villa.kapasitas_tamu} {t("guests")}
+                          </span>
                         </div>
                       </td>
                     ))}
@@ -402,7 +408,7 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                   {/* Action CTA Row */}
                   <tr className="bg-cream/40">
                     <td className="p-5 font-bold text-navy bg-cream/20">
-                      Aksi
+                      {t("action")}
                     </td>
                     {comparedVillas.map((villa) => (
                       <td

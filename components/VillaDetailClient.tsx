@@ -104,6 +104,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [activeImage, setActiveImage] = useState(0);
   const [direction, setDirection] = useState(0);
   const t = useTranslations("Detail");
+  const tCompare = useTranslations("Compare");
   const tValidation = useTranslations("Validation");
   const { formatEstimate } = useCurrency();
   const { isSaved, toggleWishlist } = useWishlist();
@@ -376,7 +377,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                     }`}
                   >
                     <Scale className="w-3.5 h-3.5 text-terracotta" />
-                    <span>{compared ? "✓ Dibandingkan" : t("compareVilla")}</span>
+                    <span>{compared ? tCompare("compared") : t("compareVilla")}</span>
                   </motion.button>
                 </div>
               </div>

@@ -190,7 +190,8 @@
     "stayDatesTitle": "Rentang Tanggal Menginap",
     "clearDates": "Hapus Tanggal",
     "nightsSelected": "{count} Malam Terpilih",
-    "stayDates": "Tanggal Menginap"
+    "stayDates": "Tanggal Menginap",
+    "viewOnMap": "Lihat di Peta"
   },
   "Footer": {
     "brandDesc": "Platform booking villa premium di Bali. Temukan pengalaman menginap terbaik di destinasi tropis paling memukau di dunia.",
@@ -200,6 +201,7 @@
     "luxuryLink": "Villa Mewah",
     "familyLink": "Villa Keluarga",
     "forOwnersLink": "Daftarkan Villa Anda",
+    "helpLink": "Pusat Bantuan & FAQ",
     "privacyLink": "Kebijakan Privasi",
     "termsLink": "Syarat & Ketentuan",
     "contactTitle": "Kontak",
@@ -320,7 +322,12 @@
     "viewDetail": "Lihat Detail",
     "bookNow": "Booking via WA",
     "removeColumn": "Hapus",
-    "addMoreBtn": "Tambah Villa Lain"
+    "addMoreBtn": "Tambah Villa Lain",
+    "quickPickTitle": "Pilih Cepat Villa untuk Dibandingkan:",
+    "action": "Aksi",
+    "backHome": "Kembali ke Beranda",
+    "ready": "✓ Siap",
+    "compared": "✓ Dibandingkan"
   },
   "Map": {
     "badge": "Peta Interaktif Bali",
@@ -333,7 +340,11 @@
     "viewDetail": "Lihat Detail",
     "perNight": "per malam",
     "exploreMap": "Buka Peta Interaktif",
-    "centerBali": "Pusat Bali"
+    "centerBali": "Pusat Bali",
+    "backHome": "Kembali ke Beranda",
+    "catLuxury": "Villa Mewah",
+    "catFamily": "Villa Keluarga",
+    "catStudio": "Studio"
   },
   "Trending": {
     "badge": "Paling Diminati",
@@ -342,5 +353,37 @@
     "popularBadge": "Populer",
     "viewAll": "Lihat Semua Koleksi",
     "scrollHint": "Geser untuk melihat villa lainnya"
+  },
+  "Help": {
+    "badge": "Pusat Bantuan & FAQ",
+    "title": "Pusat Bantuan StayVilla",
+    "subtitle": "Temukan jawaban cepat atas pertanyaan seputar pemesanan villa, sistem pembayaran langsung, dan layanan kami di Bali",
+    "catBooking": "Pemesanan & Reservasi",
+    "catPayment": "Pembayaran & Harga",
+    "catHost": "Pemilik Villa & Dukungan",
+    "qBookingFlow": "Bagaimana cara booking villa di StayVilla?",
+    "aBookingFlow": "Pilih villa favorit Anda, tentukan tanggal check-in & check-out serta jumlah tamu, lalu klik tombol 'Booking via WhatsApp'. Sistem kami akan otomatis membuatkan format rincian reservasi dan membuka WhatsApp langsung dengan pemilik villa. Konfirmasi ketersediaan, negosiasi, dan pembayaran diatur langsung antara Anda dan pemilik villa (tidak diproses di dalam website).",
+    "qPaymentOnSite": "Apakah pembayaran dilakukan di website ini?",
+    "aPaymentOnSite": "Tidak. StayVilla berfungsi sebagai direktori penghubung dan tidak memproses pembayaran atau memungut biaya dari tamu di website. Seluruh transaksi pembayaran (deposit maupun pelunasan) ditransfer langsung ke rekening resmi pemilik villa sesuai kesepakatan di WhatsApp.",
+    "qNoReply": "Bagaimana jika saya tidak mendapat balasan dari pemilik villa?",
+    "aNoReply": "Pemilik villa umumnya merespons dalam hitungan menit hingga beberapa jam pada jam kerja operasional. Jika belum menerima balasan dalam 24 jam, Anda dapat mencoba villa alternatif di katalog kami atau menghubungi Admin Platform StayVilla untuk bantuan koordinasi.",
+    "qCancellation": "Bagaimana kebijakan pembatalan reservasi?",
+    "aCancellation": "Kebijakan pembatalan, pengembalian dana (refund), dan penjadwalan ulang ditentukan oleh masing-masing pemilik villa. Kami menyarankan Anda menanyakan dan menyepakati syarat pembatalan secara tertulis langsung dengan pemilik saat mengonfirmasi reservasi di WhatsApp.",
+    "qPriceFinal": "Apakah harga yang tertera di website sudah final?",
+    "aPriceFinal": "Harga yang tercantum adalah tarif standar acuan per malam. Harga final dapat bervariasi tergantung musim liburan (peak/high season), durasi sewa, atau penawaran khusus langsung dari pemilik villa saat konfirmasi reservasi.",
+    "qCurrency": "Mata uang apa yang digunakan untuk pembayaran?",
+    "aCurrency": "Pembayaran resmi dan penagihan akhir selalu dalam mata uang Rupiah (IDR). Tampilan konversi mata uang asing di website kami bersifat estimasi indikatif untuk memudahkan referensi anggaran liburan Anda.",
+    "qListVilla": "Bagaimana cara mendaftarkan villa saya di StayVilla?",
+    "aListVilla": "Pemilik atau pengelola villa di Bali dapat mendaftarkan propertinya dengan membuka halaman 'Daftarkan Villa' (/untuk-pemilik) dan mengisi formulir registrasi online. Tim kami akan memverifikasi dan menyiapkan listing villa Anda secara gratis.",
+    "stillNeedHelpTitle": "Masih Butuh Bantuan Tambahan?",
+    "stillNeedHelpDesc": "Tim customer care StayVilla siap membantu menjawab pertanyaan Anda seputar platform dan koordinasi reservasi.",
+    "chatAdminBtn": "Chat Admin via WhatsApp",
+    "forOwnersCta": "Tertarik Mendaftarkan Villa?",
+    "forOwnersCtaDesc": "Tingkatkan okupansi dan terima reservasi langsung ke WhatsApp Anda tanpa ribet.",
+    "forOwnersBtn": "Pelajari Program Pemilik Villa",
+    "allCategories": "Semua FAQ",
+    "searchPlaceholder": "Cari pertanyaan seputar booking, pembayaran, villa...",
+    "emptyFaqTitle": "Tidak ada pertanyaan yang cocok",
+    "emptyFaqDesc": "Coba gunakan kata kunci lain atau pilih kategori Semua FAQ."
   }
 }
