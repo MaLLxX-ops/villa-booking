@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { type Locale } from "@/lib/data";
+import { villaDataRaw, type Locale } from "@/lib/data";
 import { getSupabaseVillaById } from "@/lib/supabase/villas";
 import VillaDetailClient from "@/components/VillaDetailClient";
 import { alternateLanguages, localizedPath } from "@/lib/seo";
@@ -13,7 +13,13 @@ interface VillaDetailPageProps {
 }
 
 export function generateStaticParams() {
-  return [];
+  const locales: Locale[] = ["id", "en", "fr", "zh", "ja", "ko"];
+  return locales.flatMap((locale) =>
+    villaDataRaw.map((villa) => ({
+      locale,
+      id: villa.id,
+    }))
+  );
 }
 
 export async function generateMetadata({ params }: VillaDetailPageProps) {

@@ -109,7 +109,27 @@ function getFacilityIcon(facility: string): React.ElementType {
   return Check;
 }
 
+const DEFAULT_DETAIL_FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=80";
+
 export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
+  const safePhotos =
+    Array.isArray(villa.galeri_foto) &&
+    villa.galeri_foto.filter(
+      (img) => typeof img === "string" && img.trim().length > 0
+    ).length > 0
+      ? villa.galeri_foto.filter(
+          (img): img is string =>
+            typeof img === "string" && img.trim().length > 0
+        )
+      : [DEFAULT_DETAIL_FALLBACK_IMAGE];
+
+  const safeFacilities = Array.isArray(villa.fasilitas)
+    ? villa.fasilitas.filter(
+        (f): f is string => typeof f === "string" && f.trim().length > 0
+      )
+    : [];
+
   const [activeImage, setActiveImage] = useState(0);
   const [direction, setDirection] = useState(0);
   const t = useTranslations("Detail");
@@ -142,11 +162,11 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const hasValidDates = nights > 0;
   const activeNights = hasValidDates ? nights : 1;
 
-  const basePrice = villa.harga_per_malam * activeNights;
+  const basePrice = (villa.harga_per_malam || 0) * activeNights;
   const serviceFee = Math.round(basePrice * 0.1);
   const totalPrice = basePrice + serviceFee;
 
-  const nightEstimate = formatEstimate(villa.harga_per_malam);
+  const nightEstimate = formatEstimate(villa.harga_per_malam || 0);
   const basePriceEstimate = formatEstimate(basePrice);
   const serviceFeeEstimate = formatEstimate(serviceFee);
   const totalPriceEstimate = formatEstimate(totalPrice);
@@ -224,14 +244,14 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
 
     // Generate strictly English WhatsApp reservation message for the owner
     const { url: waUrl } = generateBookingWhatsAppUrl({
-      villaName: villa.nama,
-      villaLocation: villa.lokasi,
+      villaName: villa.nama || "Villa",
+      villaLocation: villa.lokasi || "Bali",
       checkIn,
       checkOut,
       nights: activeNights,
       guests: guestCount,
       totalPriceFormatted: formatHarga(totalPrice),
-      ownerWhatsAppNumber: villa.nomor_whatsapp_pemilik,
+      ownerWhatsAppNumber: villa.nomor_whatsapp_pemilik || ADMIN_WHATSAPP_NUMBER,
     });
 
     setOwnerWALink(waUrl);
@@ -243,22 +263,25 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
     }
   };
 
+  const currentImageIndex =
+    activeImage >= 0 && activeImage < safePhotos.length ? activeImage : 0;
+
   const nextImage = () => {
     setDirection(1);
     setActiveImage((prev) =>
-      prev === villa.galeri_foto.length - 1 ? 0 : prev + 1
+      prev >= safePhotos.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
     setDirection(-1);
     setActiveImage((prev) =>
-      prev === 0 ? villa.galeri_foto.length - 1 : prev - 1
+      prev <= 0 ? safePhotos.length - 1 : prev - 1
     );
   };
 
   const selectImage = (index: number) => {
-    setDirection(index > activeImage ? 1 : -1);
+    setDirection(index > currentImageIndex ? 1 : -1);
     setActiveImage(index);
   };
 
@@ -271,7 +294,9 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   };
 
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${villa.koordinat.lat},${villa.koordinat.lng}`;
+  const latitude = Number.isFinite(villa.koordinat?.lat) ? villa.koordinat.lat : -8.5069;
+  const longitude = Number.isFinite(villa.koordinat?.lng) ? villa.koordinat.lng : 115.2625;
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
 
   return (
     <div className="min-h-screen bg-cream pt-20">
@@ -298,7 +323,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
           <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden mb-3.5 bg-sand shadow-lg border border-sand">
             <AnimatePresence mode="wait" initial={false} custom={direction}>
               <motion.div
-                key={activeImage}
+                key={currentImageIndex}
                 custom={direction}
                 initial={{ opacity: 0, scale: 1.03 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -307,10 +332,10 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 className="absolute inset-0"
               >
                 <Image
-                  src={villa.galeri_foto[activeImage]}
-                  alt={`${villa.nama} foto ${activeImage + 1}`}
+                  src={safePhotos[currentImageIndex]}
+                  alt={`${villa.nama || "Villa"} foto ${currentImageIndex + 1}`}
                   fill
-                  priority={activeImage === 0}
+                  priority={currentImageIndex === 0}
                   sizes="(max-width: 768px) 100vw, 1200px"
                   className="object-cover"
                 />
@@ -323,13 +348,13 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
             {/* Image counter */}
             <div className="absolute bottom-4 right-4 z-20 bg-navy/85 backdrop-blur-md text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full border border-white/20 shadow-md">
               {t("photoCount", {
-                current: activeImage + 1,
-                total: villa.galeri_foto.length,
+                current: currentImageIndex + 1,
+                total: safePhotos.length,
               })}
             </div>
 
             {/* Navigation Arrows */}
-            {villa.galeri_foto.length > 1 && (
+            {safePhotos.length > 1 && (
               <>
                 <motion.button
                   whileHover={{ scale: 1.08 }}
@@ -355,21 +380,21 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
 
           {/* Thumbnails */}
           <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
-            {villa.galeri_foto.map((photo, i) => (
+            {safePhotos.map((photo, i) => (
               <motion.button
                 key={i}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => selectImage(i)}
                 className={`shrink-0 w-24 h-16 sm:w-28 sm:h-18 rounded-xl overflow-hidden border-2 transition-all cursor-pointer relative ${
-                  i === activeImage
+                  i === currentImageIndex
                     ? "border-terracotta ring-2 ring-terracotta/40 shadow-md opacity-100"
                     : "border-transparent opacity-60 hover:opacity-100"
                 }`}
               >
                 <Image
                   src={photo}
-                  alt={`${villa.nama} thumbnail ${i + 1}`}
+                  alt={`${villa.nama || "Villa"} thumbnail ${i + 1}`}
                   fill
                   sizes="120px"
                   className="object-cover"
@@ -521,7 +546,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 {t("facilitiesTitle")}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {villa.fasilitas.map((f) => {
+                {safeFacilities.map((f) => {
                   const Icon = getFacilityIcon(f);
                   return (
                     <div
@@ -1035,8 +1060,8 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                 <div className="my-5 flex items-center gap-3 p-3 rounded-2xl bg-cream border border-sand">
                   <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-sand">
                     <Image
-                      src={villa.galeri_foto[0]}
-                      alt={villa.nama}
+                      src={safePhotos[0]}
+                      alt={villa.nama || "Villa"}
                       fill
                       sizes="56px"
                       className="object-cover"
@@ -1044,11 +1069,11 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-bold text-sm text-navy truncate">
-                      {villa.nama}
+                      {villa.nama || "Villa"}
                     </h4>
-                    <p className="text-xs text-stone truncate">{villa.lokasi}</p>
+                    <p className="text-xs text-stone truncate">{villa.lokasi || "Bali"}</p>
                     <span className="text-xs font-black text-terracotta-dark">
-                      {formatHarga(villa.harga_per_malam)} / malam
+                      {formatHarga(villa.harga_per_malam || 0)} / malam
                     </span>
                   </div>
                 </div>
