@@ -1,5 +1,8 @@
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import {
+  createSupabaseServerClient,
+  createSupabaseAdminServiceClient,
+} from "@/lib/supabase/server";
 
 export async function getAdminUser() {
   const supabase = await createSupabaseServerClient();
@@ -8,7 +11,11 @@ export async function getAdminUser() {
   const { data: authData } = await supabase.auth.getUser();
   if (!authData.user?.id) return null;
 
-  const { data: admin } = await supabase
+  // Use service role client if available to verify admin_users table without RLS restrictions
+  const adminServiceClient = createSupabaseAdminServiceClient();
+  const clientToQuery = adminServiceClient || supabase;
+
+  const { data: admin } = await clientToQuery
     .from("admin_users")
     .select("id,email,role")
     .eq("id", authData.user.id)
@@ -20,7 +27,9 @@ export async function getAdminUser() {
 
 export async function requireAdmin() {
   const admin = await getAdminUser();
-  if (!admin) redirect("/admin/login");
+  if (!admin) {
+    redirect("/admin/login");
+  }
   return admin;
 }
 

@@ -1,2 +1,18 @@
-import { requireAdmin } from "@/lib/supabase/admin"; import AdminNav from "@/components/AdminNav"; import AdminOwnersClient from "@/components/AdminOwnersClient";
-export default async function AdminOwnersPage() { await requireAdmin(); return <div className="min-h-screen bg-cream lg:flex"><AdminNav /><main className="flex-1 p-5 sm:p-8"><AdminOwnersClient /></main></div>; }
+import { requireAdmin } from "@/lib/supabase/admin";
+import AdminNav from "@/components/AdminNav";
+import AdminOwnersClient from "@/components/AdminOwnersClient";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminOwnersPage() {
+  await requireAdmin();
+
+  return (
+    <div className="min-h-screen bg-cream lg:flex">
+      <AdminNav />
+      <main className="flex-1 p-5 sm:p-8">
+        <AdminOwnersClient />
+      </main>
+    </div>
+  );
+}

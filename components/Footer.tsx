@@ -110,14 +110,6 @@ export default function Footer() {
             >
               {t("termsLink")}
             </Link>
-            <span className="text-cream/30">•</span>
-            <a
-              href="/admin/login"
-              className="text-cream/50 hover:text-white transition-colors text-xs underline underline-offset-4 decoration-cream/30 hover:decoration-white cursor-pointer"
-              title="Portal Khusus Pengelola & Admin"
-            >
-              Admin Portal
-            </a>
           </div>
         </div>
       </div>

@@ -1,3 +1,9 @@
+import { requireAdmin } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
 
-export default function AdminPage() { redirect("/admin/dashboard"); }
+export const dynamic = "force-dynamic";
+
+export default async function AdminPage() {
+  await requireAdmin();
+  redirect("/admin/dashboard");
+}

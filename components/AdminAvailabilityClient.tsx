@@ -3,5 +3,172 @@
 import { useEffect, useState } from "react";
 import { getTodayString, isDateBeforeToday } from "@/lib/date-utils";
 
-type Villa = { id: string; name: string }; type Entry = { villa_id: string; date: string; is_available: boolean; note: string | null };
-export default function AdminAvailabilityClient() { const [villas, setVillas] = useState<Villa[]>([]); const [villaId, setVillaId] = useState(""); const [date, setDate] = useState(""); const [entries, setEntries] = useState<Entry[]>([]); const [error, setError] = useState(""); useEffect(() => { fetch("/api/admin/villas").then((r) => r.json()).then((data) => { setVillas(data); if (data[0]) setVillaId(data[0].id); }); }, []); const load = () => villaId && fetch(`/api/admin/availability?villa_id=${villaId}`).then((r) => r.json()).then(setEntries).catch(() => setError("Gagal memuat kalender.")); useEffect(() => { load(); }, [villaId]); const mark = async (is_available: boolean) => { if (!date || !villaId || isDateBeforeToday(date)) return; const response = await fetch("/api/admin/availability", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ villa_id: villaId, date, is_available, note: is_available ? "Tersedia" : "Penuh" }) }); if (!response.ok) setError((await response.json()).error || "Gagal menyimpan tanggal."); else { setDate(""); load(); } }; const remove = async (entry: Entry) => { if (isDateBeforeToday(entry.date)) return; await fetch("/api/admin/availability", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ villa_id: entry.villa_id, date: entry.date }) }); load(); }; return <section><h1 className="text-3xl font-black text-navy">Availability</h1><p className="mt-2 text-stone">Tandai tanggal yang penuh atau buka kembali tanggal tertentu.</p><div className="mt-7 bg-white border border-sand rounded-2xl p-5 flex flex-col sm:flex-row gap-3"><select value={villaId} onChange={(e) => setVillaId(e.target.value)} className="field"><option value="">Pilih villa</option>{villas.map((villa) => <option key={villa.id} value={villa.id}>{villa.name}</option>)}</select><input type="date" min={getTodayString()} value={date} onChange={(e) => setDate(e.target.value)} className="field" /><button disabled={!date || isDateBeforeToday(date)} onClick={() => mark(false)} className="rounded-lg bg-red-600 text-white px-4 py-3 font-black disabled:opacity-50">Tandai Penuh</button><button disabled={!date || isDateBeforeToday(date)} onClick={() => mark(true)} className="rounded-lg bg-sage-dark text-white px-4 py-3 font-black disabled:opacity-50">Tersedia</button></div>{error && <p className="mt-4 text-red-600 font-bold">{error}</p>}<div className="mt-6 bg-white border border-sand rounded-2xl divide-y divide-sand">{entries.map((entry) => <div key={entry.date} className={`p-4 flex justify-between items-center ${isDateBeforeToday(entry.date) ? "opacity-50" : ""}`}><span className="font-bold text-navy">{entry.date} {isDateBeforeToday(entry.date) && <span className="text-xs text-stone">(sudah lewat)</span>} <span className={entry.is_available ? "text-sage-dark" : "text-red-600"}>{entry.is_available ? "Tersedia" : "Penuh"}</span></span><button disabled={isDateBeforeToday(entry.date)} onClick={() => remove(entry)} className="text-xs font-bold text-stone hover:text-red-600 disabled:cursor-not-allowed">Hapus</button></div>) }{entries.length === 0 && <p className="p-5 text-stone">Belum ada penanda tanggal.</p>}</div></section>; }
+type Villa = { id: string; name: string };
+type Entry = {
+  villa_id: string;
+  date: string;
+  is_available: boolean;
+  note: string | null;
+};
+
+export default function AdminAvailabilityClient() {
+  const [villas, setVillas] = useState<Villa[]>([]);
+  const [villaId, setVillaId] = useState("");
+  const [date, setDate] = useState("");
+  const [entries, setEntries] = useState<Entry[]>([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetch("/api/admin/villas")
+      .then(async (r) => {
+        if (r.status === 401) {
+          window.location.replace("/admin/login");
+          return null;
+        }
+        return r.json();
+      })
+      .then((data) => {
+        if (data) {
+          setVillas(Array.isArray(data) ? data : []);
+          if (data[0]) setVillaId(data[0].id);
+        }
+      });
+  }, []);
+
+  const load = () => {
+    if (!villaId) return;
+    fetch(`/api/admin/availability?villa_id=${villaId}`)
+      .then(async (r) => {
+        if (r.status === 401) {
+          window.location.replace("/admin/login");
+          return null;
+        }
+        return r.json();
+      })
+      .then((data) => {
+        if (data) setEntries(Array.isArray(data) ? data : []);
+      })
+      .catch(() => setError("Gagal memuat kalender."));
+  };
+
+  useEffect(() => {
+    load();
+  }, [villaId]);
+
+  const mark = async (is_available: boolean) => {
+    if (!date || !villaId || isDateBeforeToday(date)) return;
+    const response = await fetch("/api/admin/availability", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        villa_id: villaId,
+        date,
+        is_available,
+        note: is_available ? "Tersedia" : "Penuh",
+      }),
+    });
+    if (response.status === 401) {
+      window.location.replace("/admin/login");
+      return;
+    }
+    if (!response.ok)
+      setError((await response.json()).error || "Gagal menyimpan tanggal.");
+    else {
+      setDate("");
+      load();
+    }
+  };
+
+  const remove = async (entry: Entry) => {
+    if (isDateBeforeToday(entry.date)) return;
+    const response = await fetch("/api/admin/availability", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ villa_id: entry.villa_id, date: entry.date }),
+    });
+    if (response.status === 401) {
+      window.location.replace("/admin/login");
+      return;
+    }
+    load();
+  };
+
+  return (
+    <section>
+      <h1 className="text-3xl font-black text-navy">Availability</h1>
+      <p className="mt-2 text-stone">
+        Tandai tanggal yang penuh atau buka kembali tanggal tertentu.
+      </p>
+      <div className="mt-7 bg-white border border-sand rounded-2xl p-5 flex flex-col sm:flex-row gap-3">
+        <select
+          value={villaId}
+          onChange={(e) => setVillaId(e.target.value)}
+          className="field"
+        >
+          <option value="">Pilih villa</option>
+          {villas.map((villa) => (
+            <option key={villa.id} value={villa.id}>
+              {villa.name}
+            </option>
+          ))}
+        </select>
+        <input
+          type="date"
+          min={getTodayString()}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="field"
+        />
+        <button
+          disabled={!date || isDateBeforeToday(date)}
+          onClick={() => mark(false)}
+          className="rounded-lg bg-red-600 text-white px-4 py-3 font-black disabled:opacity-50 cursor-pointer"
+        >
+          Tandai Penuh
+        </button>
+        <button
+          disabled={!date || isDateBeforeToday(date)}
+          onClick={() => mark(true)}
+          className="rounded-lg bg-sage-dark text-white px-4 py-3 font-black disabled:opacity-50 cursor-pointer"
+        >
+          Tersedia
+        </button>
+      </div>
+      {error && <p className="mt-4 text-red-600 font-bold">{error}</p>}
+      <div className="mt-6 bg-white border border-sand rounded-2xl divide-y divide-sand">
+        {entries.map((entry) => (
+          <div
+            key={entry.date}
+            className={`p-4 flex justify-between items-center ${
+              isDateBeforeToday(entry.date) ? "opacity-50" : ""
+            }`}
+          >
+            <span className="font-bold text-navy">
+              {entry.date}{" "}
+              {isDateBeforeToday(entry.date) && (
+                <span className="text-xs text-stone">(sudah lewat)</span>
+              )}{" "}
+              <span
+                className={
+                  entry.is_available ? "text-sage-dark" : "text-red-600"
+                }
+              >
+                {entry.is_available ? "Tersedia" : "Penuh"}
+              </span>
+            </span>
+            <button
+              disabled={isDateBeforeToday(entry.date)}
+              onClick={() => remove(entry)}
+              className="text-xs font-bold text-stone hover:text-red-600 disabled:cursor-not-allowed cursor-pointer"
+            >
+              Hapus
+            </button>
+          </div>
+        ))}
+        {entries.length === 0 && (
+          <p className="p-5 text-stone">Belum ada penanda tanggal.</p>
+        )}
+      </div>
+    </section>
+  );
+}
