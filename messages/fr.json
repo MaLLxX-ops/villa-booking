@@ -25,7 +25,9 @@
     "subtitle": "Une sélection exclusive de villas de luxe pour des vacances inoubliables. Des sanctuaires perchés sur les falaises aux studios épurés au cœur de Bali.",
     "locationLabel": "Destination",
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
-    "searchBtn": "Rechercher une Villa"
+    "searchBtn": "Rechercher une Villa",
+    "selectRegion": "Choisir une région à Bali",
+    "popularAreas": "Zones populaires :"
   },
   "Validation": {
     "checkInLabel": "Arrivée",
@@ -99,7 +101,24 @@
     "currencyDisclaimer": "Estimation indicative du taux de change. Tous les paiements sont effectués en roupies indonésiennes (IDR).",
     "saveWishlist": "Ajouter aux Favoris",
     "savedWishlist": "Enregistré",
-    "compareVilla": "Comparer cette Villa"
+    "compareVilla": "Comparer cette Villa",
+    "locationTitle": "Emplacement & Environs",
+    "openGoogleMaps": "Ouvrir dans Google Maps",
+    "nearbyAttractions": "Points d'intérêt à proximité",
+    "shareVilla": "Partager",
+    "shareTitle": "Partager cette villa",
+    "shareDesc": "Partagez ce magnifique lien de villa avec votre famille et vos compagnons de voyage.",
+    "copyLink": "Copier le lien",
+    "copied": "Copié !",
+    "reviewsTitle": "Avis & Évaluations des Clients",
+    "cleanliness": "Propreté",
+    "locationScore": "Emplacement",
+    "serviceScore": "Service & Hospitalité",
+    "valueScore": "Rapport qualité-prix",
+    "airportDistance": "15-30 min de l'aéroport international Ngurah Rai",
+    "beachDistance": "5-10 min de la plage et des beach clubs",
+    "diningDistance": "3-5 min des restaurants et cafés réputés",
+    "martDistance": "2 min du supermarché et pharmacie 24h/24"
   },
   "Owners": {
     "metaTitle": "Pour Propriétaires de Villas — Réservations Directes | StayVilla",
@@ -191,7 +210,10 @@
     "clearDates": "Effacer les Dates",
     "nightsSelected": "{count} Nuits Sélectionnées",
     "stayDates": "Dates du Séjour",
-    "viewOnMap": "Voir sur la carte"
+    "viewOnMap": "Voir sur la carte",
+    "allRegions": "Toutes les régions",
+    "filterByRegion": "Filtrer par région",
+    "popularRegions": "Régions populaires de Bali :"
   },
   "Footer": {
     "brandDesc": "Plateforme de réservation de villas de prestige à Bali. Vivez une expérience inoubliable au cœur du paradis tropical balinais.",

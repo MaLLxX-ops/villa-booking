@@ -12,6 +12,7 @@ import {
   Calendar,
   X,
   Map,
+  MapPin,
 } from "lucide-react";
 import { Villa } from "@/lib/data";
 import VillaCard from "@/components/VillaCard";
@@ -20,6 +21,17 @@ import {
   calculateNights,
   isCheckOutValid,
 } from "@/lib/date-utils";
+
+const BALI_REGIONS = [
+  "Seminyak",
+  "Canggu",
+  "Ubud",
+  "Uluwatu",
+  "Nusa Dua",
+  "Sanur",
+  "Jimbaran",
+  "Tabanan",
+];
 
 interface SearchPageClientProps {
   villas: Villa[];
@@ -33,8 +45,9 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
   const initialCategoryKey = searchParams.get("cat") || "";
   const initialCheckIn = searchParams.get("checkIn") || "";
   const initialCheckOut = searchParams.get("checkOut") || "";
+  const initialRegion = searchParams.get("region") || "";
 
-  // Search input state with 250ms debounce and cleanup
+  // Search input state with 250ms debounce
   const [searchTerm, setSearchTerm] = useState(initialQuery);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialQuery);
 
@@ -50,6 +63,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
 
   const [selectedCategoryKey, setSelectedCategoryKey] =
     useState(initialCategoryKey);
+  const [selectedRegion, setSelectedRegion] = useState(initialRegion);
   const [selectedSort, setSelectedSort] = useState("");
 
   // Date Filter State
@@ -89,7 +103,7 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
     return map;
   }, [villas]);
 
-  // Filter & Sort Logic using debouncedSearchTerm
+  // Filter & Sort Logic
   const filteredVillas = useMemo(() => {
     return villas
       .filter((villa) => {
@@ -104,7 +118,11 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
         const matchesCategory =
           !selectedCategoryKey || villa.kategori_key === selectedCategoryKey;
 
-        return matchesSearch && matchesCategory;
+        const matchesRegion =
+          !selectedRegion ||
+          villa.lokasi.toLowerCase().includes(selectedRegion.toLowerCase());
+
+        return matchesSearch && matchesCategory && matchesRegion;
       })
       .sort((a, b) => {
         if (selectedSort === "harga-asc")
@@ -117,12 +135,19 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           return b.jumlah_kamar - a.jumlah_kamar;
         return 0;
       });
-  }, [villas, debouncedSearchTerm, selectedCategoryKey, selectedSort]);
+  }, [
+    villas,
+    debouncedSearchTerm,
+    selectedCategoryKey,
+    selectedRegion,
+    selectedSort,
+  ]);
 
   const resetFilters = () => {
     setSearchTerm("");
     setDebouncedSearchTerm("");
     setSelectedCategoryKey("");
+    setSelectedRegion("");
     setSelectedSort("");
     setCheckIn("");
     setCheckOut("");
@@ -131,7 +156,12 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
   };
 
   const hasActiveFilters = Boolean(
-    searchTerm || selectedCategoryKey || selectedSort || checkIn || checkOut
+    searchTerm ||
+      selectedCategoryKey ||
+      selectedRegion ||
+      selectedSort ||
+      checkIn ||
+      checkOut
   );
 
   return (
@@ -188,6 +218,20 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
                 className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-sand bg-cream text-sm font-semibold text-charcoal placeholder:text-stone focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all"
               />
             </div>
+
+            {/* Region Filter Dropdown */}
+            <select
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value)}
+              className="px-4 py-3.5 rounded-xl border border-sand bg-cream text-sm font-bold text-charcoal focus:bg-white focus:border-terracotta focus:ring-2 focus:ring-terracotta/15 outline-none transition-all cursor-pointer"
+            >
+              <option value="">{t("allRegions")}</option>
+              {BALI_REGIONS.map((r) => (
+                <option key={r} value={r}>
+                  📍 {r}
+                </option>
+              ))}
+            </select>
 
             {/* Category Filter */}
             <select
@@ -293,8 +337,42 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
             )}
           </AnimatePresence>
 
+          {/* Quick Region Chips */}
+          <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-sand/60">
+            <span className="text-xs font-bold text-stone py-1 mr-1 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-terracotta" />
+              <span>{t("popularRegions")}</span>
+            </span>
+            <button
+              onClick={() => setSelectedRegion("")}
+              className={`text-xs font-bold px-3 py-1 rounded-full transition-all cursor-pointer ${
+                !selectedRegion
+                  ? "bg-navy text-white shadow-xs"
+                  : "bg-cream text-stone hover:text-charcoal hover:bg-sand/60 border border-sand"
+              }`}
+            >
+              {t("allRegions")}
+            </button>
+            {BALI_REGIONS.map((r) => {
+              const isSelected = selectedRegion === r;
+              return (
+                <button
+                  key={r}
+                  onClick={() => setSelectedRegion(isSelected ? "" : r)}
+                  className={`text-xs font-bold px-3 py-1 rounded-full transition-all cursor-pointer ${
+                    isSelected
+                      ? "bg-terracotta text-white shadow-xs"
+                      : "bg-cream text-stone hover:text-charcoal hover:bg-sand/60 border border-sand"
+                  }`}
+                >
+                  {r}
+                </button>
+              );
+            })}
+          </div>
+
           {/* Quick Category Chips */}
-          <div className="flex flex-wrap gap-2 pt-2 border-t border-sand/60">
+          <div className="flex flex-wrap gap-2 pt-2 border-t border-sand/40">
             <span className="text-xs font-bold text-stone py-1 mr-1 flex items-center">
               {t("quickCategoryLabel")}
             </span>

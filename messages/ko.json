@@ -25,7 +25,9 @@
     "subtitle": "잊지 못할 휴양을 위한 엄선된 프라이빗 럭셔리 풀빌라. 절벽 위 오션뷰 안식처부터 세련된 감성 스튜디오까지.",
     "locationLabel": "목적지",
     "locationPlaceholder": "우붓 (Ubud), 스미냑 (Seminyak), 짱구 (Canggu)...",
-    "searchBtn": "풀빌라 검색"
+    "searchBtn": "풀빌라 검색",
+    "selectRegion": "발리 지역 선택",
+    "popularAreas": "인기 지역:"
   },
   "Validation": {
     "checkInLabel": "체크인",
@@ -99,7 +101,24 @@
     "currencyDisclaimer": "환율 변환은 참고용 예상 금액입니다. 모든 최종 결제는 인도네시아 루피아(IDR)로 진행됩니다.",
     "saveWishlist": "위시리스트 저장",
     "savedWishlist": "저장됨",
-    "compareVilla": "이 빌라 비교하기"
+    "compareVilla": "이 빌라 비교하기",
+    "locationTitle": "위치 및 주변 안내",
+    "openGoogleMaps": "Google 지도에서 열기",
+    "nearbyAttractions": "주변 주요 명소 및 편의시설",
+    "shareVilla": "공유하기",
+    "shareTitle": "이 빌라 공유하기",
+    "shareDesc": "이 아름다운 풀빌라 링크를 가족 및 여행 동반자에게 공유해 보세요.",
+    "copyLink": "링크 복사",
+    "copied": "복사됨!",
+    "reviewsTitle": "투숙객 후기 및 평점",
+    "cleanliness": "청결도",
+    "locationScore": "위치 만족도",
+    "serviceScore": "서비스 및 환대",
+    "valueScore": "가격 대비 만족도",
+    "airportDistance": "응우라라이 국제공항까지 차로 15~30분",
+    "beachDistance": "가까운 비치 & 비치클럽까지 차로 5~10분",
+    "diningDistance": "유명 레스토랑 & 카페 거리까지 3~5분",
+    "martDistance": "24시간 슈퍼마켓 & 약국까지 도보 2분"
   },
   "Owners": {
     "metaTitle": "빌라 호스트 파트너 — 직거래 예약 극대화 | StayVilla",
@@ -191,7 +210,10 @@
     "clearDates": "날짜 초기화",
     "nightsSelected": "{count}박 선택됨",
     "stayDates": "숙박 날짜",
-    "viewOnMap": "지도에서 보기"
+    "viewOnMap": "지도에서 보기",
+    "allRegions": "모든 지역",
+    "filterByRegion": "지역별 필터",
+    "popularRegions": "발리 인기 지역:"
   },
   "Footer": {
     "brandDesc": "발리 프리미엄 프라이빗 풀빌라 다이렉트 예약 플랫폼. 세계에서 가장 아름다운 열대 낙원에서 최고의 휴식을 경험해보세요.",

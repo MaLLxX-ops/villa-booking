@@ -25,7 +25,9 @@
     "subtitle": "Koleksi villa premium pilihan untuk pengalaman liburan tak terlupakan. Dari retreat mewah hingga studio minimalis di lokasi terbaik Bali.",
     "locationLabel": "Lokasi",
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
-    "searchBtn": "Cari Villa"
+    "searchBtn": "Cari Villa",
+    "selectRegion": "Pilih Wilayah di Bali",
+    "popularAreas": "Kawasan Populer:"
   },
   "Validation": {
     "checkInLabel": "Check-in",
@@ -99,7 +101,24 @@
     "currencyDisclaimer": "Estimasi kurs, bukan harga final. Pembayaran dilakukan dalam Rupiah (IDR).",
     "saveWishlist": "Simpan Favorit",
     "savedWishlist": "Tersimpan",
-    "compareVilla": "Bandingkan Villa"
+    "compareVilla": "Bandingkan Villa",
+    "locationTitle": "Lokasi & Sekitar",
+    "openGoogleMaps": "Buka di Google Maps",
+    "nearbyAttractions": "Tempat Menarik Terdekat",
+    "shareVilla": "Bagikan",
+    "shareTitle": "Bagikan Villa Ini",
+    "shareDesc": "Bagikan tautan villa indah ini kepada keluarga dan teman perjalanan Anda.",
+    "copyLink": "Salin Tautan",
+    "copied": "Tersalin!",
+    "reviewsTitle": "Ulasan & Penilaian Tamu",
+    "cleanliness": "Kebersihan",
+    "locationScore": "Lokasi",
+    "serviceScore": "Pelayanan",
+    "valueScore": "Kesesuaian Harga",
+    "airportDistance": "15-30 mnt ke Bandara Internasional Ngurah Rai",
+    "beachDistance": "5-10 mnt ke Pantai & Beach Club terdekat",
+    "diningDistance": "3-5 mnt ke Pusat Kuliner & Kafe Hits",
+    "martDistance": "2 mnt ke Supermarket & Apotek 24 Jam"
   },
   "Owners": {
     "metaTitle": "Untuk Pemilik Villa — Maksimalkan Reservasi Langsung | StayVilla",
@@ -191,7 +210,10 @@
     "clearDates": "Hapus Tanggal",
     "nightsSelected": "{count} Malam Terpilih",
     "stayDates": "Tanggal Menginap",
-    "viewOnMap": "Lihat di Peta"
+    "viewOnMap": "Lihat di Peta",
+    "allRegions": "Semua Wilayah",
+    "filterByRegion": "Filter Wilayah",
+    "popularRegions": "Wilayah Populer Bali:"
   },
   "Footer": {
     "brandDesc": "Platform booking villa premium di Bali. Temukan pengalaman menginap terbaik di destinasi tropis paling memukau di dunia.",

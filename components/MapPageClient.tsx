@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
@@ -9,12 +9,6 @@ import {
   Map as MapIcon,
   ArrowLeft,
   MapPin,
-  BedDouble,
-  Bath,
-  Users,
-  Search,
-  Sparkles,
-  Layers,
   ChevronRight,
 } from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
@@ -35,6 +29,14 @@ export default function MapPageClient({ villas }: MapPageClientProps) {
     if (selectedCategory === "all") return villas;
     return villas.filter((v) => v.kategori_key === selectedCategory);
   }, [villas, selectedCategory]);
+
+  const handleSelectVilla = useCallback((id: string) => {
+    setActiveVillaId(id);
+    const cardEl = document.getElementById(`map-card-${id}`);
+    if (cardEl) {
+      cardEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-cream pt-24 sm:pt-28 pb-20">
@@ -81,7 +83,10 @@ export default function MapPageClient({ villas }: MapPageClientProps) {
               ].map((cat) => (
                 <button
                   key={cat.key}
-                  onClick={() => setSelectedCategory(cat.key)}
+                  onClick={() => {
+                    setSelectedCategory(cat.key);
+                    setActiveVillaId(undefined);
+                  }}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                     selectedCategory === cat.key
                       ? "bg-terracotta text-white shadow-md shadow-terracotta/30"
@@ -117,12 +122,13 @@ export default function MapPageClient({ villas }: MapPageClientProps) {
 
               return (
                 <motion.div
+                  id={`map-card-${villa.id}`}
                   key={villa.id}
                   whileHover={{ scale: 1.02 }}
-                  onClick={() => setActiveVillaId(villa.id)}
+                  onClick={() => handleSelectVilla(villa.id)}
                   className={`bg-white rounded-2xl p-4 border transition-all cursor-pointer shadow-xs ${
                     isActive
-                      ? "border-terracotta ring-2 ring-terracotta/30 shadow-md bg-terracotta/5"
+                      ? "border-terracotta ring-2 ring-terracotta/40 shadow-lg bg-terracotta/5"
                       : "border-sand hover:border-terracotta/40 hover:shadow-md"
                   }`}
                 >
@@ -182,7 +188,7 @@ export default function MapPageClient({ villas }: MapPageClientProps) {
             <InteractiveMap
               villas={filteredVillas}
               selectedVillaId={activeVillaId}
-              onSelectVilla={(id) => setActiveVillaId(id)}
+              onSelectVilla={handleSelectVilla}
               className="w-full h-[450px] sm:h-[550px] lg:h-[650px] sticky top-24"
             />
           </div>

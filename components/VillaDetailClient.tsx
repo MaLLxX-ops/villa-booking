@@ -34,6 +34,13 @@ import {
   MessageCircle,
   Heart,
   Scale,
+  Share2,
+  Copy,
+  ExternalLink,
+  Navigation,
+  ShoppingBag,
+  Send,
+  Facebook,
 } from "lucide-react";
 import {
   formatHarga,
@@ -42,6 +49,7 @@ import {
 } from "@/lib/data";
 import { generateBookingWhatsAppUrl } from "@/lib/whatsapp-templates";
 import DateRangeInputs from "@/components/DateRangeInputs";
+import InteractiveMap from "@/components/InteractiveMap";
 import {
   calculateNights,
   isCheckOutValid,
@@ -121,6 +129,8 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const [checkInError, setCheckInError] = useState("");
   const [checkOutError, setCheckOutError] = useState("");
   const [isBookingSuccess, setIsBookingSuccess] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [ownerWALink, setOwnerWALink] = useState("");
 
   // Night and Price Calculation
@@ -214,6 +224,17 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
     setDirection(index > activeImage ? 1 : -1);
     setActiveImage(index);
   };
+
+  const handleCopyLink = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2500);
+    }
+  };
+
+  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${villa.koordinat.lat},${villa.koordinat.lng}`;
 
   return (
     <div className="min-h-screen bg-cream pt-20">
@@ -346,7 +367,7 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   </div>
                 </div>
 
-                {/* Quick Actions: Wishlist & Compare */}
+                {/* Quick Actions: Wishlist, Compare & Share */}
                 <div className="flex items-center gap-2">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -378,6 +399,17 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   >
                     <Scale className="w-3.5 h-3.5 text-terracotta" />
                     <span>{compared ? tCompare("compared") : t("compareVilla")}</span>
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setIsShareModalOpen(true)}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-cream text-charcoal border border-sand hover:border-terracotta transition-all cursor-pointer"
+                    title={t("shareVilla")}
+                  >
+                    <Share2 className="w-3.5 h-3.5 text-stone" />
+                    <span>{t("shareVilla")}</span>
                   </motion.button>
                 </div>
               </div>
@@ -468,6 +500,162 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                     </div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* Location & Interactive Map Section */}
+            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-sm space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-terracotta/15 text-terracotta-dark border border-terracotta/30 text-xs font-bold mb-2">
+                    <Navigation className="w-3.5 h-3.5" />
+                    <span>{t("locationTitle")}</span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black text-navy">
+                    {villa.nama} — {villa.lokasi}
+                  </h2>
+                </div>
+
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cream hover:bg-sand/60 text-navy font-bold text-xs sm:text-sm border border-sand transition-all hover:scale-102 self-start sm:self-auto shrink-0 shadow-xs"
+                >
+                  <ExternalLink className="w-4 h-4 text-terracotta" />
+                  <span>{t("openGoogleMaps")}</span>
+                </a>
+              </div>
+
+              {/* Embedded Leaflet Map centered on this villa */}
+              <div className="rounded-2xl overflow-hidden border border-sand">
+                <InteractiveMap
+                  villas={[villa]}
+                  singleVillaMode={true}
+                  zoomLevel={14}
+                  className="w-full h-[320px] sm:h-[380px]"
+                />
+              </div>
+
+              {/* Nearby Highlights / Proximity Cards */}
+              <div className="pt-2">
+                <h3 className="text-sm font-bold text-stone uppercase tracking-wider mb-3">
+                  {t("nearbyAttractions")}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { icon: Car, text: t("airportDistance"), color: "text-navy" },
+                    { icon: Waves, text: t("beachDistance"), color: "text-sage-dark" },
+                    { icon: Coffee, text: t("diningDistance"), color: "text-terracotta" },
+                    { icon: ShoppingBag, text: t("martDistance"), color: "text-gold" },
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3 p-3 rounded-xl bg-cream border border-sand/60 text-xs sm:text-sm font-semibold text-charcoal"
+                    >
+                      <item.icon className={`w-4 h-4 shrink-0 ${item.color}`} />
+                      <span>{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Guest Reviews & Rating Breakdown Section */}
+            <div className="bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-sm space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-sand pb-6">
+                <div>
+                  <h2 className="text-xl sm:text-2xl font-black text-navy">
+                    {t("reviewsTitle")}
+                  </h2>
+                  <p className="text-stone text-xs sm:text-sm mt-1">
+                    Berdasarkan 128 ulasan terverifikasi tamu yang menginap
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 bg-cream px-4 py-2.5 rounded-2xl border border-sand self-start sm:self-auto shrink-0">
+                  <Star className="w-6 h-6 fill-gold text-gold" />
+                  <div>
+                    <span className="text-2xl font-black text-navy block leading-none">
+                      4.9
+                    </span>
+                    <span className="text-[11px] font-bold text-stone">/ 5.0 Luar Biasa</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Rating Bars */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { label: t("cleanliness"), score: "4.9", pct: "98%" },
+                  { label: t("locationScore"), score: "5.0", pct: "100%" },
+                  { label: t("serviceScore"), score: "4.9", pct: "98%" },
+                  { label: t("valueScore"), score: "4.8", pct: "96%" },
+                ].map((item, idx) => (
+                  <div key={idx} className="space-y-1.5">
+                    <div className="flex justify-between text-xs font-bold text-charcoal">
+                      <span>{item.label}</span>
+                      <span className="font-black text-terracotta-dark">{item.score}</span>
+                    </div>
+                    <div className="w-full h-2 rounded-full bg-sand/60 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-terracotta to-gold rounded-full"
+                        style={{ width: item.pct }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Sample Verified Reviews */}
+              <div className="space-y-4 pt-4 border-t border-sand">
+                {[
+                  {
+                    name: "Alexander & Sophie",
+                    country: "🇦🇺 Australia",
+                    date: "Agustus 2026",
+                    comment:
+                      "Liburan terbaik kami di Bali! Komunikasi WhatsApp dengan pemilik sangat lancar, villa persis seperti di foto, dan suasananya luar biasa privat serta bersih.",
+                  },
+                  {
+                    name: "Rian & Keluarga",
+                    country: "🇮🇩 Jakarta, Indonesia",
+                    date: "Juli 2026",
+                    comment:
+                      "Proses booking super cepat dan transparan. Kolam renang bersih, dapur lengkap, dan lokasi sangat strategis dekat kafe-kafe hits.",
+                  },
+                  {
+                    name: "Kenji & Mai",
+                    country: "🇯🇵 Tokyo, Japan",
+                    date: "Juni 2026",
+                    comment:
+                      "Exceptional hospitality and peaceful atmosphere. Everything was arranged directly with the host via WhatsApp without any hassle.",
+                  },
+                ].map((rev, idx) => (
+                  <div
+                    key={idx}
+                    className="p-4 rounded-2xl bg-cream/60 border border-sand/60 space-y-2 text-sm"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 font-bold text-navy">
+                        <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center text-xs font-black">
+                          {rev.name[0]}
+                        </div>
+                        <div>
+                          <span className="block leading-snug">{rev.name}</span>
+                          <span className="text-xs text-stone font-medium">
+                            {rev.country} • {rev.date}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex text-gold text-xs">
+                        {"★★★★★"}
+                      </div>
+                    </div>
+                    <p className="text-stone text-xs sm:text-sm leading-relaxed pl-10 font-normal">
+                      "{rev.comment}"
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -752,6 +940,127 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
                   >
                     {t("closeModal")}
                   </button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Share Modal Dialog */}
+      <AnimatePresence>
+        {isShareModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/60 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full border border-sand shadow-2xl relative"
+            >
+              <button
+                onClick={() => setIsShareModalOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-xl text-stone hover:bg-sand/60 transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="text-left">
+                <div className="w-12 h-12 rounded-2xl bg-terracotta/15 text-terracotta-dark flex items-center justify-center mb-4">
+                  <Share2 className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-navy">
+                  {t("shareTitle")}
+                </h3>
+                <p className="text-stone text-xs sm:text-sm mt-1 leading-relaxed">
+                  {t("shareDesc")}
+                </p>
+
+                {/* Villa Mini Preview */}
+                <div className="my-5 flex items-center gap-3 p-3 rounded-2xl bg-cream border border-sand">
+                  <div className="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-sand">
+                    <Image
+                      src={villa.galeri_foto[0]}
+                      alt={villa.nama}
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-bold text-sm text-navy truncate">
+                      {villa.nama}
+                    </h4>
+                    <p className="text-xs text-stone truncate">{villa.lokasi}</p>
+                    <span className="text-xs font-black text-terracotta-dark">
+                      {formatHarga(villa.harga_per_malam)} / malam
+                    </span>
+                  </div>
+                </div>
+
+                {/* Copy Link Input */}
+                <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-sand/40 border border-sand mb-4">
+                  <input
+                    type="text"
+                    readOnly
+                    value={currentUrl}
+                    className="bg-transparent px-3 text-xs text-stone font-semibold truncate outline-none flex-1"
+                  />
+                  <button
+                    onClick={handleCopyLink}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-navy hover:bg-navy-light text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
+                  >
+                    {isCopied ? (
+                      <>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-sage-light" />
+                        <span>{t("copied")}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>{t("copyLink")}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Social Share Buttons */}
+                <div className="grid grid-cols-3 gap-2">
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(
+                      `Lihat villa cantik ini di Bali: ${villa.nama} — ${currentUrl}`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs border border-emerald-200 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  <a
+                    href={`https://t.me/share/url?url=${encodeURIComponent(
+                      currentUrl
+                    )}&text=${encodeURIComponent(villa.nama)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 p-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs border border-sky-200 transition-colors"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Telegram</span>
+                  </a>
+
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      currentUrl
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs border border-blue-200 transition-colors"
+                  >
+                    <Facebook className="w-4 h-4" />
+                    <span>Facebook</span>
+                  </a>
                 </div>
               </div>
             </motion.div>

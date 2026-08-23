@@ -25,7 +25,9 @@
     "subtitle": "Handpicked luxury villas for an unforgettable island escape. From cliffside sanctuaries to minimalist studios in Bali's most coveted destinations.",
     "locationLabel": "Location",
     "locationPlaceholder": "Ubud, Seminyak, Canggu...",
-    "searchBtn": "Search Villas"
+    "searchBtn": "Search Villas",
+    "selectRegion": "Select Region in Bali",
+    "popularAreas": "Popular Areas:"
   },
   "Validation": {
     "checkInLabel": "Check-in",
@@ -99,7 +101,24 @@
     "currencyDisclaimer": "Currency conversion is indicative. Final payment is settled in Indonesian Rupiah (IDR).",
     "saveWishlist": "Save to Wishlist",
     "savedWishlist": "Saved",
-    "compareVilla": "Compare Villa"
+    "compareVilla": "Compare Villa",
+    "locationTitle": "Location & Surroundings",
+    "openGoogleMaps": "Open in Google Maps",
+    "nearbyAttractions": "Nearby Points of Interest",
+    "shareVilla": "Share",
+    "shareTitle": "Share This Villa",
+    "shareDesc": "Share this beautiful villa link with your family and travel companions.",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "reviewsTitle": "Guest Reviews & Ratings",
+    "cleanliness": "Cleanliness",
+    "locationScore": "Location",
+    "serviceScore": "Service & Hospitality",
+    "valueScore": "Value for Money",
+    "airportDistance": "15-30 mins to Ngurah Rai International Airport",
+    "beachDistance": "5-10 mins to nearest Beach & Beach Clubs",
+    "diningDistance": "3-5 mins to Top Restaurants & Cafes",
+    "martDistance": "2 mins to 24h Supermarket & Pharmacy"
   },
   "Owners": {
     "metaTitle": "For Villa Owners — Maximize Direct Bookings | StayVilla",
@@ -191,7 +210,10 @@
     "clearDates": "Clear Dates",
     "nightsSelected": "{count} Nights Selected",
     "stayDates": "Stay Dates",
-    "viewOnMap": "View on Map"
+    "viewOnMap": "View on Map",
+    "allRegions": "All Regions",
+    "filterByRegion": "Filter by Region",
+    "popularRegions": "Popular Bali Regions:"
   },
   "Footer": {
     "brandDesc": "Premier luxury villa booking platform in Bali. Experience extraordinary stays across the world's most enchanting tropical paradise.",

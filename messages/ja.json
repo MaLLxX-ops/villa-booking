@@ -25,7 +25,9 @@
     "subtitle": "忘れられない南国のひとときを彩る最高級ヴィラコレクション。断崖絶壁の隠れ家からスタイリッシュなスタジオまで。",
     "locationLabel": "目的地",
     "locationPlaceholder": "ウブド、スミニャック、チャングー...",
-    "searchBtn": "ヴィラを検索"
+    "searchBtn": "ヴィラを検索",
+    "selectRegion": "バリ島のエリアを選択",
+    "popularAreas": "人気エリア:"
   },
   "Validation": {
     "checkInLabel": "チェックイン",
@@ -99,7 +101,24 @@
     "currencyDisclaimer": "為替レートは目安です。最終決済はインドネシアルピア（IDR）で行われます。",
     "saveWishlist": "お気に入り保存",
     "savedWishlist": "保存済み",
-    "compareVilla": "このヴィラを比較"
+    "compareVilla": "このヴィラを比較",
+    "locationTitle": "ロケーション＆周辺環境",
+    "openGoogleMaps": "Googleマップで開く",
+    "nearbyAttractions": "周辺の人気スポット",
+    "shareVilla": "シェア",
+    "shareTitle": "このヴィラをシェア",
+    "shareDesc": "この素晴らしいヴィラをご家族や旅行仲間と共有しましょう。",
+    "copyLink": "リンクをコピー",
+    "copied": "コピー完了！",
+    "reviewsTitle": "ゲストのクチコミと評価",
+    "cleanliness": "清潔さ",
+    "locationScore": "ロケーション",
+    "serviceScore": "サービス＆ホスピタリティ",
+    "valueScore": "価格の妥当性",
+    "airportDistance": "ングラ・ライ国際空港まで車で15〜30分",
+    "beachDistance": "最寄りのビーチ＆ビーチクラブまで車で5〜10分",
+    "diningDistance": "人気レストラン・カフェまで徒歩3〜5分",
+    "martDistance": "24時間営業スーパー＆薬局まで徒歩2分"
   },
   "Owners": {
     "metaTitle": "ヴィラオーナー様へ — 直予約を最大化 | StayVilla",
@@ -191,7 +210,10 @@
     "clearDates": "日付をクリア",
     "nightsSelected": "{count} 泊選択中",
     "stayDates": "宿泊日",
-    "viewOnMap": "地図で見る"
+    "viewOnMap": "地図で見る",
+    "allRegions": "すべてのエリア",
+    "filterByRegion": "エリアで絞り込み",
+    "popularRegions": "バリ島の人気エリア:"
   },
   "Footer": {
     "brandDesc": "バリ島の高級プライベートヴィラ予約プラットフォーム。世界で最も魅惑的な南国の楽園で、贅沢な滞在をお楽しみください。",

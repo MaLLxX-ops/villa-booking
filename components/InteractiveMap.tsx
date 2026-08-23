@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { Villa, formatHarga } from "@/lib/data";
 import { useCurrency } from "@/context/CurrencyContext";
 import { useLocale, useTranslations } from "next-intl";
+import { Maximize2, Compass } from "lucide-react";
 
 interface InteractiveMapProps {
   villas: Villa[];
   selectedVillaId?: string;
   onSelectVilla?: (id: string) => void;
   className?: string;
+  singleVillaMode?: boolean;
+  zoomLevel?: number;
 }
 
 export default function InteractiveMap({
@@ -18,81 +21,128 @@ export default function InteractiveMap({
   selectedVillaId,
   onSelectVilla,
   className = "w-full h-[600px]",
+  singleVillaMode = false,
+  zoomLevel,
 }: InteractiveMapProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
+  const layerGroupRef = useRef<any>(null);
   const markersRef = useRef<Record<string, any>>({});
+  const onSelectVillaRef = useRef(onSelectVilla);
+  const formatEstimateRef = useRef<any>(null);
+
   const { formatEstimate } = useCurrency();
   const locale = useLocale();
   const t = useTranslations("Map");
 
-  useEffect(() => {
-    if (!mapRef.current || typeof window === "undefined") return;
+  onSelectVillaRef.current = onSelectVilla;
+  formatEstimateRef.current = formatEstimate;
 
-    // Dynamically import Leaflet
+  const [mapReady, setMapReady] = useState(false);
+
+  // Initialize Map Once
+  useEffect(() => {
+    if (!mapContainerRef.current || typeof window === "undefined") return;
+
     let isMounted = true;
 
     import("leaflet").then((L) => {
-      if (!isMounted || !mapRef.current) return;
+      if (!isMounted || !mapContainerRef.current) return;
 
-      // Clean up previous instance if exists
+      // Clean up previous instance if any
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
       }
 
-      // Default center: Bali (near Ubud/Denpasar)
-      const map = L.map(mapRef.current, {
-        center: [-8.55, 115.18],
-        zoom: 10,
-        scrollWheelZoom: false,
-      });
+      const defaultCenter: [number, number] =
+        singleVillaMode && villas.length > 0
+          ? [villas[0].koordinat.lat, villas[0].koordinat.lng]
+          : [-8.55, 115.18];
 
-      mapInstanceRef.current = map;
+      const initialZoom = zoomLevel || (singleVillaMode ? 14 : 10);
+
+      const map = L.map(mapContainerRef.current, {
+        center: defaultCenter,
+        zoom: initialZoom,
+        scrollWheelZoom: false,
+        zoomControl: true,
+      });
 
       // OpenStreetMap Tile Layer
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 18,
+        maxZoom: 19,
       }).addTo(map);
 
-      // Create Custom Pins for each villa
+      const layerGroup = L.layerGroup().addTo(map);
+      layerGroupRef.current = layerGroup;
+      mapInstanceRef.current = map;
+
+      setMapReady(true);
+    });
+
+    return () => {
+      isMounted = false;
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, [singleVillaMode]);
+
+  // Update Markers whenever villas, locale, or mapReady change
+  useEffect(() => {
+    if (!mapReady || !mapInstanceRef.current || !layerGroupRef.current) return;
+
+    import("leaflet").then((L) => {
+      const map = mapInstanceRef.current;
+      const layerGroup = layerGroupRef.current;
+      if (!map || !layerGroup) return;
+
+      // Clear existing markers
+      layerGroup.clearLayers();
       markersRef.current = {};
+
       const bounds = L.latLngBounds([]);
 
       villas.forEach((villa) => {
         const { lat, lng } = villa.koordinat;
         bounds.extend([lat, lng]);
 
-        const estimate = formatEstimate(villa.harga_per_malam);
+        const estimate = formatEstimateRef.current
+          ? formatEstimateRef.current(villa.harga_per_malam)
+          : "";
         const detailUrl = `/${locale}/villa/${villa.id}`;
 
-        // Custom HTML Marker Pin
+        const isSelected = selectedVillaId === villa.id;
+
+        // Custom Pin HTML
         const pinIcon = L.divIcon({
           className: "stayvilla-map-pin",
           html: `
             <div style="
-              background: #BA5D38;
+              background: ${isSelected ? "#152238" : "#BA5D38"};
               color: white;
-              width: 38px;
-              height: 38px;
+              width: ${isSelected ? "44px" : "38px"};
+              height: ${isSelected ? "44px" : "38px"};
               border-radius: 50% 50% 50% 0;
               transform: rotate(-45deg);
               display: flex;
               align-items: center;
               justify-content: center;
-              border: 3px solid white;
-              box-shadow: 0 4px 14px rgba(186,93,56,0.5);
+              border: 3px solid ${isSelected ? "#D4AF37" : "white"};
+              box-shadow: 0 6px 18px rgba(0,0,0,0.35);
               cursor: pointer;
-              transition: transform 0.2s ease;
+              transition: all 0.25s ease;
             ">
-              <span style="transform: rotate(45deg); font-size: 16px;">🏡</span>
+              <span style="transform: rotate(45deg); font-size: ${isSelected ? "18px" : "15px"};">🏡</span>
             </div>
           `,
-          iconSize: [38, 38],
-          iconAnchor: [19, 38],
-          popupAnchor: [0, -38],
+          iconSize: [isSelected ? 44 : 38, isSelected ? 44 : 38],
+          iconAnchor: [isSelected ? 22 : 19, isSelected ? 44 : 38],
+          popupAnchor: [0, isSelected ? -44 : -38],
         });
 
         const popupContent = `
@@ -142,48 +192,82 @@ export default function InteractiveMap({
         `;
 
         const marker = L.marker([lat, lng], { icon: pinIcon })
-          .addTo(map)
+          .addTo(layerGroup)
           .bindPopup(popupContent, {
             maxWidth: 260,
             className: "stayvilla-custom-popup",
           });
 
         marker.on("click", () => {
-          if (onSelectVilla) onSelectVilla(villa.id);
+          if (onSelectVillaRef.current) {
+            onSelectVillaRef.current(villa.id);
+          }
         });
 
         markersRef.current[villa.id] = marker;
       });
 
-      if (villas.length > 0 && bounds.isValid()) {
-        map.fitBounds(bounds, { padding: [50, 50] });
+      // If in single villa mode or selected, focus immediately
+      if (singleVillaMode && villas.length > 0) {
+        map.setView([villas[0].koordinat.lat, villas[0].koordinat.lng], zoomLevel || 14);
+      } else if (!selectedVillaId && villas.length > 0 && bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
       }
     });
+  }, [villas, locale, mapReady, singleVillaMode, zoomLevel, t]);
 
-    return () => {
-      isMounted = false;
-      if (mapInstanceRef.current) {
-        mapInstanceRef.current.remove();
-        mapInstanceRef.current = null;
-      }
-    };
-  }, [villas, locale, formatEstimate, onSelectVilla, t]);
-
-  // Handle zooming / popup trigger when selectedVillaId changes
+  // Handle zooming smoothly to selectedVillaId
   useEffect(() => {
     if (!selectedVillaId || !mapInstanceRef.current) return;
+    const map = mapInstanceRef.current;
     const marker = markersRef.current[selectedVillaId];
+
     if (marker) {
-      mapInstanceRef.current.setView(marker.getLatLng(), 13, {
+      const latLng = marker.getLatLng();
+      map.flyTo(latLng, 14, {
         animate: true,
+        duration: 0.75,
       });
-      marker.openPopup();
+
+      // Open popup after flight start
+      setTimeout(() => {
+        marker.openPopup();
+      }, 400);
     }
   }, [selectedVillaId]);
 
+  const fitAllBounds = () => {
+    if (!mapInstanceRef.current || typeof window === "undefined") return;
+    import("leaflet").then((L) => {
+      const bounds = L.latLngBounds([]);
+      villas.forEach((v) => bounds.extend([v.koordinat.lat, v.koordinat.lng]));
+      if (bounds.isValid()) {
+        mapInstanceRef.current.flyToBounds(bounds, {
+          padding: [50, 50],
+          duration: 0.8,
+        });
+      }
+    });
+  };
+
   return (
-    <div className={`relative rounded-3xl overflow-hidden shadow-xl border border-sand ${className}`}>
-      <div ref={mapRef} className="w-full h-full z-0 bg-sand/30" />
+    <div
+      className={`relative rounded-3xl overflow-hidden shadow-xl border border-sand bg-cream ${className}`}
+    >
+      <div ref={mapContainerRef} className="w-full h-full z-0 bg-sand/30" />
+
+      {/* Quick Recenter / Fit All Control Button */}
+      {!singleVillaMode && (
+        <button
+          type="button"
+          onClick={fitAllBounds}
+          className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md hover:bg-white text-navy px-3 py-2 rounded-xl text-xs font-bold shadow-lg border border-sand flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          title="Tampilkan Semua Villa di Bali"
+        >
+          <Compass className="w-4 h-4 text-terracotta" />
+          <span>Lihat Semua ({villas.length})</span>
+        </button>
+      )}
     </div>
   );
 }

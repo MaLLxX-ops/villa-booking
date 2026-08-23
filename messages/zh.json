@@ -25,7 +25,9 @@
     "subtitle": "甄选顶级私人度假别墅，开启难以忘怀的海岛之旅。从悬崖海景隐逸居所到核心地段现代套房，应有尽有。",
     "locationLabel": "目的地",
     "locationPlaceholder": "乌布 (Ubud), 水明漾 (Seminyak), 苍古 (Canggu)...",
-    "searchBtn": "搜索别墅"
+    "searchBtn": "搜索别墅",
+    "selectRegion": "选择巴厘岛度假区域",
+    "popularAreas": "热门地区："
   },
   "Validation": {
     "checkInLabel": "入住日期",
@@ -99,7 +101,24 @@
     "currencyDisclaimer": "外币汇率仅供参考，最终款项均以印尼盾（IDR）结算。",
     "saveWishlist": "收藏别墅",
     "savedWishlist": "已收藏",
-    "compareVilla": "对比此别墅"
+    "compareVilla": "对比此别墅",
+    "locationTitle": "位置与周边",
+    "openGoogleMaps": "在 Google 地图查看",
+    "nearbyAttractions": "附近热门地标与景点",
+    "shareVilla": "分享",
+    "shareTitle": "分享此别墅",
+    "shareDesc": "将这座优美别墅的链接分享给您的家人和旅行同伴。",
+    "copyLink": "复制链接",
+    "copied": "已复制！",
+    "reviewsTitle": "住客点评与评分",
+    "cleanliness": "卫生清洁",
+    "locationScore": "地理位置",
+    "serviceScore": "管家服务",
+    "valueScore": "性价比",
+    "airportDistance": "车程15-30分钟至伍拉·赖国际机场",
+    "beachDistance": "车程5-10分钟至海滩及海滩俱乐部",
+    "diningDistance": "步行3-5分钟至特色餐厅与咖啡馆",
+    "martDistance": "步行2分钟至24小时便利超市与药店"
   },
   "Owners": {
     "metaTitle": "房东合作入驻 — 拓展直客预订渠道 | StayVilla",
@@ -191,7 +210,10 @@
     "clearDates": "清除日期",
     "nightsSelected": "已选 {count} 晚",
     "stayDates": "入住日期",
-    "viewOnMap": "在地图上查看"
+    "viewOnMap": "在地图上查看",
+    "allRegions": "全部区域",
+    "filterByRegion": "按区域筛选",
+    "popularRegions": "巴厘岛热门区域："
   },
   "Footer": {
     "brandDesc": "巴厘岛高端私人度假别墅预订平台。在世界上最迷人的热带度假天堂，为您打造无与伦比的奢华下榻体验。",
