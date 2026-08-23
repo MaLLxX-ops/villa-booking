@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -10,6 +11,7 @@ import {
   RotateCcw,
   Calendar,
   X,
+  Map,
 } from "lucide-react";
 import { Villa } from "@/lib/data";
 import VillaCard from "@/components/VillaCard";
@@ -140,20 +142,30 @@ function SearchPageContent({ villas }: SearchPageClientProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8"
+          className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         >
-          <h1 className="text-3xl sm:text-4xl font-black text-navy tracking-tight">
-            {t("title")}
-          </h1>
-          <p
-            className="mt-2 text-stone font-semibold text-base sm:text-lg"
-            dangerouslySetInnerHTML={{
-              __html: t.raw("resultsFound").replace(
-                "{count}",
-                filteredVillas.length.toString()
-              ),
-            }}
-          />
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-black text-navy tracking-tight">
+              {t("title")}
+            </h1>
+            <p
+              className="mt-2 text-stone font-semibold text-base sm:text-lg"
+              dangerouslySetInnerHTML={{
+                __html: t.raw("resultsFound").replace(
+                  "{count}",
+                  filteredVillas.length.toString()
+                ),
+              }}
+            />
+          </div>
+
+          <Link
+            href="/peta"
+            className="inline-flex items-center gap-2 bg-white hover:bg-cream-dark text-terracotta-dark border border-sand px-5 py-2.5 rounded-full font-bold text-sm shadow-xs transition-all hover:scale-105 active:scale-95 shrink-0 self-start sm:self-auto"
+          >
+            <Map className="w-4 h-4 text-terracotta" />
+            <span>Lihat di Peta</span>
+          </Link>
         </motion.div>
 
         {/* Filter Bar */}

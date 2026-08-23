@@ -12,6 +12,9 @@
     "contact": "お問い合わせ",
     "bookingBtn": "今すぐ予約",
     "bookingNowBtn": "今すぐ予約",
+    "wishlist": "お気に入り",
+    "compare": "比較",
+    "map": "マップ",
     "language": "言語"
   },
   "Hero": {
@@ -59,7 +62,11 @@
     "perNight": "1泊あたり",
     "bedrooms": "ベッドルーム",
     "bathrooms": "バスルーム",
-    "guests": "名様まで"
+    "guests": "名様まで",
+    "compareCheckbox": "比較",
+    "saveToWishlist": "お気に入りに追加",
+    "removeFromWishlist": "お気に入りから削除",
+    "popularBadge": "人気"
   },
   "Detail": {
     "backHome": "ホームに戻る",
@@ -89,7 +96,10 @@
     "bookingSuccessDesc": "{villaName} のご予約リクエスト（{nights} 泊: {checkIn} 〜 {checkOut}、{guests} 名様）の準備が整いました。オーナーへ直接送信できます。",
     "openWhatsAppBtn": "今すぐWhatsAppを開く",
     "closeModal": "閉じる",
-    "currencyDisclaimer": "為替レートは目安であり確定料金ではありません。実際のお支払いはインドネシアルピア（IDR）にて行われます。"
+    "currencyDisclaimer": "為替レートは目安です。最終決済はインドネシアルピア（IDR）で行われます。",
+    "saveWishlist": "お気に入り保存",
+    "savedWishlist": "保存済み",
+    "compareVilla": "このヴィラを比較"
   },
   "Owners": {
     "metaTitle": "ヴィラオーナー様へ — 直予約を最大化 | StayVilla",
@@ -273,5 +283,64 @@
     "zh": "中文",
     "ja": "日本語",
     "ko": "한국어"
+  },
+  "Wishlist": {
+    "badge": "個人コレクション",
+    "title": "お気に入りヴィラ一覧",
+    "subtitle": "特別なバリ島旅行のために保存した、あなただけの理想のヴィラリスト",
+    "emptyTitle": "お気に入りはまだありません",
+    "emptyDesc": "保存されたヴィラはありません。カタログをご覧になり、ハートアイコンをクリックして気になるヴィラを保存してください。",
+    "browseVillas": "すべてのヴィラを見る",
+    "clearAll": "リストをクリア",
+    "remove": "削除",
+    "savedCount": "{count}件のヴィラを保存中",
+    "backHome": "ホームに戻る"
+  },
+  "Compare": {
+    "badge": "ヴィラ徹底比較",
+    "title": "選択したヴィラの比較",
+    "subtitle": "仕様、料金、定員、設備を横並びで比較して、あなたに最適なヴィラをお選びください",
+    "floatingBarTitle": "ヴィラを比較",
+    "compareNowBtn": "今すぐ比較する ({count})",
+    "removeVilla": "比較から外す",
+    "clearAll": "選択解除",
+    "maxSelectedNotice": "一度に比較できるヴィラは最大3件までです。",
+    "emptyTitle": "比較するヴィラを選択してください",
+    "emptyDesc": "カタログのヴィラカードにある「比較」チェックボックスを2件以上選択してください。",
+    "selectVillasBtn": "ヴィラカタログを見る",
+    "allVillasCompared": "{count}件のプロパティを比較中",
+    "feature": "スペック・特徴",
+    "category": "カテゴリー",
+    "pricePerNight": "1泊あたりの料金",
+    "bedrooms": "ベッドルーム数",
+    "bathrooms": "バスルーム数",
+    "guests": "最大宿泊人数",
+    "location": "エリア・立地",
+    "amenities": "充実の設備",
+    "viewDetail": "詳細を見る",
+    "bookNow": "WAで予約",
+    "removeColumn": "削除",
+    "addMoreBtn": "他のヴィラを追加"
+  },
+  "Map": {
+    "badge": "バリ島インタラクティブマップ",
+    "title": "マップからヴィラを探す",
+    "subtitle": "バリ島の人気エリアに点在する厳選プライベートヴィラの正確な位置をマップで確認",
+    "viewList": "リスト表示",
+    "viewOnMap": "マップ表示",
+    "allCategories": "すべてのカテゴリー",
+    "villasCount": "マップ上に{count}件のヴィラ",
+    "viewDetail": "詳細を見る",
+    "perNight": "/ 泊",
+    "exploreMap": "マップを開く",
+    "centerBali": "バリ島中心部"
+  },
+  "Trending": {
+    "badge": "大人気",
+    "title": "バリ島で最も注目のヴィラ",
+    "subtitle": "今シーズン最も予約リクエストが多く、最高評価を獲得している厳選トレンドヴィラ",
+    "popularBadge": "人気",
+    "viewAll": "すべてのコレクションを見る",
+    "scrollHint": "スワイプして他のヴィラを見る"
   }
 }

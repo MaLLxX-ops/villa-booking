@@ -4,18 +4,38 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
-import { MapPin, BedDouble, Bath, Users } from "lucide-react";
+import {
+  MapPin,
+  BedDouble,
+  Bath,
+  Users,
+  Heart,
+  Scale,
+  Sparkles,
+} from "lucide-react";
 import { Villa, formatHarga } from "@/lib/data";
 import { useCurrency } from "@/context/CurrencyContext";
+import { useWishlist } from "@/context/WishlistContext";
+import { useCompare } from "@/context/CompareContext";
 
 interface VillaCardProps {
   villa: Villa;
   index: number;
+  isPopular?: boolean;
 }
 
-export default function VillaCard({ villa, index }: VillaCardProps) {
+export default function VillaCard({
+  villa,
+  index,
+  isPopular = false,
+}: VillaCardProps) {
   const t = useTranslations("Listing");
   const { formatEstimate } = useCurrency();
+  const { isSaved, toggleWishlist } = useWishlist();
+  const { isSelected, toggleCompare, isMaxReached } = useCompare();
+
+  const saved = isSaved(villa.id);
+  const compared = isSelected(villa.id);
   const estimate = formatEstimate(villa.harga_per_malam);
 
   const categoryBadgeClasses: Record<string, string> = {
@@ -27,6 +47,18 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
   const badgeClass =
     categoryBadgeClasses[villa.kategori_key] ||
     "bg-navy/90 text-white border-white/30";
+
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(villa.id);
+  };
+
+  const handleCompareClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleCompare(villa.id);
+  };
 
   return (
     <motion.div
@@ -60,13 +92,44 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
               {/* Gradient Scrim for contrast */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-black/20 z-10 pointer-events-none" />
 
-              {/* Category Badge */}
-              <div className="absolute top-3.5 left-3.5 z-20">
+              {/* Category & Popular Badges */}
+              <div className="absolute top-3.5 left-3.5 z-20 flex flex-col gap-1.5 items-start">
                 <span
                   className={`text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md border shadow-xs ${badgeClass}`}
                 >
                   {villa.kategori}
                 </span>
+
+                {isPopular && (
+                  <span className="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-gradient-to-r from-gold to-gold-light text-navy shadow-md flex items-center gap-1 border border-gold-light/60 animate-pulse">
+                    <Sparkles className="w-3 h-3 fill-navy text-navy" />
+                    {t("popularBadge")}
+                  </span>
+                )}
+              </div>
+
+              {/* Wishlist Heart Button */}
+              <div className="absolute top-3.5 right-3.5 z-20">
+                <motion.button
+                  whileHover={{ scale: 1.15 }}
+                  whileTap={{ scale: 0.88 }}
+                  onClick={handleWishlistClick}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all shadow-md cursor-pointer ${
+                    saved
+                      ? "bg-terracotta text-white shadow-terracotta/40"
+                      : "bg-black/35 hover:bg-black/50 text-white border border-white/30"
+                  }`}
+                  aria-label={
+                    saved ? t("removeFromWishlist") : t("saveToWishlist")
+                  }
+                  title={saved ? t("removeFromWishlist") : t("saveToWishlist")}
+                >
+                  <Heart
+                    className={`w-4 h-4 transition-all ${
+                      saved ? "fill-white text-white" : "text-white"
+                    }`}
+                  />
+                </motion.button>
               </div>
 
               {/* Price Overlay */}
@@ -90,7 +153,7 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
             </div>
 
             {/* Content */}
-            <div className="p-5">
+            <div className="p-5 pb-3">
               <h3 className="text-lg font-bold text-navy group-hover:text-terracotta-dark transition-colors line-clamp-1">
                 {villa.nama}
               </h3>
@@ -101,9 +164,9 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
             </div>
           </div>
 
-          {/* Stats Bar */}
-          <div className="px-5 pb-5">
-            <div className="flex items-center justify-between pt-4 border-t border-sand">
+          {/* Stats & Compare Bar */}
+          <div className="px-5 pb-4">
+            <div className="flex items-center justify-between py-3 border-t border-sand">
               <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-charcoal">
                 <BedDouble className="w-4 h-4 text-sage-dark shrink-0" />
                 <span>
@@ -122,6 +185,36 @@ export default function VillaCard({ villa, index }: VillaCardProps) {
                   {villa.kapasitas_tamu} {t("guests")}
                 </span>
               </div>
+            </div>
+
+            {/* Compare Checkbox Trigger */}
+            <div className="pt-2 border-t border-sand/60 flex items-center justify-between">
+              <label
+                onClick={handleCompareClick}
+                className={`inline-flex items-center gap-2 text-xs font-bold cursor-pointer transition-colors select-none py-1 px-2.5 rounded-lg ${
+                  compared
+                    ? "bg-terracotta/15 text-terracotta-dark"
+                    : "text-stone hover:text-navy hover:bg-sand/40"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={compared}
+                  disabled={!compared && isMaxReached}
+                  onChange={() => {}}
+                  className="w-3.5 h-3.5 text-terracotta rounded-sm border-sand focus:ring-terracotta cursor-pointer accent-terracotta"
+                />
+                <span className="flex items-center gap-1">
+                  <Scale className="w-3.5 h-3.5" />
+                  {t("compareCheckbox")}
+                </span>
+              </label>
+
+              {compared && (
+                <span className="text-[10px] font-bold text-terracotta-dark bg-terracotta/10 px-2 py-0.5 rounded-full">
+                  ✓ Siap
+                </span>
+              )}
             </div>
           </div>
         </div>

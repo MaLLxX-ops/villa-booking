@@ -12,6 +12,9 @@
     "contact": "Contact",
     "bookingBtn": "Réserver",
     "bookingNowBtn": "Réserver Maintenant",
+    "wishlist": "Favoris",
+    "compare": "Comparer",
+    "map": "Carte",
     "language": "Langue"
   },
   "Hero": {
@@ -59,7 +62,11 @@
     "perNight": "par nuit",
     "bedrooms": "Chambres",
     "bathrooms": "Bains",
-    "guests": "Invités"
+    "guests": "Invités",
+    "compareCheckbox": "Comparer",
+    "saveToWishlist": "Ajouter aux favoris",
+    "removeFromWishlist": "Retirer des favoris",
+    "popularBadge": "Populaire"
   },
   "Detail": {
     "backHome": "Retour à l'Accueil",
@@ -89,7 +96,10 @@
     "bookingSuccessDesc": "Votre demande de réservation pour {villaName} ({nights} nuits : du {checkIn} au {checkOut}, {guests} personnes) est prête à être envoyée directement au propriétaire.",
     "openWhatsAppBtn": "Ouvrir WhatsApp Maintenant",
     "closeModal": "Fermer",
-    "currencyDisclaimer": "Estimation indicative du taux de change. Tous les paiements sont effectués en roupies indonésiennes (IDR)."
+    "currencyDisclaimer": "Estimation indicative du taux de change. Tous les paiements sont effectués en roupies indonésiennes (IDR).",
+    "saveWishlist": "Ajouter aux Favoris",
+    "savedWishlist": "Enregistré",
+    "compareVilla": "Comparer cette Villa"
   },
   "Owners": {
     "metaTitle": "Pour Propriétaires de Villas — Réservations Directes | StayVilla",
@@ -273,5 +283,64 @@
     "zh": "中文",
     "ja": "日本語",
     "ko": "한국어"
+  },
+  "Wishlist": {
+    "badge": "Collection Privée",
+    "title": "Vos Villas Favorites",
+    "subtitle": "Votre sélection de villas d'exception enregistrées pour un séjour inoubliable à Bali",
+    "emptyTitle": "Votre Liste de Favoris est Vide",
+    "emptyDesc": "Vous n'avez pas encore enregistré de villa. Parcourez notre catalogue et cliquez sur le cœur pour sauvegarder vos coups de cœur.",
+    "browseVillas": "Explorer les Villas",
+    "clearAll": "Vider les Favoris",
+    "remove": "Supprimer",
+    "savedCount": "{count} villas enregistrées",
+    "backHome": "Retour à l'Accueil"
+  },
+  "Compare": {
+    "badge": "Comparateur de Villas",
+    "title": "Comparer les Villas Sélectionnées",
+    "subtitle": "Examinez les caractéristiques, tarifs, capacités et équipements côte à côte pour faire le meilleur choix",
+    "floatingBarTitle": "Comparer les Villas",
+    "compareNowBtn": "Comparer Maintenant ({count})",
+    "removeVilla": "Retirer du comparateur",
+    "clearAll": "Effacer la sélection",
+    "maxSelectedNotice": "Vous pouvez comparer jusqu'à 3 villas simultanément.",
+    "emptyTitle": "Sélectionnez des Villas à Comparer",
+    "emptyDesc": "Veuillez cocher 'Comparer' sur au moins 2 fiches de villas dans notre catalogue.",
+    "selectVillasBtn": "Parcourir le Catalogue",
+    "allVillasCompared": "Comparaison de {count} propriétés",
+    "feature": "Caractéristiques",
+    "category": "Catégorie",
+    "pricePerNight": "Prix par Nuit",
+    "bedrooms": "Chambres",
+    "bathrooms": "Salles de Bain",
+    "guests": "Capacité d'Accueil",
+    "location": "Localisation",
+    "amenities": "Équipements Inclus",
+    "viewDetail": "Voir les Détails",
+    "bookNow": "Réserver via WA",
+    "removeColumn": "Supprimer",
+    "addMoreBtn": "Ajouter une Autre Villa"
+  },
+  "Map": {
+    "badge": "Carte Interactive de Bali",
+    "title": "Explorer les Villas sur la Carte",
+    "subtitle": "Découvrez la localisation exacte de chaque villa d'exception à travers les régions prisées de Bali",
+    "viewList": "Vue Liste",
+    "viewOnMap": "Voir sur la Carte",
+    "allCategories": "Toutes les Catégories",
+    "villasCount": "{count} Villas sur la Carte",
+    "viewDetail": "Voir la Villa",
+    "perNight": "par nuit",
+    "exploreMap": "Ouvrir la Carte Interactive",
+    "centerBali": "Centre de Bali"
+  },
+  "Trending": {
+    "badge": "Les Plus Demandées",
+    "title": "Villas Tendance à Bali",
+    "subtitle": "Nos villas les plus prisées avec une forte demande et d'excellents avis voyageurs cette saison",
+    "popularBadge": "Populaire",
+    "viewAll": "Voir Toute la Collection",
+    "scrollHint": "Glissez pour découvrir d'autres villas"
   }
 }

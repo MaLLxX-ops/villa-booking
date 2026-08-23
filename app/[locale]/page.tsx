@@ -4,6 +4,7 @@ import HeroSection from "@/components/sections/HeroSection";
 import ListingSection from "@/components/sections/ListingSection";
 import CategoriesSection from "@/components/sections/CategoriesSection";
 import StatsSection from "@/components/sections/StatsSection";
+import TrendingSection from "@/components/sections/TrendingSection";
 
 export default async function HomePage({
   params,
@@ -21,6 +22,7 @@ export default async function HomePage({
       <StatsSection />
       <CategoriesSection />
       <ListingSection villas={villas} />
+      <TrendingSection villas={villas} />
     </>
   );
 }

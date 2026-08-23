@@ -12,6 +12,9 @@
     "contact": "联系我们",
     "bookingBtn": "立即预订",
     "bookingNowBtn": "立即预订",
+    "wishlist": "心愿单",
+    "compare": "对比",
+    "map": "地图",
     "language": "语言"
   },
   "Hero": {
@@ -59,7 +62,11 @@
     "perNight": "每晚",
     "bedrooms": "间卧室",
     "bathrooms": "间卫浴",
-    "guests": "位住客"
+    "guests": "位住客",
+    "compareCheckbox": "对比",
+    "saveToWishlist": "加入心愿单",
+    "removeFromWishlist": "从心愿单移除",
+    "popularBadge": "人气推荐"
   },
   "Detail": {
     "backHome": "返回首页",
@@ -89,7 +96,10 @@
     "bookingSuccessDesc": "您为 {villaName} 提交的预订申请（{nights} 晚：{checkIn} 至 {checkOut}，{guests} 位住客）已准备就绪，可直接发送至房东。",
     "openWhatsAppBtn": "立即打开WhatsApp",
     "closeModal": "关闭",
-    "currencyDisclaimer": "汇率估算仅供参考，非最终结算价。所有支付均以印尼盾（IDR）结算。"
+    "currencyDisclaimer": "外币汇率仅供参考，最终款项均以印尼盾（IDR）结算。",
+    "saveWishlist": "收藏别墅",
+    "savedWishlist": "已收藏",
+    "compareVilla": "对比此别墅"
   },
   "Owners": {
     "metaTitle": "房东合作入驻 — 拓展直客预订渠道 | StayVilla",
@@ -273,5 +283,64 @@
     "zh": "中文",
     "ja": "日本語",
     "ko": "한국어"
+  },
+  "Wishlist": {
+    "badge": "个人收藏",
+    "title": "我的心愿别墅",
+    "subtitle": "为您悉心珍藏的巴厘岛度假之所，随时开启尊贵奢享时光",
+    "emptyTitle": "您的心愿单还是空的",
+    "emptyDesc": "您尚未收藏任何别墅。欢迎浏览我们的房源列表，点击红心图标即可保存您心仪的别墅。",
+    "browseVillas": "浏览全部别墅",
+    "clearAll": "清空心愿单",
+    "remove": "删除",
+    "savedCount": "已收藏 {count} 套别墅",
+    "backHome": "返回首页"
+  },
+  "Compare": {
+    "badge": "房源横向对比",
+    "title": "精选别墅对比",
+    "subtitle": "并排比对各别墅的规格参数、价格、容纳人数与配套设施，助您做出理想选择",
+    "floatingBarTitle": "对比别墅",
+    "compareNowBtn": "立即对比 ({count})",
+    "removeVilla": "移除对比",
+    "clearAll": "清空选择",
+    "maxSelectedNotice": "一次最多可对比 3 套别墅。",
+    "emptyTitle": "请选择要对比的别墅",
+    "emptyDesc": "请在房源卡片上勾选至少 2 套别墅的“对比”选项。",
+    "selectVillasBtn": "浏览房源列表",
+    "allVillasCompared": "正在对比 {count} 套房源",
+    "feature": "规格特性",
+    "category": "房源类别",
+    "pricePerNight": "每晚价格",
+    "bedrooms": "卧室数量",
+    "bathrooms": "卫浴数量",
+    "guests": "最多可住",
+    "location": "地理位置",
+    "amenities": "配套设施",
+    "viewDetail": "查看详情",
+    "bookNow": "通过WA预订",
+    "removeColumn": "删除",
+    "addMoreBtn": "添加更多别墅"
+  },
+  "Map": {
+    "badge": "巴厘岛互动地图",
+    "title": "在地图上探索别墅",
+    "subtitle": "直观掌握巴厘岛各大黄金度假区内独家私人别墅的精准地理位置",
+    "viewList": "列表视图",
+    "viewOnMap": "地图视图",
+    "allCategories": "全部分类",
+    "villasCount": "地图上共有 {count} 套别墅",
+    "viewDetail": "查看房源",
+    "perNight": "/ 晚",
+    "exploreMap": "开启互动地图",
+    "centerBali": "巴厘岛中心"
+  },
+  "Trending": {
+    "badge": "最受欢迎",
+    "title": "巴厘岛热门趋势别墅",
+    "subtitle": "本季度预订需求最高、住客满分好评的精选热门别墅推荐",
+    "popularBadge": "人气推荐",
+    "viewAll": "查看全部精选",
+    "scrollHint": "滑动探索更多热门别墅"
   }
 }

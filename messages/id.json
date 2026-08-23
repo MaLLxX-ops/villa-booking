@@ -12,6 +12,9 @@
     "contact": "Hubungi Kami",
     "bookingBtn": "Booking",
     "bookingNowBtn": "Booking Sekarang",
+    "wishlist": "Wishlist",
+    "compare": "Bandingkan",
+    "map": "Peta Interaktif",
     "language": "Bahasa"
   },
   "Hero": {
@@ -59,7 +62,11 @@
     "perNight": "per malam",
     "bedrooms": "Kamar",
     "bathrooms": "Mandi",
-    "guests": "Tamu"
+    "guests": "Tamu",
+    "compareCheckbox": "Bandingkan",
+    "saveToWishlist": "Simpan ke Wishlist",
+    "removeFromWishlist": "Hapus dari Wishlist",
+    "popularBadge": "Populer"
   },
   "Detail": {
     "backHome": "Kembali ke Beranda",
@@ -89,7 +96,10 @@
     "bookingSuccessDesc": "Pesanan Anda untuk {villaName} ({nights} malam: {checkIn} s/d {checkOut}, {guests} tamu) siap dikirimkan langsung ke WhatsApp pemilik.",
     "openWhatsAppBtn": "Buka WhatsApp Sekarang",
     "closeModal": "Tutup",
-    "currencyDisclaimer": "Estimasi kurs, bukan harga final. Pembayaran dilakukan dalam Rupiah (IDR)."
+    "currencyDisclaimer": "Estimasi kurs, bukan harga final. Pembayaran dilakukan dalam Rupiah (IDR).",
+    "saveWishlist": "Simpan Favorit",
+    "savedWishlist": "Tersimpan",
+    "compareVilla": "Bandingkan Villa"
   },
   "Owners": {
     "metaTitle": "Untuk Pemilik Villa — Maksimalkan Reservasi Langsung | StayVilla",
@@ -273,5 +283,64 @@
     "zh": "中文",
     "ja": "日本語",
     "ko": "한국어"
+  },
+  "Wishlist": {
+    "badge": "Koleksi Pribadi",
+    "title": "Wishlist Villa Favorit",
+    "subtitle": "Koleksi villa impian yang Anda simpan untuk liburan berharga di Bali",
+    "emptyTitle": "Wishlist Anda Masih Kosong",
+    "emptyDesc": "Belum ada villa yang disimpan. Jelajahi katalog kami dan klik ikon hati untuk menyimpan villa impian Anda.",
+    "browseVillas": "Jelajahi Semua Villa",
+    "clearAll": "Kosongkan Wishlist",
+    "remove": "Hapus",
+    "savedCount": "{count} villa tersimpan",
+    "backHome": "Kembali ke Beranda"
+  },
+  "Compare": {
+    "badge": "Perbandingan Properti",
+    "title": "Bandingkan Villa Pilihan",
+    "subtitle": "Periksa spesifikasi, harga, kapasitas, dan fasilitas lengkap berdampingan untuk memilih villa terbaik",
+    "floatingBarTitle": "Bandingkan Villa",
+    "compareNowBtn": "Bandingkan Sekarang ({count})",
+    "removeVilla": "Hapus dari perbandingan",
+    "clearAll": "Kosongkan Pilihan",
+    "maxSelectedNotice": "Maksimal 3 villa dapat dibandingkan sekaligus.",
+    "emptyTitle": "Pilih Villa untuk Dibandingkan",
+    "emptyDesc": "Pilih minimal 2 villa dari katalog dengan mencentang kotak 'Bandingkan' pada card villa.",
+    "selectVillasBtn": "Lihat Katalog Villa",
+    "allVillasCompared": "Membandingkan {count} properti",
+    "feature": "Fitur & Spesifikasi",
+    "category": "Kategori",
+    "pricePerNight": "Harga per Malam",
+    "bedrooms": "Kamar Tidur",
+    "bathrooms": "Kamar Mandi",
+    "guests": "Kapasitas Tamu",
+    "location": "Lokasi",
+    "amenities": "Fasilitas Tersedia",
+    "viewDetail": "Lihat Detail",
+    "bookNow": "Booking via WA",
+    "removeColumn": "Hapus",
+    "addMoreBtn": "Tambah Villa Lain"
+  },
+  "Map": {
+    "badge": "Peta Interaktif Bali",
+    "title": "Jelajahi Villa di Peta",
+    "subtitle": "Temukan lokasi presisi setiap villa premium di berbagai kawasan populer pulau Bali",
+    "viewList": "Tampilan Daftar",
+    "viewOnMap": "Lihat di Peta",
+    "allCategories": "Semua Kategori",
+    "villasCount": "{count} Villa di Peta",
+    "viewDetail": "Lihat Detail",
+    "perNight": "per malam",
+    "exploreMap": "Buka Peta Interaktif",
+    "centerBali": "Pusat Bali"
+  },
+  "Trending": {
+    "badge": "Paling Diminati",
+    "title": "Villa Paling Diminati di Bali",
+    "subtitle": "Koleksi villa favorit wisatawan dengan tingkat okupansi tinggi dan ulasan sempurna musim ini",
+    "popularBadge": "Populer",
+    "viewAll": "Lihat Semua Koleksi",
+    "scrollHint": "Geser untuk melihat villa lainnya"
   }
 }

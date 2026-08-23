@@ -12,6 +12,9 @@
     "contact": "문의하기",
     "bookingBtn": "지금 예약하기",
     "bookingNowBtn": "지금 예약하기",
+    "wishlist": "위시리스트",
+    "compare": "비교하기",
+    "map": "지도",
     "language": "언어"
   },
   "Hero": {
@@ -59,7 +62,11 @@
     "perNight": "1박 기준",
     "bedrooms": "침실",
     "bathrooms": "욕실",
-    "guests": "최대 인원"
+    "guests": "최대 인원",
+    "compareCheckbox": "비교",
+    "saveToWishlist": "위시리스트 저장",
+    "removeFromWishlist": "위시리스트에서 삭제",
+    "popularBadge": "인기"
   },
   "Detail": {
     "backHome": "홈으로 돌아가기",
@@ -89,7 +96,10 @@
     "bookingSuccessDesc": "{villaName} 예약 요청서({nights}박: {checkIn} ~ {checkOut}, {guests}명)가 준비되었습니다. 호스트에게 바로 전송할 수 있습니다.",
     "openWhatsAppBtn": "지금 WhatsApp 열기",
     "closeModal": "닫기",
-    "currencyDisclaimer": "환율 변환 금액은 참고용 예상가입니다. 모든 결제는 인도네시아 루피아(IDR)로 진행됩니다."
+    "currencyDisclaimer": "환율 변환은 참고용 예상 금액입니다. 모든 최종 결제는 인도네시아 루피아(IDR)로 진행됩니다.",
+    "saveWishlist": "위시리스트 저장",
+    "savedWishlist": "저장됨",
+    "compareVilla": "이 빌라 비교하기"
   },
   "Owners": {
     "metaTitle": "빌라 호스트 파트너 — 직거래 예약 극대화 | StayVilla",
@@ -273,5 +283,64 @@
     "zh": "中文",
     "ja": "日本語",
     "ko": "한국어"
+  },
+  "Wishlist": {
+    "badge": "나만의 컬렉션",
+    "title": "저장된 위시리스트 빌라",
+    "subtitle": "소중한 발리 휴가를 위해 저장해 둔 나만의 드림 풀빌라 목록입니다",
+    "emptyTitle": "위시리스트가 비어 있습니다",
+    "emptyDesc": "아직 저장된 빌라가 없습니다. 카탈로그를 둘러보시고 하트 아이콘을 눌러 마음에 드는 빌라를 저장해 보세요.",
+    "browseVillas": "모든 빌라 둘러보기",
+    "clearAll": "전체 삭제",
+    "remove": "삭제",
+    "savedCount": "{count}개의 빌라 저장됨",
+    "backHome": "홈으로 돌아가기"
+  },
+  "Compare": {
+    "badge": "빌라 비교하기",
+    "title": "선택한 빌라 상세 비교",
+    "subtitle": "가격, 침실 수, 수용 인원 및 편의시설을 한눈에 비교하여 최적의 풀빌라를 선택하세요",
+    "floatingBarTitle": "빌라 비교",
+    "compareNowBtn": "지금 비교하기 ({count})",
+    "removeVilla": "비교에서 제외",
+    "clearAll": "선택 해제",
+    "maxSelectedNotice": "한 번에 최대 3개의 빌라까지 비교할 수 있습니다.",
+    "emptyTitle": "비교할 빌라를 선택해주세요",
+    "emptyDesc": "카탈로그의 빌라 카드에서 '비교' 체크박스를 2개 이상 선택해 주세요.",
+    "selectVillasBtn": "빌라 카탈로그 보기",
+    "allVillasCompared": "{count}개 숙소 비교 중",
+    "feature": "주요 사양",
+    "category": "카테고리",
+    "pricePerNight": "1박당 요금",
+    "bedrooms": "침실 수",
+    "bathrooms": "욕실 수",
+    "guests": "최대 수용 인원",
+    "location": "위치 및 지역",
+    "amenities": "포함된 편의시설",
+    "viewDetail": "상세 보기",
+    "bookNow": "WA로 예약",
+    "removeColumn": "삭제",
+    "addMoreBtn": "다른 빌라 추가"
+  },
+  "Map": {
+    "badge": "발리 인터랙티브 지도",
+    "title": "지도에서 빌라 탐색하기",
+    "subtitle": "발리 주요 인기 휴양지에 위치한 독점 프라이빗 풀빌라의 정확한 위치를 확인하세요",
+    "viewList": "목록 보기",
+    "viewOnMap": "지도 보기",
+    "allCategories": "모든 카테고리",
+    "villasCount": "지도에 {count}개의 빌라",
+    "viewDetail": "빌라 상세 보기",
+    "perNight": "/ 1박",
+    "exploreMap": "인터랙티브 지도 열기",
+    "centerBali": "발리 중심부"
+  },
+  "Trending": {
+    "badge": "가장 인기 있는",
+    "title": "발리 인기 급상승 빌라",
+    "subtitle": "이번 시즌 가장 높은 예약 수요와 최고 평점을 자랑하는 추천 럭셔리 빌라",
+    "popularBadge": "인기",
+    "viewAll": "전체 컬렉션 보기",
+    "scrollHint": "옆으로 넘겨 더 많은 빌라 보기"
   }
 }

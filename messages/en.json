@@ -12,6 +12,9 @@
     "contact": "Contact Us",
     "bookingBtn": "Book Now",
     "bookingNowBtn": "Book Now",
+    "wishlist": "Wishlist",
+    "compare": "Compare",
+    "map": "Interactive Map",
     "language": "Language"
   },
   "Hero": {
@@ -59,7 +62,11 @@
     "perNight": "per night",
     "bedrooms": "Beds",
     "bathrooms": "Baths",
-    "guests": "Guests"
+    "guests": "Guests",
+    "compareCheckbox": "Compare",
+    "saveToWishlist": "Save to Wishlist",
+    "removeFromWishlist": "Remove from Wishlist",
+    "popularBadge": "Popular"
   },
   "Detail": {
     "backHome": "Back to Home",
@@ -89,7 +96,10 @@
     "bookingSuccessDesc": "Your reservation request for {villaName} ({nights} nights: {checkIn} to {checkOut}, {guests} guests) is ready to send directly to the villa owner.",
     "openWhatsAppBtn": "Open WhatsApp Now",
     "closeModal": "Close",
-    "currencyDisclaimer": "Exchange rate estimate only, not final price. All payments are processed in Indonesian Rupiah (IDR)."
+    "currencyDisclaimer": "Currency conversion is indicative. Final payment is settled in Indonesian Rupiah (IDR).",
+    "saveWishlist": "Save to Wishlist",
+    "savedWishlist": "Saved",
+    "compareVilla": "Compare Villa"
   },
   "Owners": {
     "metaTitle": "For Villa Owners — Maximize Direct Bookings | StayVilla",
@@ -273,5 +283,64 @@
     "zh": "中文",
     "ja": "日本語",
     "ko": "한국어"
+  },
+  "Wishlist": {
+    "badge": "Personal Collection",
+    "title": "Your Saved Villas",
+    "subtitle": "Your handpicked dream villas saved for an extraordinary Bali holiday",
+    "emptyTitle": "Your Wishlist is Empty",
+    "emptyDesc": "You haven't saved any villas yet. Explore our catalog and tap the heart icon to save your favorites.",
+    "browseVillas": "Explore All Villas",
+    "clearAll": "Clear Wishlist",
+    "remove": "Remove",
+    "savedCount": "{count} saved villas",
+    "backHome": "Back to Home"
+  },
+  "Compare": {
+    "badge": "Side-by-Side Comparison",
+    "title": "Compare Selected Villas",
+    "subtitle": "Review specifications, rates, capacities, and amenities side-by-side to make the perfect choice",
+    "floatingBarTitle": "Compare Villas",
+    "compareNowBtn": "Compare Now ({count})",
+    "removeVilla": "Remove from compare",
+    "clearAll": "Clear All",
+    "maxSelectedNotice": "You can compare up to 3 villas at a time.",
+    "emptyTitle": "Select Villas to Compare",
+    "emptyDesc": "Please select at least 2 villas by ticking the 'Compare' checkbox on any villa card.",
+    "selectVillasBtn": "Browse Villa Catalog",
+    "allVillasCompared": "Comparing {count} properties",
+    "feature": "Specifications",
+    "category": "Category",
+    "pricePerNight": "Price per Night",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "guests": "Guest Capacity",
+    "location": "Location",
+    "amenities": "Included Amenities",
+    "viewDetail": "View Details",
+    "bookNow": "Book via WA",
+    "removeColumn": "Remove",
+    "addMoreBtn": "Add Another Villa"
+  },
+  "Map": {
+    "badge": "Interactive Bali Map",
+    "title": "Explore Villas on the Map",
+    "subtitle": "Discover exact locations of exclusive private villas across prime destinations in Bali",
+    "viewList": "List View",
+    "viewOnMap": "View on Map",
+    "allCategories": "All Categories",
+    "villasCount": "{count} Villas on Map",
+    "viewDetail": "View Details",
+    "perNight": "per night",
+    "exploreMap": "Explore Interactive Map",
+    "centerBali": "Bali Center"
+  },
+  "Trending": {
+    "badge": "Most Popular",
+    "title": "Trending Villas in Bali",
+    "subtitle": "Our most sought-after properties with peak guest demand and glowing 5-star reviews",
+    "popularBadge": "Popular",
+    "viewAll": "View Full Collection",
+    "scrollHint": "Swipe to explore more villas"
   }
 }

@@ -95,6 +95,9 @@ export async function generateMetadata({
 }
 
 import { CurrencyProvider } from "@/context/CurrencyContext";
+import { WishlistProvider } from "@/context/WishlistContext";
+import { CompareProvider } from "@/context/CompareContext";
+import CompareFloatingBar from "@/components/CompareFloatingBar";
 
 export default async function LocaleLayout({
   children,
@@ -121,9 +124,14 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col bg-cream text-charcoal">
         <NextIntlClientProvider messages={messages}>
           <CurrencyProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
+            <WishlistProvider>
+              <CompareProvider>
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <CompareFloatingBar />
+              </CompareProvider>
+            </WishlistProvider>
           </CurrencyProvider>
         </NextIntlClientProvider>
       </body>

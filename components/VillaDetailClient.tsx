@@ -32,6 +32,8 @@ import {
   X,
   Phone,
   MessageCircle,
+  Heart,
+  Scale,
 } from "lucide-react";
 import {
   formatHarga,
@@ -45,6 +47,8 @@ import {
   isCheckOutValid,
 } from "@/lib/date-utils";
 import { useCurrency } from "@/context/CurrencyContext";
+import { useWishlist } from "@/context/WishlistContext";
+import { useCompare } from "@/context/CompareContext";
 
 interface VillaDetailClientProps {
   villa: Villa;
@@ -102,6 +106,11 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
   const t = useTranslations("Detail");
   const tValidation = useTranslations("Validation");
   const { formatEstimate } = useCurrency();
+  const { isSaved, toggleWishlist } = useWishlist();
+  const { isSelected, toggleCompare } = useCompare();
+
+  const saved = isSaved(villa.id);
+  const compared = isSelected(villa.id);
 
   // Booking Form State
   const [checkIn, setCheckIn] = useState("");
@@ -322,16 +331,53 @@ export default function VillaDetailClient({ villa }: VillaDetailClientProps) {
           >
             {/* Title & Rating */}
             <div className="bg-white rounded-2xl p-6 sm:p-8 border border-sand shadow-sm">
-              <div className="flex flex-wrap items-center gap-3 mb-3">
-                <span className="text-xs font-bold px-3.5 py-1.5 rounded-full bg-terracotta/15 text-terracotta-dark border border-terracotta/30">
-                  {villa.kategori}
-                </span>
-                <div className="flex items-center gap-1.5 text-gold">
-                  <Star className="w-4 h-4 fill-gold text-gold" />
-                  <span className="text-sm font-black text-charcoal">4.9</span>
-                  <span className="text-stone font-semibold text-sm">
-                    (128 {t("reviews")})
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-xs font-bold px-3.5 py-1.5 rounded-full bg-terracotta/15 text-terracotta-dark border border-terracotta/30">
+                    {villa.kategori}
                   </span>
+                  <div className="flex items-center gap-1.5 text-gold">
+                    <Star className="w-4 h-4 fill-gold text-gold" />
+                    <span className="text-sm font-black text-charcoal">4.9</span>
+                    <span className="text-stone font-semibold text-sm">
+                      (128 {t("reviews")})
+                    </span>
+                  </div>
+                </div>
+
+                {/* Quick Actions: Wishlist & Compare */}
+                <div className="flex items-center gap-2">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => toggleWishlist(villa.id)}
+                    className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs border cursor-pointer ${
+                      saved
+                        ? "bg-terracotta text-white border-terracotta shadow-terracotta/30"
+                        : "bg-cream text-charcoal border-sand hover:border-terracotta"
+                    }`}
+                  >
+                    <Heart
+                      className={`w-3.5 h-3.5 ${
+                        saved ? "fill-white text-white" : "text-terracotta"
+                      }`}
+                    />
+                    <span>{saved ? t("savedWishlist") : t("saveWishlist")}</span>
+                  </motion.button>
+
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => toggleCompare(villa.id)}
+                    className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs border cursor-pointer ${
+                      compared
+                        ? "bg-navy text-white border-navy"
+                        : "bg-cream text-charcoal border-sand hover:border-navy"
+                    }`}
+                  >
+                    <Scale className="w-3.5 h-3.5 text-terracotta" />
+                    <span>{compared ? "✓ Dibandingkan" : t("compareVilla")}</span>
+                  </motion.button>
                 </div>
               </div>
 
