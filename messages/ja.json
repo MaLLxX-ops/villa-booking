@@ -407,5 +407,18 @@
     "searchPlaceholder": "予約、支払い、ヴィラに関する質問を検索...",
     "emptyFaqTitle": "該当する質問が見つかりません",
     "emptyFaqDesc": "別のキーワードで検索するか、「すべてのFAQ」を選択してください。"
+  },
+  "AiChat": {
+    "badge": "AI コンシェルジュ",
+    "title": "StayVilla AI アシスタント",
+    "onlineStatus": "オンライン • 24時間サポート",
+    "welcomeMessage": "こんにちは！StayVilla AI コンシェルジュです。おすすめのプライベートヴィラ、料金、WhatsApp直接予約の手順など、何でもお気軽にご質問ください！",
+    "inputPlaceholder": "ヴィラ、料金、場所について質問を入力...",
+    "send": "送信",
+    "clearChat": "チャットをクリア",
+    "quickPrompts": "おすすめの質問:",
+    "viewVilla": "ヴィラを見る",
+    "thinking": "AIが入力中...",
+    "triggerLabel": "AI コンシェルジュに相談"
   }
 }

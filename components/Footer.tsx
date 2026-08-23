@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { Mail, Phone, MapPin, Instagram, Facebook, Building2 } from "lucide-react";
+import { Mail, Phone, MapPin, Building2 } from "lucide-react";
 import { ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
 import Logo from "@/components/Logo";
 
@@ -11,13 +11,13 @@ export default function Footer() {
     <footer className="bg-navy text-cream">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <div className="md:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <Logo size="md" lightText={true} />
             </Link>
-            <p className="text-cream/85 leading-relaxed text-sm">
+            <p className="text-cream/85 leading-relaxed text-sm max-w-sm">
               {t("brandDesc")}
             </p>
           </div>
@@ -79,27 +79,6 @@ export default function Footer() {
                 {t("address")}
               </li>
             </ul>
-          </div>
-
-          {/* Social */}
-          <div>
-            <h3 className="text-white font-bold text-sm uppercase tracking-wider mb-4">
-              {t("followTitle")}
-            </h3>
-            <div className="flex gap-3">
-              {[
-                { icon: Instagram, label: "Instagram" },
-                { icon: Facebook, label: "Facebook" },
-              ].map((social) => (
-                <button
-                  key={social.label}
-                  className="w-10 h-10 rounded-xl bg-white/10 hover:bg-gold-light/20 flex items-center justify-center transition-colors group cursor-pointer"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5 text-cream/90 group-hover:text-gold-light transition-colors" />
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </div>

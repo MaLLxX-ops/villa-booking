@@ -407,5 +407,18 @@
     "searchPlaceholder": "Search questions about booking, payments, villas...",
     "emptyFaqTitle": "No matching questions found",
     "emptyFaqDesc": "Try using different keywords or select the All FAQs category."
+  },
+  "AiChat": {
+    "badge": "AI Concierge",
+    "title": "StayVilla AI Assistant",
+    "onlineStatus": "Online • 24/7 Ready to Assist",
+    "welcomeMessage": "Hello! I am your StayVilla AI Concierge. Ask me anything about villa recommendations, pricing, direct WhatsApp booking, or Bali destinations!",
+    "inputPlaceholder": "Ask about villas, prices, locations...",
+    "send": "Send",
+    "clearChat": "Clear Chat",
+    "quickPrompts": "Suggested Prompts:",
+    "viewVilla": "View Villa",
+    "thinking": "AI is thinking...",
+    "triggerLabel": "Ask AI Concierge"
   }
 }

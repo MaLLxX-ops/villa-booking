@@ -407,5 +407,18 @@
     "searchPlaceholder": "Cari pertanyaan seputar booking, pembayaran, villa...",
     "emptyFaqTitle": "Tidak ada pertanyaan yang cocok",
     "emptyFaqDesc": "Coba gunakan kata kunci lain atau pilih kategori Semua FAQ."
+  },
+  "AiChat": {
+    "badge": "AI Concierge",
+    "title": "StayVilla AI Assistant",
+    "onlineStatus": "Online • Siap Membantu 24/7",
+    "welcomeMessage": "Halo! Saya adalah StayVilla AI Concierge. Tanyakan apa saja seputar rekomendasi villa, fasilitas, sistem booking via WhatsApp, atau lokasi di Bali!",
+    "inputPlaceholder": "Ketik pertanyaan seputar villa, harga, lokasi...",
+    "send": "Kirim",
+    "clearChat": "Hapus Percakapan",
+    "quickPrompts": "Saran Pertanyaan:",
+    "viewVilla": "Lihat Villa",
+    "thinking": "AI sedang mengetik...",
+    "triggerLabel": "Tanya AI Concierge"
   }
 }

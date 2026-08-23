@@ -407,5 +407,18 @@
     "searchPlaceholder": "Rechercher des questions sur les réservations, paiements, villas...",
     "emptyFaqTitle": "Aucune question correspondante trouvée",
     "emptyFaqDesc": "Essayez d'autres mots-clés ou sélectionnez la catégorie Toutes les FAQ."
+  },
+  "AiChat": {
+    "badge": "Concierge IA",
+    "title": "Assistant IA StayVilla",
+    "onlineStatus": "En ligne • Prêt 24h/24",
+    "welcomeMessage": "Bonjour ! Je suis votre Concierge IA StayVilla. Posez-moi vos questions sur les villas de luxe, les tarifs, la réservation WhatsApp directe ou les lieux à Bali !",
+    "inputPlaceholder": "Posez une question sur les villas, prix...",
+    "send": "Envoyer",
+    "clearChat": "Effacer le chat",
+    "quickPrompts": "Suggestions :",
+    "viewVilla": "Voir la villa",
+    "thinking": "L'IA réfléchit...",
+    "triggerLabel": "Demander au Concierge IA"
   }
 }

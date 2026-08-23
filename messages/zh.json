@@ -407,5 +407,18 @@
     "searchPlaceholder": "搜索有关预订、付款、别墅的问题...",
     "emptyFaqTitle": "未找到匹配的问题",
     "emptyFaqDesc": "请尝试使用其他关键词或选择“所有常见问题”分类。"
+  },
+  "AiChat": {
+    "badge": "智能管家",
+    "title": "StayVilla 智能助手",
+    "onlineStatus": "在线 • 24小时贴心服务",
+    "welcomeMessage": "您好！我是 StayVilla 智能管家 AI。您可以向我咨询巴厘岛精选别墅推荐、价格设施、WhatsApp直连预订或度假区域指南！",
+    "inputPlaceholder": "输入有关别墅、价格、位置的问题...",
+    "send": "发送",
+    "clearChat": "清空对话",
+    "quickPrompts": "推荐提问：",
+    "viewVilla": "查看别墅",
+    "thinking": "AI 正在思考中...",
+    "triggerLabel": "咨询智能管家 AI"
   }
 }

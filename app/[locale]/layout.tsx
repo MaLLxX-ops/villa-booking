@@ -98,6 +98,7 @@ import { CurrencyProvider } from "@/context/CurrencyContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { CompareProvider } from "@/context/CompareContext";
 import CompareFloatingBar from "@/components/CompareFloatingBar";
+import AiConcierge from "@/components/AiConcierge";
 
 export default async function LocaleLayout({
   children,
@@ -130,6 +131,7 @@ export default async function LocaleLayout({
                 <main className="flex-1">{children}</main>
                 <Footer />
                 <CompareFloatingBar />
+                <AiConcierge />
               </CompareProvider>
             </WishlistProvider>
           </CurrencyProvider>

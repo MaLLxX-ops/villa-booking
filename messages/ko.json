@@ -407,5 +407,18 @@
     "searchPlaceholder": "예약, 결제, 빌라 관련 질문 검색...",
     "emptyFaqTitle": "일치하는 질문이 없습니다",
     "emptyFaqDesc": "다른 키워드로 검색하거나 '모든 FAQ' 카테고리를 선택해 보세요."
+  },
+  "AiChat": {
+    "badge": "AI 컨시어지",
+    "title": "StayVilla AI 어시스턴트",
+    "onlineStatus": "온라인 • 24시간 맞춤 안내",
+    "welcomeMessage": "안녕하세요! StayVilla AI 컨시어지입니다. 발리 풀빌라 추천, 1박 요금 및 편의시설, WhatsApp 직거래 예약 방법 등 무엇이든 물어보세요!",
+    "inputPlaceholder": "빌라, 가격, 위치 등에 대해 물어보세요...",
+    "send": "전송",
+    "clearChat": "대화 내용 지우기",
+    "quickPrompts": "추천 질문:",
+    "viewVilla": "빌라 보기",
+    "thinking": "AI가 답변을 작성 중입니다...",
+    "triggerLabel": "AI 컨시어지에게 물어보기"
   }
 }
