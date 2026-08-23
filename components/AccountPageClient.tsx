@@ -161,6 +161,7 @@ export default function AccountPageClient({ villas }: AccountPageClientProps) {
                       src={avatarUrl}
                       alt={userName}
                       fill
+                      unoptimized
                       sizes="80px"
                       className="object-cover"
                     />
