@@ -1,6 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
-import { getLocalizedVillas, Locale } from "@/lib/data";
+import { type Locale } from "@/lib/data";
+import { getSupabaseVillas } from "@/lib/supabase/villas";
 import WishlistPageClient from "@/components/WishlistPageClient";
+
+export const revalidate = 60;
 
 const wishlistMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
@@ -37,7 +40,7 @@ export default async function WishlistPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const villas = getLocalizedVillas(locale as Locale);
+  const villas = await getSupabaseVillas(locale as Locale);
 
   return <WishlistPageClient villas={villas} />;
 }

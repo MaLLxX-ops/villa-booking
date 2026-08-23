@@ -14,7 +14,7 @@ import {
   ArrowUpRight,
   MapPin,
 } from "lucide-react";
-import { villaDataRaw, getLocalizedVilla, formatHarga, Locale } from "@/lib/data";
+import { Villa, formatHarga, Locale } from "@/lib/data";
 import { useCurrency } from "@/context/CurrencyContext";
 
 interface Message {
@@ -76,7 +76,7 @@ function FormattedMessageText({
   );
 }
 
-export default function AiConcierge() {
+export default function AiConcierge({ villas }: { villas: Villa[] }) {
   const t = useTranslations("AiChat");
   const locale = useLocale() as Locale;
   const { formatEstimate } = useCurrency();
@@ -300,10 +300,9 @@ export default function AiConcierge() {
 
                 // Resolve recommended villas if any
                 const recommendedVillas =
-                  msg.recommendedVillaIds
-                    ?.map((id) => villaDataRaw.find((v) => v.id === id))
-                    .filter(Boolean)
-                    .map((v) => getLocalizedVilla(v!, locale)) || [];
+                  (msg.recommendedVillaIds
+                    ?.map((id) => villas.find((villa) => villa.id === id))
+                    .filter(Boolean) as Villa[]) || [];
 
                 return (
                   <div

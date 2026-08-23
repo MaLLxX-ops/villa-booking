@@ -5,6 +5,8 @@ import { routing } from "@/i18n/routing";
 import { Geist } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getSupabaseVillas } from "@/lib/supabase/villas";
+import { type Locale } from "@/lib/data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,6 +117,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const villas = await getSupabaseVillas(locale as Locale);
 
   return (
     <html
@@ -130,8 +133,8 @@ export default async function LocaleLayout({
                 <Navbar />
                 <main className="flex-1">{children}</main>
                 <Footer />
-                <CompareFloatingBar />
-                <AiConcierge />
+                <CompareFloatingBar villas={villas} />
+                <AiConcierge villas={villas} />
               </CompareProvider>
             </WishlistProvider>
           </CurrencyProvider>

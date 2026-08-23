@@ -3,24 +3,21 @@
 import { useMemo } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { Scale, X, ArrowRight, Trash2 } from "lucide-react";
 import { useCompare } from "@/context/CompareContext";
-import { villaDataRaw, getLocalizedVilla, Locale } from "@/lib/data";
+import { Villa } from "@/lib/data";
 
-export default function CompareFloatingBar() {
+export default function CompareFloatingBar({ villas }: { villas: Villa[] }) {
   const { selectedIds, removeCompare, clearCompare, count } = useCompare();
   const t = useTranslations("Compare");
-  const locale = useLocale() as Locale;
-
   // Retrieve selected villas
   const selectedVillas = useMemo(() => {
     return selectedIds
-      .map((id) => villaDataRaw.find((v) => v.id === id))
-      .filter(Boolean)
-      .map((raw) => getLocalizedVilla(raw!, locale));
-  }, [selectedIds, locale]);
+      .map((id) => villas.find((villa) => villa.id === id))
+      .filter(Boolean) as Villa[];
+  }, [selectedIds, villas]);
 
   if (count < 2) return null;
 

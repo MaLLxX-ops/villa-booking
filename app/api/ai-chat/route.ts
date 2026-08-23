@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { villaDataRaw, formatHarga, ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
+import { formatHarga, ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
+import { getSupabaseRawVillas } from "@/lib/supabase/villas";
 
 interface ChatMessage {
   role: "user" | "assistant" | "system";
@@ -177,6 +178,7 @@ export async function POST(req: NextRequest) {
     const isRecommendation = /rekomendasi|rekomen|cari|butuh|ingin|mau|pesan|sewa|booking|villa|penginapan|recommend|looking for|find/i.test(query);
 
     // 5. Strict Villa Matching Engine
+    const villaDataRaw = await getSupabaseRawVillas();
     let candidateVillas = [...villaDataRaw];
 
     // Location filter

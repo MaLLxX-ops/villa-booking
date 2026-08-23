@@ -1,26 +1,23 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
-import { villaDataRaw, getVillaById, Locale } from "@/lib/data";
+import { type Locale } from "@/lib/data";
+import { getSupabaseVillaById } from "@/lib/supabase/villas";
 import VillaDetailClient from "@/components/VillaDetailClient";
+
+export const revalidate = 60;
+export const dynamicParams = true;
 
 interface VillaDetailPageProps {
   params: Promise<{ locale: string; id: string }>;
 }
 
 export function generateStaticParams() {
-  const params: { locale: string; id: string }[] = [];
-  for (const locale of routing.locales) {
-    for (const villa of villaDataRaw) {
-      params.push({ locale, id: villa.id });
-    }
-  }
-  return params;
+  return [];
 }
 
 export async function generateMetadata({ params }: VillaDetailPageProps) {
   const { locale, id } = await params;
-  const villa = getVillaById(id, locale as Locale);
+  const villa = await getSupabaseVillaById(id, locale as Locale);
   if (!villa) return { title: "Villa Not Found" };
   return {
     title: `${villa.nama} — StayVilla`,
@@ -34,7 +31,7 @@ export default async function VillaDetailPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  const villa = getVillaById(id, locale as Locale);
+  const villa = await getSupabaseVillaById(id, locale as Locale);
   if (!villa) notFound();
 
   return <VillaDetailClient villa={villa} />;

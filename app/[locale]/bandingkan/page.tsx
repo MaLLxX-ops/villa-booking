@@ -1,6 +1,9 @@
 import { setRequestLocale } from "next-intl/server";
-import { getLocalizedVillas, Locale } from "@/lib/data";
+import { type Locale } from "@/lib/data";
+import { getSupabaseVillas } from "@/lib/supabase/villas";
 import ComparePageClient from "@/components/ComparePageClient";
+
+export const revalidate = 60;
 
 const compareMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),
@@ -37,7 +40,7 @@ export default async function BandingkanPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const villas = getLocalizedVillas(locale as Locale);
+  const villas = await getSupabaseVillas(locale as Locale);
 
   return <ComparePageClient villas={villas} />;
 }
