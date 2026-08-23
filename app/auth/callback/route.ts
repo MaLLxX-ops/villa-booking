@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
   const errorDescription = requestUrl.searchParams.get("error_description");
   const next = requestUrl.searchParams.get("next") || "/account";
 
-  // Handle direct OAuth error callback from provider/Supabase
+  // If provider sent an explicit error
   if (authError) {
     console.error("OAuth callback error:", authError, errorDescription);
     const errorType =
@@ -26,13 +27,6 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Ensure redirect URL is absolute to the same origin
-  const redirectUrl = new URL(
-    next.startsWith("/") ? next : `/${next}`,
-    requestUrl.origin
-  );
-  const response = NextResponse.redirect(redirectUrl);
-
   const supabaseUrl =
     process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey =
@@ -40,11 +34,26 @@ export async function GET(request: NextRequest) {
 
   if (code && supabaseUrl && supabaseAnonKey) {
     try {
+      const cookieStore = await cookies();
+      const redirectTarget = new URL(
+        next.startsWith("/") ? next : `/${next}`,
+        requestUrl.origin
+      );
+      const response = NextResponse.redirect(redirectTarget);
+
       const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
         cookies: {
-          getAll: () => request.cookies.getAll(),
-          setAll: (cookiesToSet) => {
+          getAll() {
+            return cookieStore.getAll();
+          },
+          setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, {
+                ...options,
+                path: "/",
+                sameSite: "lax",
+                secure: process.env.NODE_ENV === "production",
+              });
               response.cookies.set(name, value, {
                 ...options,
                 path: "/",
@@ -57,24 +66,26 @@ export async function GET(request: NextRequest) {
       });
 
       const { error } = await supabase.auth.exchangeCodeForSession(code);
-      if (error) {
-        console.error("Supabase exchangeCodeForSession error:", error);
-        const errorType =
-          error.message?.toLowerCase().includes("already") ||
-          error.message?.toLowerCase().includes("linking")
-            ? "identity_conflict"
-            : "oauth_failed";
-        return NextResponse.redirect(
-          new URL(`/?auth=login&error=${errorType}`, requestUrl.origin)
-        );
+      if (!error) {
+        return response;
       }
+
+      console.error("Supabase exchangeCodeForSession error:", error);
+      const errorType =
+        error.message?.toLowerCase().includes("already") ||
+        error.message?.toLowerCase().includes("linking")
+          ? "identity_conflict"
+          : "oauth_failed";
+
+      return NextResponse.redirect(
+        new URL(`/?auth=login&error=${errorType}`, requestUrl.origin)
+      );
     } catch (err) {
       console.error("Auth callback exception:", err);
-      return NextResponse.redirect(
-        new URL("/?auth=login&error=oauth_failed", requestUrl.origin)
-      );
     }
   }
 
-  return response;
+  return NextResponse.redirect(
+    new URL("/?auth=login&error=oauth_failed", requestUrl.origin)
+  );
 }
