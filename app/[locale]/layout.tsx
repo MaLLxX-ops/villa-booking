@@ -2,16 +2,10 @@ import { notFound } from "next/navigation";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { Geist } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getSupabaseVillas } from "@/lib/supabase/villas";
 import { type Locale } from "@/lib/data";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -120,26 +114,18 @@ export default async function LocaleLayout({
   const villas = await getSupabaseVillas(locale as Locale);
 
   return (
-    <html
-      lang={locale}
-      data-scroll-behavior="smooth"
-      className={`${geistSans.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-cream text-charcoal">
-        <NextIntlClientProvider messages={messages}>
-          <CurrencyProvider>
-            <WishlistProvider>
-              <CompareProvider>
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-                <CompareFloatingBar villas={villas} />
-                <AiConcierge villas={villas} />
-              </CompareProvider>
-            </WishlistProvider>
-          </CurrencyProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <CurrencyProvider>
+        <WishlistProvider>
+          <CompareProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CompareFloatingBar villas={villas} />
+            <AiConcierge villas={villas} />
+          </CompareProvider>
+        </WishlistProvider>
+      </CurrencyProvider>
+    </NextIntlClientProvider>
   );
 }

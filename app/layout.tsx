@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stayvilla.id"),
@@ -47,5 +53,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <html lang="id" data-scroll-behavior="smooth" className={`${geistSans.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-cream text-charcoal">
+        {children}
+      </body>
+    </html>
+  );
 }
