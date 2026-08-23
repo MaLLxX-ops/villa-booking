@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
   // If provider sent an explicit error
   if (authError) {
-    console.error("OAuth callback error:", authError, errorDescription);
+    console.error("❌ [OAuth Callback] Provider error:", authError, errorDescription);
     const errorType =
       authError === "identity_already_exists" ||
       errorDescription?.toLowerCase().includes("already") ||
@@ -34,6 +34,7 @@ export async function GET(request: NextRequest) {
 
   if (code && supabaseUrl && supabaseAnonKey) {
     try {
+      console.log("➡️ [OAuth Callback] Processing code exchange. Next destination:", next);
       const cookieStore = await cookies();
       const redirectTarget = new URL(
         next.startsWith("/") ? next : `/${next}`,
@@ -65,12 +66,22 @@ export async function GET(request: NextRequest) {
         },
       });
 
-      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code);
       if (!error) {
+        console.log(
+          "✅ [OAuth Callback] Session exchanged successfully for:",
+          data.user?.email || data.user?.id
+        );
         return response;
       }
 
-      console.error("Supabase exchangeCodeForSession error:", error);
+      console.error("❌ [OAuth Callback] exchangeCodeForSession failed:", {
+        message: error.message,
+        status: error.status,
+        name: error.name,
+        code: (error as { code?: string }).code,
+      });
+
       const errorType =
         error.message?.toLowerCase().includes("already") ||
         error.message?.toLowerCase().includes("linking")
@@ -81,7 +92,7 @@ export async function GET(request: NextRequest) {
         new URL(`/?auth=login&error=${errorType}`, requestUrl.origin)
       );
     } catch (err) {
-      console.error("Auth callback exception:", err);
+      console.error("❌ [OAuth Callback] Exception:", err);
     }
   }
 

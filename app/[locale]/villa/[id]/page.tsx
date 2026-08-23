@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { villaDataRaw, type Locale } from "@/lib/data";
+import { villaDataRaw, type Locale, type Villa } from "@/lib/data";
 import { getSupabaseVillaById } from "@/lib/supabase/villas";
 import VillaDetailClient from "@/components/VillaDetailClient";
 import { alternateLanguages, localizedPath } from "@/lib/seo";
@@ -23,10 +23,10 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: VillaDetailPageProps) {
-  const { locale, id } = await params;
   try {
+    const { locale, id } = await params;
     const villa = await getSupabaseVillaById(id, locale as Locale);
-    if (!villa) return { title: "Villa Not Found" };
+    if (!villa) return { title: "Villa Not Found — StayVilla" };
     return {
       title: `${villa.nama || "Villa"} — StayVilla`,
       description: (villa.deskripsi || "Villa privat di Bali.").slice(0, 160),
@@ -49,35 +49,56 @@ export default async function VillaDetailPage({
   const { locale, id } = await params;
   setRequestLocale(locale);
 
-  let villa;
+  let villa: Villa | undefined;
   try {
     villa = await getSupabaseVillaById(id, locale as Locale);
-  } catch {
+  } catch (err) {
+    console.error("VillaDetailPage fetch error:", err);
+    villa = undefined;
+  }
+
+  if (!villa) {
     notFound();
   }
-  if (!villa) notFound();
 
   const structuredData: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
-    name: villa.nama,
+    name: villa.nama || "Villa",
     description: villa.deskripsi || undefined,
     url: localizedPath(locale, `villa/${villa.id}`),
-    image: villa.galeri_foto.length > 0 ? villa.galeri_foto : undefined,
-    priceRange: villa.harga_per_malam > 0 ? `IDR ${villa.harga_per_malam}` : undefined,
+    image:
+      Array.isArray(villa.galeri_foto) && villa.galeri_foto.length > 0
+        ? villa.galeri_foto
+        : undefined,
+    priceRange:
+      typeof villa.harga_per_malam === "number" && villa.harga_per_malam > 0
+        ? `IDR ${villa.harga_per_malam}`
+        : undefined,
     address: {
       "@type": "PostalAddress",
-      addressLocality: villa.lokasi,
+      addressLocality: villa.lokasi || "Bali",
       addressCountry: "ID",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: Number.isFinite(villa.koordinat.lat) ? villa.koordinat.lat : undefined,
-      longitude: Number.isFinite(villa.koordinat.lng) ? villa.koordinat.lng : undefined,
+      latitude:
+        typeof villa.koordinat?.lat === "number" &&
+        Number.isFinite(villa.koordinat.lat)
+          ? villa.koordinat.lat
+          : undefined,
+      longitude:
+        typeof villa.koordinat?.lng === "number" &&
+        Number.isFinite(villa.koordinat.lng)
+          ? villa.koordinat.lng
+          : undefined,
     },
     offers: {
       "@type": "Offer",
-      price: villa.harga_per_malam > 0 ? villa.harga_per_malam : undefined,
+      price:
+        typeof villa.harga_per_malam === "number" && villa.harga_per_malam > 0
+          ? villa.harga_per_malam
+          : undefined,
       priceCurrency: "IDR",
       availability: "https://schema.org/InStock",
     },

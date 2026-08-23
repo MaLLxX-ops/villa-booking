@@ -123,7 +123,11 @@ export type SupabaseVillaRaw = VillaRaw & {
 };
 
 function toRaw(row: VillaRow): SupabaseVillaRaw {
-  const localMatch = villaDataRaw.find((v) => v.id === row.id);
+  const localMatch = villaDataRaw.find(
+    (v) =>
+      v.id.toLowerCase() === (row.id || "").toLowerCase() ||
+      v.id.toLowerCase() === (row.slug || "").toLowerCase()
+  );
 
   const location = localizedValue(
     row.location_area,
@@ -162,7 +166,7 @@ function toRaw(row: VillaRow): SupabaseVillaRaw {
       : localMatch?.kategori_key || "luxury";
 
   return {
-    id: row.id || localMatch?.id || "villa",
+    id: row.id || row.slug || localMatch?.id || "villa",
     nama:
       typeof row.name === "string" && row.name.trim().length > 0
         ? row.name.trim()
@@ -223,7 +227,8 @@ export async function getSupabaseRawVillas(): Promise<SupabaseVillaRaw[]> {
       return villaDataRaw;
     }
     return (data as VillaRow[]).map(toRaw);
-  } catch {
+  } catch (err) {
+    console.error("getSupabaseRawVillas error, using static fallback:", err);
     return villaDataRaw;
   }
 }
@@ -232,7 +237,8 @@ export async function getSupabaseVillas(locale: Locale): Promise<Villa[]> {
   try {
     const rows = await getSupabaseRawVillas();
     return rows.map((row) => getLocalizedVilla(row, locale));
-  } catch {
+  } catch (err) {
+    console.error("getSupabaseVillas error, using static fallback:", err);
     return getLocalizedVillas(locale);
   }
 }
@@ -241,23 +247,36 @@ export async function getSupabaseVillaById(
   id: string,
   locale: Locale
 ): Promise<Villa | undefined> {
-  const fallbackVilla = getVillaById(id, locale);
+  const safeId = typeof id === "string" ? id.trim() : "";
+  if (!safeId) return undefined;
+
+  const fallbackVilla = getVillaById(safeId, locale);
+
   try {
     const supabase = await createSupabaseServerClient();
     if (!supabase) return fallbackVilla;
 
-    const { data, error } = await supabase
-      .from("villas")
-      .select(villaSelect)
-      .eq("id", id)
-      .eq("is_active", true)
-      .maybeSingle();
+    const isUUID =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        safeId
+      );
+
+    let query = supabase.from("villas").select(villaSelect).eq("is_active", true);
+
+    if (isUUID) {
+      query = query.or(`id.eq.${safeId},slug.eq.${safeId}`);
+    } else {
+      query = query.or(`slug.eq.${safeId},id.eq.${safeId}`);
+    }
+
+    const { data, error } = await query.maybeSingle();
 
     if (error || !data) {
       return fallbackVilla;
     }
     return localize(data as VillaRow, locale);
-  } catch {
+  } catch (err) {
+    console.error("getSupabaseVillaById error, using static fallback:", err);
     return fallbackVilla;
   }
 }

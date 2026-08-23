@@ -25,29 +25,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
 
-    // Check if authorization code landed on client
-    if (
-      typeof window !== "undefined" &&
-      window.location.search.includes("code=")
-    ) {
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-      if (code) {
-        supabase.auth
-          .exchangeCodeForSession(code)
-          .then(({ data }) => {
-            if (data.user) {
-              setUser(data.user);
-              setIsLoading(false);
-              router.push("/account");
-            }
-          })
-          .catch((err) => {
-            console.error("Client code exchange error:", err);
-          });
-      }
-    }
-
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user);
       setIsLoading(false);
