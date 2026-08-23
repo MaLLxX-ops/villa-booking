@@ -1,7 +1,8 @@
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
-import { Home, Mail, Phone, MapPin, Instagram, Facebook, Building2 } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Building2 } from "lucide-react";
 import { ADMIN_WHATSAPP_NUMBER } from "@/lib/data";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   const t = useTranslations("Footer");
@@ -13,13 +14,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-terracotta to-terracotta-dark flex items-center justify-center shadow-md">
-                <Home className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-2xl font-black tracking-tight text-white">
-                Stay<span className="text-gold-light">Villa</span>
-              </span>
+            <Link href="/" className="inline-block mb-4">
+              <Logo size="md" lightText={true} />
             </Link>
             <p className="text-cream/85 leading-relaxed text-sm">
               {t("brandDesc")}
@@ -107,15 +103,29 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      {/* Bottom Bar with Privacy Policy & Terms of Service */}
       <div className="border-t border-white/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <p className="text-cream/70 text-sm font-medium">
             {t("copyright", { year: new Date().getFullYear() })}
           </p>
-          <p className="text-cream/70 text-xs font-medium">
-            {t("demoNote")}
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-semibold text-cream/80">
+            <Link
+              href="/privacy"
+              className="hover:text-gold-light transition-colors"
+            >
+              {t("privacyLink")}
+            </Link>
+            <span className="text-cream/30 hidden sm:inline">•</span>
+            <Link
+              href="/terms"
+              className="hover:text-gold-light transition-colors"
+            >
+              {t("termsLink")}
+            </Link>
+            <span className="text-cream/30 hidden sm:inline">•</span>
+            <span className="text-cream/60">{t("demoNote")}</span>
+          </div>
         </div>
       </div>
     </footer>

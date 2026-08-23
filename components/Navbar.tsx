@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Home, Search, Building2, Globe, Coins } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CurrencySelector from "@/components/CurrencySelector";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,19 +17,15 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-sand shadow-xs">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0">
+          {/* Authentic Logo */}
+          <Link href="/" className="group shrink-0">
             <motion.div
-              whileHover={{ rotate: 5, scale: 1.05 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 300 }}
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-terracotta to-terracotta-dark flex items-center justify-center shadow-md shadow-terracotta/25 shrink-0"
             >
-              <Home className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              <Logo size="md" />
             </motion.div>
-            <span className="text-lg sm:text-2xl font-black tracking-tight">
-              <span className="text-navy">Stay</span>
-              <span className="text-terracotta">Villa</span>
-            </span>
           </Link>
 
           {/* Desktop Nav (>= md) */}
