@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminApi } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -21,5 +22,9 @@ export async function PATCH(request: Request) {
   }
   const { data, error } = await supabase.from("owners").update({ status_verifikasi }).eq("id", id).select().single();
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  try {
+    revalidatePath("/", "layout");
+    revalidatePath("/admin/owners", "page");
+  } catch {}
   return NextResponse.json(data);
 }

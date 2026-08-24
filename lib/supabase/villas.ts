@@ -223,10 +223,17 @@ export async function getSupabaseRawVillas(): Promise<SupabaseVillaRaw[]> {
       .eq("is_active", true)
       .order("created_at", { ascending: true });
 
-    if (error || !data || data.length === 0) {
+    if (error) {
+      console.error("Supabase villas query error, fallback to static:", error);
       return villaDataRaw;
     }
-    return (data as VillaRow[]).map(toRaw);
+
+    // If Supabase responded successfully, return the exact active records in database
+    if (data !== null) {
+      return (data as VillaRow[]).map(toRaw);
+    }
+
+    return villaDataRaw;
   } catch (err) {
     console.error("getSupabaseRawVillas error, using static fallback:", err);
     return villaDataRaw;
@@ -250,11 +257,9 @@ export async function getSupabaseVillaById(
   const safeId = typeof id === "string" ? id.trim() : "";
   if (!safeId) return undefined;
 
-  const fallbackVilla = getVillaById(safeId, locale);
-
   try {
     const supabase = await createSupabaseServerClient();
-    if (!supabase) return fallbackVilla;
+    if (!supabase) return getVillaById(safeId, locale);
 
     const isUUID =
       /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
@@ -271,12 +276,19 @@ export async function getSupabaseVillaById(
 
     const { data, error } = await query.maybeSingle();
 
-    if (error || !data) {
-      return fallbackVilla;
+    if (error) {
+      console.error("getSupabaseVillaById query error:", error);
+      return undefined;
     }
+
+    // If villa not found in Supabase or is inactive, it is deleted/hidden
+    if (!data) {
+      return undefined;
+    }
+
     return localize(data as VillaRow, locale);
   } catch (err) {
-    console.error("getSupabaseVillaById error, using static fallback:", err);
-    return fallbackVilla;
+    console.error("getSupabaseVillaById exception:", err);
+    return undefined;
   }
 }

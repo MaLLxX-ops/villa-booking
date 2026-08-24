@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { requireAdminApi } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getTodayString, isDateBeforeToday, isValidDateString } from "@/lib/date-utils";
@@ -6,6 +7,14 @@ import { getTodayString, isDateBeforeToday, isValidDateString } from "@/lib/date
 async function getClient() {
   const admin = await requireAdminApi();
   return admin ? createSupabaseServerClient() : null;
+}
+
+function clearAvailabilityCache() {
+  try {
+    revalidatePath("/", "layout");
+    revalidatePath("/[locale]/villa/[id]", "page");
+    revalidatePath("/[locale]/cari", "page");
+  } catch {}
 }
 
 export async function GET(request: Request) {
@@ -36,6 +45,7 @@ export async function POST(request: Request) {
   }
   const { data, error } = await supabase.from("villa_availability").upsert(body, { onConflict: "villa_id,date" }).select().single();
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  clearAvailabilityCache();
   return NextResponse.json(data);
 }
 
@@ -48,5 +58,6 @@ export async function DELETE(request: Request) {
   }
   const { error } = await supabase.from("villa_availability").delete().eq("villa_id", villa_id).eq("date", date);
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  clearAvailabilityCache();
   return NextResponse.json({ success: true });
 }

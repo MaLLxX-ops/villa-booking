@@ -4,7 +4,8 @@ import { getSupabaseVillas } from "@/lib/supabase/villas";
 import MapPageClient from "@/components/MapPageClient";
 import { alternateLanguages, localizedPath } from "@/lib/seo";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const mapMetadataMap: Record<string, () => Promise<any>> = {
   id: () => import("@/messages/id.json"),

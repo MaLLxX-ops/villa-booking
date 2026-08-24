@@ -7,7 +7,8 @@ import CategoriesSection from "@/components/sections/CategoriesSection";
 import StatsSection from "@/components/sections/StatsSection";
 import TrendingSection from "@/components/sections/TrendingSection";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function HomePage({
   params,

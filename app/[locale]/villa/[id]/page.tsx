@@ -5,7 +5,8 @@ import { getSupabaseVillaById } from "@/lib/supabase/villas";
 import VillaDetailClient from "@/components/VillaDetailClient";
 import { alternateLanguages, localizedPath } from "@/lib/seo";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 export const dynamicParams = true;
 
 interface VillaDetailPageProps {

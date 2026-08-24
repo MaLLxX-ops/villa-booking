@@ -296,29 +296,31 @@ export default function AdminVillasClient() {
                   <input
                     type="checkbox"
                     checked={villa.is_active}
-                    onChange={(e) =>
+                    onChange={async (e) => {
+                      const nextState = e.target.checked;
+                      const updated = { ...villa, is_active: nextState };
                       setVillas(
                         villas.map((item) =>
-                          item.id === villa.id
-                            ? { ...item, is_active: e.target.checked }
-                            : item
+                          item.id === villa.id ? updated : item
                         )
-                      )
-                    }
+                      );
+                      await update(updated);
+                    }}
+                    className="w-5 h-5 rounded border-sand text-terracotta focus:ring-terracotta cursor-pointer"
                   />
                 </td>
-                <td className="p-4 flex gap-2">
+                <td className="p-4 flex items-center gap-2">
                   <button
-                    title="Simpan"
+                    title="Simpan Perubahan"
                     onClick={() => update(villa)}
-                    className="icon-button"
+                    className="icon-button hover:bg-sand/40 cursor-pointer"
                   >
-                    <Save className="w-4 h-4" />
+                    <Save className="w-4 h-4 text-navy" />
                   </button>
                   <button
-                    title="Hapus"
+                    title="Hapus Villa"
                     onClick={() => remove(villa.id)}
-                    className="icon-button text-red-600"
+                    className="icon-button text-red-600 hover:bg-red-50 cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
