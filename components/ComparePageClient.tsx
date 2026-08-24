@@ -180,47 +180,47 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
         ) : (
           /* Side-by-Side Comparison Table */
           <div className="bg-white rounded-3xl border border-sand shadow-lg overflow-hidden">
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto scroll-smooth">
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-sand bg-cream/40">
-                    <th className="p-4 sm:p-6 text-left w-48 sm:w-64 min-w-[180px] align-top text-navy font-black text-base sm:text-lg">
+                    <th className="p-3 sm:p-6 text-left w-32 sm:w-64 min-w-[120px] sm:min-w-[180px] align-top text-navy font-black text-xs sm:text-lg sticky left-0 bg-white sm:bg-transparent z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("feature")}
                     </th>
                     {comparedVillas.map((villa) => (
                       <th
                         key={villa.id}
-                        className="p-4 sm:p-6 text-left min-w-[260px] sm:min-w-[300px] align-top relative border-l border-sand"
+                        className="p-3 sm:p-6 text-left min-w-[150px] sm:min-w-[280px] align-top relative border-l border-sand"
                       >
-                        <div className="flex justify-between items-start mb-3">
-                          <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-terracotta/15 text-terracotta-dark">
+                        <div className="flex justify-between items-start mb-2 sm:mb-3">
+                          <span className="text-[10px] sm:text-[11px] font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-terracotta/15 text-terracotta-dark truncate max-w-[100px] sm:max-w-none">
                             {villa.kategori}
                           </span>
                           <button
                             onClick={() => removeCompare(villa.id)}
-                            className="text-stone hover:text-terracotta p-1 rounded-lg hover:bg-sand/40 transition-colors"
+                            className="text-stone hover:text-terracotta p-1 rounded-lg hover:bg-sand/40 transition-colors cursor-pointer"
                             title={t("removeColumn")}
                           >
-                            <X className="w-4 h-4" />
+                            <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           </button>
                         </div>
 
                         {/* Villa Card Header */}
-                        <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-3.5 shadow-sm">
+                        <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-xl overflow-hidden mb-2 sm:mb-3.5 shadow-xs">
                           <Image
                             src={villa.galeri_foto[0]}
                             alt={villa.nama}
                             fill
-                            sizes="(max-width: 768px) 50vw, 33vw"
+                            sizes="(max-width: 768px) 150px, 300px"
                             className="object-cover"
                           />
                         </div>
 
-                        <h3 className="text-lg sm:text-xl font-black text-navy line-clamp-1">
+                        <h3 className="text-sm sm:text-xl font-black text-navy line-clamp-1">
                           {villa.nama}
                         </h3>
-                        <div className="flex items-center gap-1 text-xs text-stone font-medium mt-1">
-                          <MapPin className="w-3.5 h-3.5 text-terracotta shrink-0" />
+                        <div className="flex items-center gap-1 text-[11px] sm:text-xs text-stone font-medium mt-0.5 sm:mt-1">
+                          <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-terracotta shrink-0" />
                           <span className="truncate">{villa.lokasi}</span>
                         </div>
                       </th>
@@ -228,15 +228,15 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
 
                     {/* Add Villa Placeholder Column if count < 3 */}
                     {comparedVillas.length < 3 && (
-                      <th className="p-6 text-center min-w-[200px] align-middle border-l border-sand bg-cream-dark/30">
+                      <th className="p-3 sm:p-6 text-center min-w-[130px] sm:min-w-[200px] align-middle border-l border-sand bg-cream-dark/30">
                         <Link
                           href="/cari"
-                          className="inline-flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border-2 border-dashed border-sand hover:border-terracotta text-stone hover:text-terracotta transition-all group w-full"
+                          className="inline-flex flex-col items-center justify-center gap-2 p-3 sm:p-6 rounded-2xl border-2 border-dashed border-sand hover:border-terracotta text-stone hover:text-terracotta transition-all group w-full"
                         >
-                          <div className="w-10 h-10 rounded-full bg-sand/60 group-hover:bg-terracotta group-hover:text-white flex items-center justify-center transition-colors">
-                            <Plus className="w-5 h-5" />
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-sand/60 group-hover:bg-terracotta group-hover:text-white flex items-center justify-center transition-colors">
+                            <Plus className="w-4 h-4 sm:w-5 sm:h-5" />
                           </div>
-                          <span className="text-xs font-bold">
+                          <span className="text-[11px] sm:text-xs font-bold">
                             {t("addMoreBtn")}
                           </span>
                         </Link>
@@ -245,10 +245,10 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-sand text-sm sm:text-base">
+                <tbody className="divide-y divide-sand text-xs sm:text-base">
                   {/* Price Row */}
                   <tr className="hover:bg-cream/30 transition-colors">
-                    <td className="p-4 sm:p-5 font-bold text-navy bg-cream/20">
+                    <td className="p-3 sm:p-5 font-bold text-navy bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("pricePerNight")}
                     </td>
                     {comparedVillas.map((villa) => {
@@ -256,13 +256,13 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                       return (
                         <td
                           key={villa.id}
-                          className="p-4 sm:p-5 border-l border-sand"
+                          className="p-3 sm:p-5 border-l border-sand"
                         >
-                          <div className="text-lg sm:text-xl font-black text-terracotta-dark">
+                          <div className="text-sm sm:text-xl font-black text-terracotta-dark">
                             {formatHarga(villa.harga_per_malam)}
                           </div>
                           {estimate && (
-                            <span className="text-xs font-bold text-stone">
+                            <span className="text-[10px] sm:text-xs font-bold text-stone">
                               {estimate}
                             </span>
                           )}
@@ -276,13 +276,13 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
 
                   {/* Location Row */}
                   <tr className="hover:bg-cream/30 transition-colors">
-                    <td className="p-4 sm:p-5 font-bold text-navy bg-cream/20">
+                    <td className="p-3 sm:p-5 font-bold text-navy bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("location")}
                     </td>
                     {comparedVillas.map((villa) => (
                       <td
                         key={villa.id}
-                        className="p-4 sm:p-5 border-l border-sand font-semibold text-charcoal"
+                        className="p-3 sm:p-5 border-l border-sand font-semibold text-charcoal"
                       >
                         {villa.lokasi}
                       </td>
@@ -294,16 +294,16 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
 
                   {/* Bedrooms Row */}
                   <tr className="hover:bg-cream/30 transition-colors">
-                    <td className="p-4 sm:p-5 font-bold text-navy bg-cream/20">
+                    <td className="p-3 sm:p-5 font-bold text-navy bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("bedrooms")}
                     </td>
                     {comparedVillas.map((villa) => (
                       <td
                         key={villa.id}
-                        className="p-4 sm:p-5 border-l border-sand font-semibold text-charcoal"
+                        className="p-3 sm:p-5 border-l border-sand font-semibold text-charcoal"
                       >
-                        <div className="flex items-center gap-2">
-                          <BedDouble className="w-4 h-4 text-terracotta" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <BedDouble className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-terracotta shrink-0" />
                           <span>
                             {villa.jumlah_kamar} {t("bedrooms")}
                           </span>
@@ -317,16 +317,16 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
 
                   {/* Bathrooms Row */}
                   <tr className="hover:bg-cream/30 transition-colors">
-                    <td className="p-4 sm:p-5 font-bold text-navy bg-cream/20">
+                    <td className="p-3 sm:p-5 font-bold text-navy bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("bathrooms")}
                     </td>
                     {comparedVillas.map((villa) => (
                       <td
                         key={villa.id}
-                        className="p-4 sm:p-5 border-l border-sand font-semibold text-charcoal"
+                        className="p-3 sm:p-5 border-l border-sand font-semibold text-charcoal"
                       >
-                        <div className="flex items-center gap-2">
-                          <Bath className="w-4 h-4 text-sage-dark" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <Bath className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sage-dark shrink-0" />
                           <span>
                             {villa.jumlah_kamar_mandi} {t("bathrooms")}
                           </span>
@@ -340,16 +340,16 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
 
                   {/* Guest Capacity Row */}
                   <tr className="hover:bg-cream/30 transition-colors">
-                    <td className="p-4 sm:p-5 font-bold text-navy bg-cream/20">
+                    <td className="p-3 sm:p-5 font-bold text-navy bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("guests")}
                     </td>
                     {comparedVillas.map((villa) => (
                       <td
                         key={villa.id}
-                        className="p-4 sm:p-5 border-l border-sand font-semibold text-charcoal"
+                        className="p-3 sm:p-5 border-l border-sand font-semibold text-charcoal"
                       >
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-navy" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-navy shrink-0" />
                           <span>
                             {villa.kapasitas_tamu} {t("guests")}
                           </span>
@@ -365,7 +365,7 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                   <tr className="bg-cream-dark/50">
                     <td
                       colSpan={comparedVillas.length + (comparedVillas.length < 3 ? 2 : 1)}
-                      className="p-4 font-black text-navy text-sm uppercase tracking-wider"
+                      className="p-3 sm:p-4 font-black text-navy text-xs sm:text-sm uppercase tracking-wider"
                     >
                       {t("amenities")}
                     </td>
@@ -377,7 +377,7 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                       key={amenity}
                       className="hover:bg-cream/30 transition-colors"
                     >
-                      <td className="p-3.5 sm:p-4 text-stone font-semibold bg-cream/20">
+                      <td className="p-2.5 sm:p-4 text-stone font-semibold bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none text-xs sm:text-sm">
                         {amenity}
                       </td>
                       {comparedVillas.map((villa) => {
@@ -385,15 +385,15 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
                         return (
                           <td
                             key={villa.id}
-                            className="p-3.5 sm:p-4 border-l border-sand text-center"
+                            className="p-2.5 sm:p-4 border-l border-sand text-center"
                           >
                             {hasFacility ? (
-                              <div className="w-6 h-6 rounded-full bg-sage/20 text-sage-dark flex items-center justify-center mx-auto">
-                                <Check className="w-4 h-4" />
+                              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-sage/20 text-sage-dark flex items-center justify-center mx-auto">
+                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                               </div>
                             ) : (
-                              <div className="w-6 h-6 rounded-full bg-sand/30 text-stone-light flex items-center justify-center mx-auto">
-                                <Minus className="w-4 h-4" />
+                              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-sand/30 text-stone-light flex items-center justify-center mx-auto">
+                                <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                               </div>
                             )}
                           </td>
@@ -407,17 +407,17 @@ export default function ComparePageClient({ villas }: ComparePageClientProps) {
 
                   {/* Action CTA Row */}
                   <tr className="bg-cream/40">
-                    <td className="p-5 font-bold text-navy bg-cream/20">
+                    <td className="p-3 sm:p-5 font-bold text-navy bg-white sm:bg-cream/20 sticky left-0 z-10 shadow-[2px_0_6px_-2px_rgba(0,0,0,0.06)] sm:shadow-none">
                       {t("action")}
                     </td>
                     {comparedVillas.map((villa) => (
                       <td
                         key={villa.id}
-                        className="p-5 border-l border-sand space-y-2.5"
+                        className="p-3 sm:p-5 border-l border-sand space-y-2"
                       >
                         <Link
                           href={`/villa/${villa.id}`}
-                          className="block w-full text-center bg-navy hover:bg-navy-light text-white py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-sm"
+                          className="block w-full text-center bg-navy hover:bg-navy-light text-white py-2 sm:py-2.5 px-3 sm:px-4 rounded-xl font-bold text-xs sm:text-sm transition-all shadow-xs"
                         >
                           {t("viewDetail")}
                         </Link>

@@ -144,8 +144,11 @@ export default function Navbar() {
             </div>
 
             {/* ZONA 2: Main Navigation Tabs (Center Floating Pill - Desktop >= lg) */}
-            <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4">
-              <div className="inline-flex items-center gap-1 xl:gap-1.5 p-1.5 rounded-full bg-white/80 backdrop-blur-md border border-sand/80 shadow-xs hover:border-terracotta/30 transition-all">
+            <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4 min-w-0">
+              <nav
+                aria-label="Main Navigation"
+                className="inline-flex items-center gap-1 xl:gap-1.5 p-1 rounded-full bg-white/90 backdrop-blur-md border border-sand/80 shadow-xs hover:border-terracotta/30 transition-all"
+              >
                 {navLinks.map((link) => {
                   const isActive =
                     link.href === "/"
@@ -155,7 +158,7 @@ export default function Navbar() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`px-3.5 xl:px-4 py-1.5 rounded-full text-xs xl:text-sm font-bold transition-all ${
+                      className={`px-3.5 xl:px-4 py-2 rounded-full text-xs xl:text-sm font-bold transition-all whitespace-nowrap leading-none inline-flex items-center justify-center ${
                         isActive
                           ? "bg-terracotta text-white shadow-xs shadow-terracotta/20"
                           : "text-charcoal/80 hover:text-terracotta hover:bg-cream"
@@ -165,7 +168,7 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
-              </div>
+              </nav>
             </div>
 
             {/* ZONA 3: Action Cluster & User Status (Right - Desktop >= md) */}
