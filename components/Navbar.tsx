@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CurrencySelector from "@/components/CurrencySelector";
+import LocaleCurrencySelector from "@/components/LocaleCurrencySelector";
 import Logo from "@/components/Logo";
 import AuthDrawer from "@/components/AuthDrawer";
 import { useWishlist } from "@/context/WishlistContext";
@@ -118,21 +119,19 @@ export default function Navbar() {
   const userInitial = userName.charAt(0).toUpperCase();
 
   const navLinks = [
-    { href: "/", label: t("home"), icon: Home },
     { href: "/cari", label: t("search"), icon: Search },
     { href: "/peta", label: t("map"), icon: Map },
     { href: "/#listing", label: t("collection"), icon: Sparkles },
-    { href: "/untuk-pemilik", label: t("forOwners"), icon: Building2 },
   ];
 
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-sand shadow-xs">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20 gap-3 lg:gap-6 xl:gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20 gap-4 lg:gap-6">
             {/* ZONA 1: Brand Logo (Left) */}
-            <div className="flex items-center shrink-0 min-w-[130px] xl:min-w-[160px]">
-              <Link href="/" className="group" aria-label="StayVilla Home">
+            <div className="flex items-center shrink-0">
+              <Link href="/" className="group flex items-center shrink-0" aria-label="StayVilla Home">
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -144,21 +143,18 @@ export default function Navbar() {
             </div>
 
             {/* ZONA 2: Main Navigation Tabs (Center Floating Pill - Desktop >= lg) */}
-            <div className="hidden lg:flex items-center justify-center flex-1 mx-2 xl:mx-4 min-w-0">
+            <div className="hidden lg:flex items-center justify-center flex-1 mx-2 min-w-0">
               <nav
                 aria-label="Main Navigation"
-                className="inline-flex items-center gap-1 xl:gap-1.5 p-1 rounded-full bg-white/90 backdrop-blur-md border border-sand/80 shadow-xs hover:border-terracotta/30 transition-all"
+                className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white/90 backdrop-blur-md border border-sand/80 shadow-xs hover:border-terracotta/25 transition-all shrink-0"
               >
                 {navLinks.map((link) => {
-                  const isActive =
-                    link.href === "/"
-                      ? pathname === "/"
-                      : pathname.startsWith(link.href.replace("/#", "/"));
+                  const isActive = pathname.startsWith(link.href.replace("/#", "/"));
                   return (
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`px-3.5 xl:px-4 py-2 rounded-full text-xs xl:text-sm font-bold transition-all whitespace-nowrap leading-none inline-flex items-center justify-center ${
+                      className={`px-4 py-2 rounded-full text-xs xl:text-sm font-bold transition-all whitespace-nowrap leading-none inline-flex items-center justify-center shrink-0 ${
                         isActive
                           ? "bg-terracotta text-white shadow-xs shadow-terracotta/20"
                           : "text-charcoal/80 hover:text-terracotta hover:bg-cream"
@@ -172,11 +168,11 @@ export default function Navbar() {
             </div>
 
             {/* ZONA 3: Action Cluster & User Status (Right - Desktop >= md) */}
-            <div className="hidden md:flex items-center gap-2 lg:gap-2.5 xl:gap-3 shrink-0">
+            <div className="hidden md:flex items-center gap-3 xl:gap-4 shrink-0">
               {/* Wishlist Link with Badge */}
               <Link
                 href="/wishlist"
-                className="relative p-2 rounded-full text-charcoal hover:text-terracotta hover:bg-sand/40 transition-colors"
+                className="relative p-2 rounded-full text-charcoal hover:text-terracotta hover:bg-sand/40 transition-colors shrink-0"
                 title={t("wishlist")}
                 aria-label={t("wishlist")}
               >
@@ -202,7 +198,7 @@ export default function Navbar() {
               {compareCount > 0 && (
                 <Link
                   href="/bandingkan"
-                  className="relative p-2 rounded-full text-charcoal hover:text-terracotta hover:bg-sand/40 transition-colors"
+                  className="relative p-2 rounded-full text-charcoal hover:text-terracotta hover:bg-sand/40 transition-colors shrink-0"
                   title={t("compare")}
                   aria-label={t("compare")}
                 >
@@ -217,19 +213,16 @@ export default function Navbar() {
                 </Link>
               )}
 
-              {/* Currency & Language Selectors */}
-              <div className="flex items-center gap-1">
-                <CurrencySelector />
-                <LanguageSwitcher />
-              </div>
+              {/* Unified Currency & Language Pill */}
+              <LocaleCurrencySelector />
 
               {/* User Account / Login Button */}
               {user ? (
-                <div className="relative" ref={userMenuRef}>
+                <div className="relative shrink-0" ref={userMenuRef}>
                   <button
                     type="button"
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-3 py-1.5 text-xs font-bold text-charcoal hover:border-terracotta shadow-xs transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-3 py-1.5 text-xs font-bold text-charcoal hover:border-terracotta shadow-xs transition-all cursor-pointer shrink-0"
                   >
                     <span className="flex h-6 w-6 items-center justify-center rounded-full bg-navy text-xs font-black text-white">
                       {userInitial}
@@ -321,7 +314,7 @@ export default function Navbar() {
                   type="button"
                   onClick={() => openAuth("login")}
                   disabled={isAuthLoading}
-                  className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-3.5 py-1.5 text-xs font-bold text-charcoal hover:border-terracotta hover:text-terracotta shadow-xs transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 rounded-full border border-sand bg-white px-3.5 py-1.5 text-xs font-bold text-charcoal hover:border-terracotta hover:text-terracotta shadow-xs transition-all cursor-pointer shrink-0"
                 >
                   <LogIn className="h-3.5 w-3.5 text-terracotta" />
                   <span>Masuk</span>
@@ -331,7 +324,7 @@ export default function Navbar() {
               {/* Global CTA Button */}
               <Link
                 href="/cari"
-                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-4 py-2 rounded-full font-bold text-xs xl:text-sm shadow-md shadow-terracotta/25 hover:shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer shrink-0"
+                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-terracotta to-terracotta-dark hover:from-terracotta-dark hover:to-terracotta text-white px-4 py-2 rounded-full font-bold text-xs xl:text-sm shadow-md shadow-terracotta/25 hover:shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer shrink-0 whitespace-nowrap"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>{t("bookingBtn")}</span>
@@ -339,10 +332,10 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Header Right Toolbar (< md) */}
-            <div className="flex items-center gap-1 sm:gap-1.5 md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
               <Link
                 href="/wishlist"
-                className="relative p-1.5 rounded-xl text-charcoal hover:bg-sand/60 transition-colors"
+                className="relative p-1.5 rounded-xl text-charcoal hover:bg-sand/60 transition-colors shrink-0"
                 aria-label={t("wishlist")}
               >
                 <Heart
@@ -359,14 +352,14 @@ export default function Navbar() {
                 )}
               </Link>
 
-              <CurrencySelector />
+              <LocaleCurrencySelector />
 
               {/* Quick Mobile User Button */}
               {user ? (
                 <button
                   type="button"
                   onClick={() => setIsMobileNavOpen(true)}
-                  className="flex h-7 w-7 items-center justify-center rounded-full bg-navy text-[11px] font-black text-white"
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-navy text-[11px] font-black text-white shrink-0"
                   aria-label="Profil Akun"
                 >
                   {userInitial}

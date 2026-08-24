@@ -88,7 +88,7 @@ export default function Logo({
       {/* Brand Wordmark */}
       {showText && (
         <span
-          className={`${textSizes} font-black tracking-tight leading-none select-none`}
+          className={`${textSizes} font-black tracking-tight leading-none select-none whitespace-nowrap shrink-0`}
         >
           <span className={lightText ? "text-white" : "text-navy"}>Stay</span>
           <span className={lightText ? "text-gold-light" : "text-terracotta"}>
