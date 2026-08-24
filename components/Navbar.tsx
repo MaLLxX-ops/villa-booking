@@ -332,60 +332,34 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Header Right Toolbar (< md) */}
-            <div className="flex items-center gap-2 md:hidden">
-              <Link
-                href="/wishlist"
-                className="relative p-1.5 rounded-xl text-charcoal hover:bg-sand/60 transition-colors shrink-0"
-                aria-label={t("wishlist")}
-              >
-                <Heart
-                  className={`w-5 h-5 ${
-                    wishlistCount > 0
-                      ? "fill-terracotta text-terracotta"
-                      : "text-charcoal"
-                  }`}
-                />
-                {wishlistCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-terracotta text-white text-[9px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center">
-                    {wishlistCount}
-                  </span>
-                )}
-              </Link>
-
+            <div className="flex items-center gap-1.5 sm:gap-2 md:hidden shrink-0">
               <LocaleCurrencySelector />
 
-              {/* Quick Mobile User Button */}
-              {user ? (
-                <button
-                  type="button"
-                  onClick={() => setIsMobileNavOpen(true)}
-                  className="flex h-7 w-7 items-center justify-center rounded-full bg-navy text-[11px] font-black text-white shrink-0"
-                  aria-label="Profil Akun"
+              {/* Wishlist Link (if user saved villas) */}
+              {wishlistCount > 0 && (
+                <Link
+                  href="/wishlist"
+                  className="relative p-2 rounded-xl bg-white/80 border border-sand/80 text-charcoal hover:bg-sand/40 transition-colors shrink-0"
+                  aria-label={t("wishlist")}
                 >
-                  {userInitial}
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => openAuth("login")}
-                  className="p-1.5 text-charcoal hover:bg-sand/60 rounded-xl"
-                  aria-label="Masuk Akun"
-                >
-                  <LogIn className="h-5 w-5 text-terracotta" />
-                </button>
+                  <Heart className="w-4 h-4 fill-terracotta text-terracotta" />
+                  <span className="absolute -top-1 -right-1 bg-terracotta text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                    {wishlistCount}
+                  </span>
+                </Link>
               )}
 
-              {/* Hamburger Button (< md) */}
+              {/* Prominent Hamburger Menu Button */}
               <button
                 type="button"
                 onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-                className="p-1.5 rounded-xl text-charcoal hover:bg-sand/60 transition-colors cursor-pointer"
-                aria-label="Menu navigasi"
+                className="p-2 sm:p-2.5 rounded-xl bg-white/90 hover:bg-cream border border-sand/90 text-charcoal active:scale-95 transition-all shadow-2xs cursor-pointer flex items-center justify-center shrink-0"
+                aria-label="Buka menu navigasi"
               >
                 {isMobileNavOpen ? (
-                  <X className="w-6 h-6 text-charcoal" />
+                  <X className="w-5 h-5 text-terracotta" />
                 ) : (
-                  <Menu className="w-6 h-6 text-charcoal" />
+                  <Menu className="w-5 h-5 text-charcoal" />
                 )}
               </button>
             </div>

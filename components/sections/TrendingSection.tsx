@@ -85,16 +85,16 @@ export default function TrendingSection({ villas }: TrendingSectionProps) {
           </div>
         </div>
 
-        {/* Horizontal Scrollable Carousel */}
+        {/* Horizontal Scrollable Carousel - Strictly Horizontal Only */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto pb-6 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth snap-x snap-mandatory scrollbar-none"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          className="flex gap-4 sm:gap-6 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x pb-6 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth snap-x snap-mandatory scrollbar-none"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none", touchAction: "pan-x" }}
         >
           {trendingVillas.map((villa, index) => (
             <div
               key={villa.id}
-              className="min-w-[280px] sm:min-w-[340px] md:min-w-[360px] max-w-[380px] shrink-0 snap-start h-[460px]"
+              className="min-w-[280px] sm:min-w-[340px] md:min-w-[360px] max-w-[380px] shrink-0 snap-start"
             >
               <VillaCard villa={villa} index={index} isPopular={true} />
             </div>
